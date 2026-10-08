@@ -6,39 +6,24 @@
   <title>LAKSHYA '26 — National 36-Hour Hackathon &amp; Innovation Sprint</title>
   <meta name="description" content="LAKSHYA '26 — India's premier 36-hour flagship hackathon. ₹15,00,000+ prize pool, 1,200+ builders, industry mentors, and transformative technology. Register your team now.">
   <meta property="og:title" content="LAKSHYA '26 — National 36-Hour Hackathon">
-  <meta property="og:description" content="Define your aim. Build the future. 36 hours of relentless engineering and design at Lakshya '26.">
+  <meta property="og:description" content="Today AI aligns with bold dreams. 36 hours of relentless engineering and design at Lakshya '26.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- Three.js 3D WebGL Library -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Three.js 3D WebGL Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     :root {
-      /* Background: White & Dark Blue Atmospheric Mix */
-      --bg-dark-blue: #061327;
-      --bg-mid-blue: #0c244d;
-      --bg-white-glow: rgba(255, 255, 255, 0.18);
-
-      /* Typography */
-      --fg: #ffffff;                    /* Crisp luminous white text */
-      --fg-soft: rgba(255, 255, 255, 0.82); /* Soft silver white */
-      --fg-faint: rgba(255, 255, 255, 0.52);/* Muted labels */
-      --rule: rgba(255, 255, 255, 0.14); /* Crisp light border */
-      --ease: cubic-bezier(.22,.61,.36,1);
-
-      /* Buttons & Pills */
-      --pill-primary-bg: #ffffff;       /* Pure white button */
-      --pill-primary-fg: #07152b;       /* Dark navy text */
-      --pill-secondary-bg: rgba(255, 255, 255, 0.08);
-      --pill-secondary-fg: #ffffff;
-      --pill-secondary-border: rgba(255, 255, 255, 0.28);
-
-      /* Tech Glow Accents */
-      --accent-cyan: #38bdf8;           /* Cyber cyan */
-      --accent-blue: #60a5fa;           /* Electric blue */
-      --accent-glow: rgba(56, 189, 248, 0.25);
+      /* Deep Obsidian & Electric Blue Theme inspired by Future-State */
+      --bg: #030712;
+      --fg: #ffffff;
+      --fg-soft: rgba(255, 255, 255, 0.78);
+      --fg-faint: rgba(255, 255, 255, 0.45);
+      --cyan: #38bdf8;
+      --blue-glow: #2563eb;
+      --ease: cubic-bezier(.16, 1, .3, 1);
     }
 
     *, *::before, *::after {
@@ -53,34 +38,28 @@
     }
 
     body {
-      background-color: var(--bg-dark-blue);
-      /* Background Mix: Oceanic Dark Blue with Luminous Center White Aura & Tech Blueprint Grid */
-      background-image:
-        radial-gradient(ellipse 90% 65% at 50% 36%, rgba(255, 255, 255, 0.22) 0%, rgba(12, 36, 77, 0.58) 46%, #051020 100%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(180deg, #07162e 0%, #0c234a 50%, #040c1a 100%);
-      background-size: 100% 100%, 36px 36px, 100% 100%;
-      background-attachment: fixed;
+      background: var(--bg);
       color: var(--fg);
-      font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
     /* Preloader */
     .boot {
       position: fixed;
       inset: 0;
-      z-index: 90;
+      z-index: 100;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 16px;
-      background: #061327;
-      transition: opacity .7s var(--ease), visibility .7s;
+      background: #02050e;
+      transition: opacity .8s var(--ease), visibility .8s;
     }
 
     .boot.done {
@@ -89,9 +68,9 @@
     }
 
     .boot-brand {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: .16em;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      letter-spacing: .2em;
       text-transform: uppercase;
       color: #ffffff;
       display: flex;
@@ -99,41 +78,28 @@
       gap: 10px;
     }
 
-    .boot-symbol {
-      width: 28px;
-      height: 28px;
-      border-radius: 7px;
-      background: #ffffff;
-      color: #061327;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .boot p {
-      font-size: 12px;
-      letter-spacing: .08em;
-      color: var(--accent-cyan);
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .bar {
-      width: 180px;
+    .boot-bar {
+      width: 160px;
       height: 2px;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       overflow: hidden;
       border-radius: 999px;
     }
 
-    .bar i {
+    .boot-bar i {
       display: block;
       height: 100%;
       width: 100%;
-      background: linear-gradient(90deg, #38bdf8, #ffffff);
+      background: linear-gradient(90deg, var(--cyan), #ffffff);
       transform: scaleX(0);
       transform-origin: 0 50%;
+    }
+
+    .boot p {
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
     }
 
     /* 3D WebGL Canvas Stage */
@@ -158,34 +124,12 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.10) 0%, rgba(6, 19, 39, 0.25) 55%, rgba(4, 12, 26, 0.70) 100%),
-        linear-gradient(to bottom, rgba(6, 19, 39, 0.75) 0%, transparent 22%, transparent 78%, rgba(6, 19, 39, 0.88) 100%);
+        radial-gradient(circle at 60% 50%, rgba(3, 7, 18, 0) 0%, rgba(3, 7, 18, 0.45) 60%, rgba(2, 5, 14, 0.85) 100%),
+        linear-gradient(to right, rgba(3, 7, 18, 0.75) 0%, rgba(3, 7, 18, 0.25) 45%, rgba(3, 7, 18, 0.5) 100%),
+        linear-gradient(to bottom, rgba(3, 7, 18, 0.7) 0%, transparent 20%, transparent 80%, rgba(3, 7, 18, 0.8) 100%);
     }
 
-    .grain {
-      position: absolute;
-      inset: -50%;
-      opacity: .08;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.4'/></svg>");
-    }
-
-    .meter {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 50;
-      height: 3px;
-      width: 100%;
-      transform: scaleX(0);
-      transform-origin: 0 50%;
-      background: linear-gradient(90deg, #38bdf8, #ffffff);
-      opacity: .9;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
-    }
-
-    /* Header Navigation */
+    /* Top Navigation Header */
     .chrome {
       position: fixed;
       left: 0;
@@ -195,112 +139,60 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
-      background: linear-gradient(to bottom, rgba(6, 19, 39, 0.94) 0%, rgba(6, 19, 39, 0.75) 75%, rgba(6, 19, 39, 0) 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 16px;
+      padding: max(16px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(18px, 4vw, 48px) 16px;
+      background: linear-gradient(to bottom, rgba(3, 7, 18, 0.88) 0%, rgba(3, 7, 18, 0) 100%);
     }
 
     .mark {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: -.01em;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      letter-spacing: .06em;
       color: #ffffff;
       text-decoration: none;
-      min-width: 0;
-      flex-shrink: 1;
       cursor: pointer;
     }
 
-    .mark-symbol {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
-      background: #ffffff;
-      color: #061327;
-      font-size: 13px;
-      font-weight: 800;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
-    }
-
-    .mark-name {
-      font-size: 15px;
-      letter-spacing: .08em;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-
-    .mark-name span {
-      color: var(--accent-cyan);
-      font-weight: 500;
-    }
-
-    .mark-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .mark-tag {
+      color: var(--cyan);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.12);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(56, 189, 248, 0.28);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.08);
     }
 
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #38bdf8;
-      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
-      animation: pulseCyan 2s infinite;
-    }
-
-    @keyframes pulseCyan {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
-    }
-
-    .nav {
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: clamp(12px, 2.2vw, 26px);
-      flex-shrink: 0;
+      gap: clamp(14px, 2.5vw, 32px);
     }
 
-    .nav-btn {
+    .nav-link-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      letter-spacing: .04em;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
       background: none;
       border: none;
-      color: #ffffff;
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: -.008em;
-      opacity: .82;
       cursor: pointer;
-      transition: opacity .2s, color .2s;
-      padding: 6px 0;
+      transition: color .2s;
     }
 
-    .nav-btn:hover {
-      opacity: 1;
-      color: var(--accent-cyan);
+    .nav-link-item:hover {
+      color: #ffffff;
     }
 
-    /* Buttons & Interactive Pills */
-    .pill {
+    .nav-link-item.active {
+      color: var(--cyan);
+    }
+
+    /* Editorial Cyber Buttons */
+    .pill-cyber {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -308,41 +200,54 @@
       height: 42px;
       padding: 0 24px;
       border-radius: 999px;
-      background: var(--pill-primary-bg);
-      color: var(--pill-primary-fg);
-      font-family: inherit;
-      font-size: 14px;
+      background: #ffffff;
+      color: #030712;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
       font-weight: 600;
-      letter-spacing: -.008em;
+      letter-spacing: .06em;
+      text-transform: uppercase;
       text-decoration: none;
-      white-space: nowrap;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 2px 14px rgba(255, 255, 255, 0.25);
-      -webkit-text-fill-color: var(--pill-primary-fg);
-      transition: transform .35s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+      border: 1px solid #ffffff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+      transition: transform .25s var(--ease), box-shadow .25s, background .2s, color .2s;
     }
 
-    .pill:hover {
+    .pill-cyber:hover {
       transform: translateY(-2px);
-      background: #f0f7ff;
-      box-shadow: 0 6px 24px rgba(255, 255, 255, 0.45);
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #030712;
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
     }
 
-    .pill-secondary {
-      background: var(--pill-secondary-bg);
-      color: var(--pill-secondary-fg);
-      -webkit-text-fill-color: var(--pill-secondary-fg);
-      border: 1px solid var(--pill-secondary-border);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(8px);
-    }
-
-    .pill-secondary:hover {
-      background: rgba(255, 255, 255, 0.18);
-      border-color: #ffffff;
+    .pill-cyber-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
       color: #ffffff;
-      -webkit-text-fill-color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(8px);
+      transition: transform .25s var(--ease), border-color .2s, background .2s;
+    }
+
+    .pill-cyber-ghost:hover {
+      transform: translateY(-2px);
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
     }
 
     /* Panels Presentation */
@@ -357,194 +262,160 @@
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: max(100px, calc(env(safe-area-inset-top, 0px) + 84px)) clamp(20px, 5vw, 60px) max(96px, calc(env(safe-area-inset-bottom, 0px) + 80px));
+      justify-content: flex-start;
+      padding: 0 clamp(24px, 7vw, 120px);
       opacity: 0;
       will-change: opacity, transform;
     }
 
-    /* Centerpiece Hero Opening Title */
-    .hero-centerpiece {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
+    .panel-editorial-wrap {
+      max-width: 620px;
+      text-align: left;
+      pointer-events: auto;
     }
 
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 11.5px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--accent-cyan);
-      background: rgba(56, 189, 248, 0.10);
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      margin-bottom: clamp(12px, 1.8vw, 18px);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-brand-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: clamp(6px, 1.2vw, 14px);
-    }
-
-    .hero-sanskrit-tag {
+    /* Editorial Typography matching the video */
+    .kicker-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(12px, 1.25vw, 15px);
-      font-weight: 600;
-      letter-spacing: .26em;
-      color: var(--accent-cyan);
-      text-transform: uppercase;
-      margin-bottom: 2px;
-      text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
-    }
-
-    .hero-brand-title {
-      font-size: clamp(56px, 12.5vw, 144px);
-      font-weight: 800;
-      line-height: .90;
-      letter-spacing: clamp(.04em, .08em, .12em);
-      text-transform: uppercase;
-      color: #ffffff;
-      text-shadow: 0 0 45px rgba(56, 189, 248, 0.4), 0 0 80px rgba(255, 255, 255, 0.25), 0 10px 30px rgba(0, 0, 0, 0.7);
-      margin: 0;
-    }
-
-    .hero-edition-pill {
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .15em;
-      padding: 3px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-subtitle-bar {
-      margin-top: 14px;
-      margin-bottom: 4px;
-    }
-
-    .hero-tagline-motto {
-      font-size: clamp(13px, 1.35vw, 16px);
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    }
-
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px 12px;
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: .08em;
+      letter-spacing: .16em;
+      color: var(--cyan);
       text-transform: uppercase;
-      color: var(--accent-cyan);
-      margin-bottom: clamp(14px, 2vw, 20px);
-      max-width: min(54ch, 100%);
-      text-align: center;
-    }
-
-    .eyebrow span {
-      opacity: .5;
-    }
-
-    h2.panel-heading {
-      font-weight: 700;
-      font-size: clamp(34px, 6.8vw, 92px);
-      line-height: .98;
-      letter-spacing: -.03em;
-      max-width: 16ch;
-      text-wrap: balance;
-      color: #ffffff;
-      text-shadow: 0 0 35px rgba(56, 189, 248, 0.35), 0 10px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    .sub {
-      margin-top: clamp(14px, 2vw, 24px);
-      font-size: clamp(15px, 1.25vw, 18px);
-      line-height: 1.54;
-      letter-spacing: -.008em;
-      color: var(--fg-soft);
-      max-width: min(54ch, 100%);
-      text-wrap: pretty;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-    }
-
-    .cta-group {
-      margin-top: clamp(24px, 3.2vw, 38px);
-      pointer-events: auto;
-      width: 100%;
+      margin-bottom: clamp(14px, 2vw, 22px);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+    }
+
+    .headline-editorial {
+      font-size: clamp(38px, 6.2vw, 84px);
+      font-weight: 800;
+      line-height: .98;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: clamp(16px, 2.2vw, 26px);
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .headline-editorial .sub-script {
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: -.01em;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .headline-editorial .highlight-bracket {
+      color: var(--cyan);
+      text-shadow: 0 0 35px rgba(56, 189, 248, 0.6);
+    }
+
+    .editorial-desc {
+      font-size: clamp(15px, 1.25vw, 17.5px);
+      line-height: 1.55;
+      color: var(--fg-soft);
+      max-width: 44ch;
+      margin-bottom: clamp(24px, 3.2vw, 36px);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .editorial-actions {
+      display: flex;
+      align-items: center;
       gap: 12px;
       flex-wrap: wrap;
     }
 
-    .cta-group .pill {
-      height: 48px;
-      padding: 0 28px;
-      font-size: 14.5px;
-    }
-
-    .stats-strip {
-      margin-top: 26px;
+    .editorial-stats-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: clamp(14px, 3vw, 36px);
-      flex-wrap: wrap;
-      pointer-events: auto;
+      gap: clamp(16px, 3vw, 32px);
+      margin-top: clamp(26px, 3.4vw, 42px);
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
     }
 
-    .stat-item {
+    .stat-col {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 3px;
+      gap: 2px;
     }
 
-    .stat-num {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -.01em;
-      color: #ffffff;
+    .stat-col-num {
       font-family: 'JetBrains Mono', monospace;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
     }
 
-    .stat-lbl {
+    .stat-col-lbl {
       font-size: 11px;
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--fg-faint);
+    }
+
+    /* Floating Dock at Bottom */
+    .dock-container {
+      position: fixed;
+      bottom: max(20px, calc(env(safe-area-inset-bottom, 0px) + 14px));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(10, 18, 36, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .dock-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .04em;
+      color: rgba(255, 255, 255, 0.75);
+      background: none;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .dock-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .dock-btn.cta-dock {
+      background: var(--cyan);
+      color: #030712;
+      font-weight: 600;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+    }
+
+    .dock-btn.cta-dock:hover {
+      background: #ffffff;
+      color: #030712;
+    }
+
+    .dock-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      margin-right: 6px;
+      box-shadow: 0 0 8px #10b981;
     }
 
     .track {
@@ -554,46 +425,7 @@
       min-height: 3200px;
     }
 
-    /* Footer */
-    .foot {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px clamp(16px, 4vw, 36px) max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
-      font-size: 12px;
-      line-height: 1.45;
-      letter-spacing: .01em;
-      color: var(--fg-faint);
-      pointer-events: auto;
-      background: linear-gradient(to top, rgba(6, 19, 39, 0.94) 0%, rgba(6, 19, 39, 0.72) 75%, rgba(6, 19, 39, 0) 100%);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .foot-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .foot a {
-      color: var(--fg-soft);
-      text-decoration: none;
-      transition: color .2s;
-    }
-
-    .foot a:hover {
-      color: var(--accent-cyan);
-    }
-
-    /* Modals with Dark Blue & Frosted Glass Styling */
+    /* Modals & Forms */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -602,7 +434,7 @@
       align-items: center;
       justify-content: center;
       padding: clamp(14px, 3vw, 32px);
-      background: rgba(3, 10, 22, 0.75);
+      background: rgba(2, 5, 14, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       opacity: 0;
@@ -621,10 +453,10 @@
       max-width: 680px;
       max-height: 90vh;
       overflow-y: auto;
-      background: rgba(10, 27, 56, 0.94);
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 24px 70px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.15);
+      background: #060e20;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.15);
       transform: translateY(16px) scale(0.98);
       transition: transform .4s var(--ease);
       padding: clamp(22px, 4vw, 38px);
@@ -659,24 +491,24 @@
     }
 
     .modal-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: .08em;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      color: var(--accent-cyan);
+      color: var(--cyan);
       margin-bottom: 8px;
+      display: block;
     }
 
     .modal-title {
       font-size: clamp(24px, 3.4vw, 32px);
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.15;
       color: #ffffff;
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
     .modal-lead {
@@ -686,10 +518,9 @@
       margin-bottom: 24px;
     }
 
-    /* Forms */
     .form-section {
       margin-bottom: 22px;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       padding-bottom: 20px;
     }
 
@@ -699,15 +530,13 @@
     }
 
     .form-section-title {
-      font-size: 12.5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
       font-weight: 600;
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       text-transform: uppercase;
-      color: var(--accent-cyan);
+      color: var(--cyan);
       margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
     .form-grid {
@@ -728,10 +557,10 @@
     }
 
     .field label {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
-      letter-spacing: -.005em;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: .02em;
     }
 
     .field input, .field select, .field textarea {
@@ -739,7 +568,7 @@
       font-size: 14px;
       padding: 10px 14px;
       border-radius: 10px;
-      background: rgba(6, 19, 39, 0.85);
+      background: rgba(2, 6, 18, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.18);
       color: #ffffff;
       outline: none;
@@ -747,7 +576,7 @@
     }
 
     .field input:focus, .field select:focus, .field textarea:focus {
-      border-color: var(--accent-cyan);
+      border-color: var(--cyan);
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
     }
 
@@ -756,17 +585,16 @@
       min-height: 72px;
     }
 
-    /* Radio / Track Chips */
+    /* Track Cards */
     .track-options {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-bottom: 6px;
     }
 
     .track-card {
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(6, 19, 39, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(2, 6, 18, 0.7);
       border-radius: 12px;
       padding: 12px 14px;
       cursor: pointer;
@@ -775,19 +603,19 @@
     }
 
     .track-card:hover {
-      border-color: var(--accent-cyan);
+      border-color: var(--cyan);
       transform: translateY(-1px);
     }
 
     .track-card.active {
-      border-color: var(--accent-cyan);
+      border-color: var(--cyan);
       background: rgba(56, 189, 248, 0.15);
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.2);
     }
 
     .track-card-title {
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 2px;
       color: #ffffff;
     }
@@ -810,11 +638,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(6, 19, 39, 0.7);
+      background: rgba(2, 6, 18, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 8px;
-      font-family: inherit;
-      font-size: 13.5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
       font-weight: 500;
       cursor: pointer;
       color: #ffffff;
@@ -823,15 +651,14 @@
 
     .size-btn.active {
       background: #ffffff;
-      color: #07152b;
+      color: #030712;
       font-weight: 700;
       border-color: #ffffff;
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
     }
 
-    /* Team Member Block */
     .member-block {
-      background: rgba(6, 19, 39, 0.7);
+      background: rgba(2, 6, 18, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 12px;
       padding: 12px 14px;
@@ -839,20 +666,21 @@
     }
 
     .member-block-title {
-      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
       font-weight: 600;
-      color: var(--accent-cyan);
+      color: var(--cyan);
       margin-bottom: 8px;
     }
 
-    /* Hacker Pass / Ticket UI */
+    /* Ticket Pass UI */
     .ticket-container {
       margin-top: 10px;
-      background: #061327;
-      border: 1px solid rgba(56, 189, 248, 0.35);
+      background: #020612;
+      border: 1px solid rgba(56, 189, 248, 0.4);
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.15);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
       position: relative;
     }
 
@@ -912,7 +740,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      border-left: 1px dashed var(--rule);
+      border-left: 1px dashed rgba(255, 255, 255, 0.15);
       padding-left: 18px;
     }
 
@@ -942,7 +770,7 @@
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background: rgba(10, 27, 56, 0.94);
+      background: #060e20;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -950,7 +778,7 @@
     .ticket-cutout-left { left: -10px; }
     .ticket-cutout-right { right: -10px; }
 
-    /* Tracks & Schedule Cards */
+    /* Info Cards */
     .info-card-list {
       display: flex;
       flex-direction: column;
@@ -959,7 +787,7 @@
     }
 
     .info-card {
-      background: rgba(6, 19, 39, 0.7);
+      background: rgba(2, 6, 18, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 14px;
       padding: 18px 20px;
@@ -967,7 +795,7 @@
     }
 
     .info-card:hover {
-      border-color: var(--accent-cyan);
+      border-color: var(--cyan);
       transform: translateY(-1px);
     }
 
@@ -981,7 +809,7 @@
 
     .info-card-title {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       color: #ffffff;
     }
 
@@ -992,7 +820,7 @@
       padding: 2px 8px;
       border-radius: 6px;
       background: rgba(56, 189, 248, 0.15);
-      color: var(--accent-cyan);
+      color: var(--cyan);
       border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
@@ -1004,7 +832,7 @@
 
     /* FAQ accordion */
     .faq-item {
-      background: rgba(6, 19, 39, 0.7);
+      background: rgba(2, 6, 18, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 12px;
       overflow: hidden;
@@ -1036,19 +864,19 @@
       display: block;
     }
 
-    /* Toast Notification */
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 24px;
+      bottom: 80px;
       right: 24px;
       z-index: 120;
       padding: 12px 20px;
       background: #ffffff;
-      color: #07152b;
+      color: #030712;
       border-radius: 10px;
       font-size: 13.5px;
       font-weight: 600;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
       transform: translateY(40px);
       opacity: 0;
       pointer-events: none;
@@ -1061,25 +889,18 @@
       pointer-events: auto;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 720px) {
-      .nav-btn:not(.reg-nav-btn) { display: none; }
-      .mark-status { display: none; }
+    @media (max-width: 800px) {
+      .panel { padding: 0 24px; justify-content: center; text-align: center; }
+      .panel-editorial-wrap { text-align: center; }
+      .editorial-actions { justify-content: center; }
+      .editorial-stats-row { justify-content: center; }
+      .headline-editorial { font-size: clamp(34px, 9vw, 56px); }
+      .dock-container { width: 92%; overflow-x: auto; justify-content: space-between; }
+      .nav-links { display: none; }
       .form-grid { grid-template-columns: 1fr; }
       .track-options { grid-template-columns: 1fr; }
       .ticket-body { grid-template-columns: 1fr; }
-      .ticket-barcode-wrap { border-left: none; border-top: 1px dashed var(--rule); padding-left: 0; padding-top: 14px; }
-      h2.panel-heading { max-width: 13ch; font-size: clamp(30px, 9.6vw, 54px); }
-      .hero-brand-title { font-size: clamp(48px, 16vw, 84px); }
-      .sub { font-size: 14.5px; max-width: 36ch; }
-      .panel { padding: max(92px, calc(env(safe-area-inset-top, 0px) + 76px)) 18px max(88px, calc(env(safe-area-inset-bottom, 0px) + 72px)); }
-      .foot { flex-direction: column; font-size: 11px; }
-    }
-
-    @media (max-width: 420px) {
-      .cta-group .pill { width: 100%; height: 46px; }
-      h2.panel-heading { font-size: clamp(28px, 10vw, 42px); }
-      .stats-strip { gap: 14px; }
+      .ticket-barcode-wrap { border-left: none; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-left: 0; padding-top: 14px; }
     }
   </style>
 </head>
@@ -1087,160 +908,138 @@
   <!-- Preloader -->
   <div class="boot" id="boot">
     <div class="boot-brand">
-      <span class="boot-symbol">L</span>
-      <span>LAKSHYA '26</span>
+      <span>[ LAKSHYA_AI ]</span>
     </div>
-    <div class="bar"><i id="bootBar"></i></div>
-    <p id="bootPct">INITIALIZING 3D QUANTUM CORE</p>
+    <div class="boot-bar"><i id="bootBar"></i></div>
+    <p id="bootPct">INITIALIZING NEURAL IRIS</p>
   </div>
 
-  <!-- Background 3D Stage with Live WebGL Canvas -->
+  <!-- Background 3D WebGL Canvas -->
   <div class="stage">
     <canvas id="webgl-canvas"></canvas>
     <div class="veil"></div>
-    <div class="grain"></div>
   </div>
 
   <i class="meter" id="meter"></i>
 
-  <!-- Navigation Header (Dark Blue & White) -->
+  <!-- Header Chrome -->
   <header class="chrome">
     <div class="mark" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-      <span class="mark-symbol">L</span>
-      <span class="mark-name">LAKSHYA <span>'26</span></span>
-      <span class="mark-status">
-        <span class="pulse-dot"></span>
-        Sprint Live &bull; Oct 24–26
-      </span>
+      <span>&larr; [ LAKSHYA_AI ]</span>
+      <span class="mark-tag">[+01]</span>
     </div>
-    <nav class="nav">
-      <button class="nav-btn" onclick="openModal('tracks')">Tracks</button>
-      <button class="nav-btn" onclick="openModal('schedule')">Schedule</button>
-      <button class="nav-btn" onclick="openModal('prizes')">Prizes</button>
-      <button class="nav-btn" onclick="openModal('faq')">FAQ</button>
-      <button class="nav-btn" onclick="openMyTicket()">My Pass</button>
-      <button class="pill reg-nav-btn" onclick="openModal('register')">Register Team</button>
+    <nav class="nav-links">
+      <button class="nav-link-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">main</button>
+      <button class="nav-link-item" onclick="openModal('tracks')">tracks</button>
+      <button class="nav-link-item" onclick="openModal('schedule')">schedule</button>
+      <button class="nav-link-item" onclick="openModal('prizes')">prizes</button>
+      <button class="nav-link-item" onclick="openModal('faq')">faq</button>
+      <button class="nav-link-item" onclick="openMyTicket()">my pass</button>
     </nav>
+    <div>
+      <button class="pill-cyber" onclick="openModal('register')">BEGIN TODAY &rarr;</button>
+    </div>
   </header>
 
-  <!-- Interactive Scroll-Triggered Panels -->
+  <!-- Interactive Scroll-Triggered Panels (Video Editorial Style) -->
   <main class="panels">
-    <!-- Panel 1: Centerpiece Hero Opening Screen -->
+    <!-- Panel 1: The Iris / Singularity -->
     <section class="panel" data-panel>
-      <div class="hero-centerpiece">
-        <!-- Top kicker badge -->
-        <div class="hero-kicker">
-          <span class="pulse-dot"></span>
-          <span>NATIONAL 36-HOUR INNOVATION SPRINT &bull; OCT 24–26</span>
+      <div class="panel-editorial-wrap">
+        <div class="kicker-tag">[ 01 ] // NATIONAL_36H_SPRINT</div>
+        <h1 class="headline-editorial">
+          LAKSHYA<br>
+          <span class="sub-script">AIM // BRILLIANTLY</span>
+        </h1>
+        <p class="editorial-desc">
+          Where the nation's bravest code finds its true trajectory. 36 hours of relentless engineering, neural networks, and breakthrough builds.
+        </p>
+        <div class="editorial-actions">
+          <button class="pill-cyber" onclick="openModal('register')">BEGIN TODAY &rarr;</button>
+          <button class="pill-cyber-ghost" onclick="openModal('tracks')">EXPLORE TRACKS</button>
         </div>
-
-        <!-- The Grand Opening Name at Center -->
-        <div class="hero-brand-block">
-          <div class="hero-sanskrit-tag">लक्ष्य &bull; THE AIM</div>
-          <h1 class="hero-brand-title">LAKSHYA</h1>
-          <div class="hero-edition-pill">'26 EDITION</div>
-        </div>
-
-        <div class="hero-subtitle-bar">
-          <span class="hero-tagline-motto">DEFINE YOUR AIM. BUILD THE FUTURE.</span>
-        </div>
-
-        <p class="sub">Where India's brightest 1,200+ engineers, designers, and innovators assemble for 36 hours of non-stop code, hardware sprints, and breakthrough engineering.</p>
-        
-        <div class="cta-group">
-          <button class="pill" onclick="openModal('register')">
-            <span>Register Your Team</span>
-            <span>&rarr;</span>
-          </button>
-          <button class="pill pill-secondary" onclick="openModal('tracks')">Explore 4 Tracks &amp; Bounties</button>
-        </div>
-
-        <div class="stats-strip">
-          <div class="stat-item">
-            <span class="stat-num">₹15,00,000+</span>
-            <span class="stat-lbl">Prize Pool</span>
+        <div class="editorial-stats-row">
+          <div class="stat-col">
+            <span class="stat-col-num">₹15,00,000+</span>
+            <span class="stat-col-lbl">Prize Matrix</span>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">36 Hours</span>
-            <span class="stat-lbl">Non-Stop Sprint</span>
+          <div class="stat-col">
+            <span class="stat-col-num">36 HOURS</span>
+            <span class="stat-col-lbl">Live Sprint</span>
           </div>
-          <div class="stat-item">
-            <span class="stat-num">1,200+</span>
-            <span class="stat-lbl">Builders</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-num">100% Free</span>
-            <span class="stat-lbl">Food, Stay &amp; Compute</span>
+          <div class="stat-col">
+            <span class="stat-col-num">1,200+</span>
+            <span class="stat-col-lbl">Builders</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Panel 2: Tracks & Problem Statements -->
+    <!-- Panel 2: The Flowing Fibers & Domains -->
     <section class="panel" data-panel>
-      <div class="eyebrow">
-        <span>FOUR COMPETITIVE DOMAINS</span>
-        <span>&middot;</span>
-        <span>MENTORS FROM YC &amp; TOP LABS</span>
-      </div>
-      <h2 class="panel-heading">Zero limits.<br />High-impact builds.</h2>
-      <p class="sub">Tackle ambitious challenges across Autonomous AI Agents, Web3 Infrastructure, ClimateTech &amp; Hardware, and Open Moonshots.</p>
-      
-      <div class="cta-group">
-        <button class="pill" onclick="openModal('tracks')">View Problem Statements</button>
-        <button class="pill pill-secondary" onclick="openModal('prizes')">Prize Matrix &amp; Perks</button>
+      <div class="panel-editorial-wrap">
+        <div class="kicker-tag">[ 02 ] // FRONTIER_DOMAINS</div>
+        <h1 class="headline-editorial">
+          TODAY AI<br>
+          ALIGNS with<br>
+          <span class="highlight-bracket">// BOLD DREAMS</span>
+        </h1>
+        <p class="editorial-desc">
+          Tackle four competitive tracks across Autonomous Agents, Web3 Infrastructure, ClimateTech, and Open Moonshots.
+        </p>
+        <div class="editorial-actions">
+          <button class="pill-cyber" onclick="openModal('tracks')">PROBLEM STATEMENTS &rarr;</button>
+          <button class="pill-cyber-ghost" onclick="openModal('prizes')">VIEW BOUNTIES</button>
+        </div>
       </div>
     </section>
 
-    <!-- Panel 3: Arena, Perks & Registration Call -->
+    <!-- Panel 3: The Expansive Canopy & Grand Finale -->
     <section class="panel" data-panel>
-      <div class="eyebrow">
-        <span>APPLICATIONS OPEN</span>
-        <span>&middot;</span>
-        <span>LIMITED PHYSICAL CAPACITY</span>
-      </div>
-      <h2 class="panel-heading">Claim your arena.<br />Ship to the world.</h2>
-      <p class="sub">Direct access to leading venture funds, cloud GPU compute credits, round-the-clock fuel, and national spotlight.</p>
-      
-      <div class="cta-group">
-        <button class="pill" onclick="openModal('register')">
-          <span>Claim Hacker Pass</span>
-          <span>&rarr;</span>
-        </button>
-        <button class="pill pill-secondary" onclick="openModal('schedule')">Event Timeline</button>
+      <div class="panel-editorial-wrap">
+        <div class="kicker-tag">[ 03 ] // GRAND_ARENA</div>
+        <h1 class="headline-editorial">
+          BUILD<br>
+          <span class="sub-script">THE FUTURE</span>
+        </h1>
+        <p class="editorial-desc">
+          Claim your arena. Direct access to top tier VC funds, cloud GPU compute clusters, bespoke hacker kits, and round-the-clock fuel.
+        </p>
+        <div class="editorial-actions">
+          <button class="pill-cyber" onclick="openModal('register')">CLAIM HACKER PASS &rarr;</button>
+          <button class="pill-cyber-ghost" onclick="openModal('schedule')">TIMELINE</button>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="foot">
-    <div class="foot-left">
-      <span>Lakshya '26 Innovation Arena &bull; Grand Tech Campus</span>
-      <span>&bull;</span>
-      <span>Organized for Creators &amp; Engineers</span>
-    </div>
-    <div>
-      <a href="javascript:void(0)" onclick="openModal('faq')">Rules &amp; Code of Conduct</a>
-      &nbsp;&middot;&nbsp;
-      <a href="mailto:support@lakshyahack.org">support@lakshyahack.org</a>
-    </div>
-  </footer>
+  <!-- Floating Bottom Dock (as seen in video) -->
+  <div class="dock-container">
+    <button class="dock-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <span class="dock-dot"></span>LAKSHYA
+    </button>
+    <button class="dock-btn" onclick="openModal('tracks')">Tracks</button>
+    <button class="dock-btn" onclick="openModal('schedule')">Schedule</button>
+    <button class="dock-btn" onclick="openModal('prizes')">Prizes</button>
+    <button class="dock-btn" onclick="openModal('faq')">FAQ</button>
+    <button class="dock-btn" onclick="openMyTicket()">My Pass</button>
+    <button class="dock-btn cta-dock" onclick="openModal('register')">Register &rarr;</button>
+  </div>
 
-  <!-- Scroll Scroller Track for Keyframed Scrubbing -->
+  <!-- Scroll Scroller Track -->
   <div class="track"></div>
 
   <!-- MODAL: REGISTRATION -->
   <div class="modal-overlay" id="modal-register">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('register')">&times;</button>
-      <span class="modal-tag">Official Registration &bull; Lakshya '26</span>
+      <span class="modal-tag">[ REGISTER_NOW ] // LAKSHYA '26</span>
       <h2 class="modal-title">Register Your Team</h2>
       <p class="modal-lead">Form your squad of 1–4 hackers. Entry, food, GPU compute, and accommodation are completely free.</p>
 
       <form id="regForm" onsubmit="handleRegistration(event)">
-        <!-- Team Lead Info -->
         <div class="form-section">
-          <div class="form-section-title">01 / Team &amp; Leader Info</div>
+          <div class="form-section-title">01 // Leader &amp; Squad Identity</div>
           <div class="form-grid">
             <div class="field">
               <label for="teamName">Team Name *</label>
@@ -1263,7 +1062,7 @@
               <input type="text" id="college" required placeholder="Institute or Company name">
             </div>
             <div class="field">
-              <label for="githubUrl">Lead GitHub / Portfolio</label>
+              <label for="githubUrl">Lead GitHub Profile</label>
               <input type="url" id="githubUrl" placeholder="https://github.com/username">
             </div>
             <div class="field">
@@ -1273,9 +1072,8 @@
           </div>
         </div>
 
-        <!-- Track Selection -->
         <div class="form-section">
-          <div class="form-section-title">02 / Choose Your Track</div>
+          <div class="form-section-title">02 // Choose Challenge Track</div>
           <div class="track-options">
             <div class="track-card active" onclick="selectTrack(this, 'AI & Autonomous Agents')">
               <div class="track-card-title">🤖 AI &amp; Autonomous Agents</div>
@@ -1297,11 +1095,10 @@
           <input type="hidden" id="selectedTrack" value="AI & Autonomous Agents">
         </div>
 
-        <!-- Team Size & Members -->
         <div class="form-section">
-          <div class="form-section-title">03 / Team Size &amp; Teammates</div>
+          <div class="form-section-title">03 // Squad Composition</div>
           <div class="field" style="margin-bottom: 12px;">
-            <label>Total Team Size</label>
+            <label>Team Size</label>
             <div class="size-selector">
               <button type="button" class="size-btn active" onclick="setTeamSize(1)">1 (Solo)</button>
               <button type="button" class="size-btn" onclick="setTeamSize(2)">2 Members</button>
@@ -1313,29 +1110,25 @@
           <div id="additionalMembersWrap"></div>
         </div>
 
-        <!-- Project Pitch -->
         <div class="form-section">
-          <div class="form-section-title">04 / Proposed Concept (Optional)</div>
+          <div class="form-section-title">04 // Problem Pitch (Optional)</div>
           <div class="field">
-            <label for="projectBrief">Briefly describe the problem you want to address at Lakshya:</label>
+            <label for="projectBrief">Brief concept summary:</label>
             <textarea id="projectBrief" placeholder="E.g. Building an autonomous agent mesh for disaster relief logistics..."></textarea>
           </div>
         </div>
 
         <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
-          <button type="button" class="pill pill-secondary" onclick="closeModal('register')">Cancel</button>
-          <button type="submit" class="pill" id="submitBtn">
-            <span>Submit Registration</span>
-            <span>&rarr;</span>
-          </button>
+          <button type="button" class="pill-cyber-ghost" onclick="closeModal('register')">Cancel</button>
+          <button type="submit" class="pill-cyber" id="submitBtn">Submit Registration &rarr;</button>
         </div>
       </form>
 
-      <!-- Ticket Display -->
+      <!-- Ticket Pass -->
       <div id="ticketSuccess" style="display: none; text-align: center; margin-top: 10px;">
         <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
         <h3 style="font-size: 22px; margin-bottom: 6px;">Registration Confirmed!</h3>
-        <p style="font-size: 14px; color: var(--fg-soft); margin-bottom: 20px;">Welcome to Lakshya '26. Your team's official digital pass has been generated.</p>
+        <p style="font-size: 14px; color: var(--fg-soft); margin-bottom: 20px;">Welcome to Lakshya '26. Your official digital pass has been generated.</p>
         
         <div class="ticket-container" id="passCard">
           <div class="ticket-cutout-left"></div>
@@ -1374,9 +1167,9 @@
         </div>
 
         <div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          <button class="pill" onclick="window.print()">Print / Save Pass</button>
-          <button class="pill pill-secondary" onclick="copyPassDetails()">Copy Pass Details</button>
-          <button class="pill pill-secondary" onclick="closeModal('register')">Done</button>
+          <button class="pill-cyber" onclick="window.print()">Print / Save Pass</button>
+          <button class="pill-cyber-ghost" onclick="copyPassDetails()">Copy Details</button>
+          <button class="pill-cyber-ghost" onclick="closeModal('register')">Done</button>
         </div>
       </div>
     </div>
@@ -1386,7 +1179,7 @@
   <div class="modal-overlay" id="modal-tracks">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('tracks')">&times;</button>
-      <span class="modal-tag">Innovation Arenas</span>
+      <span class="modal-tag">[ CHALLENGE_ARENAS ]</span>
       <h2 class="modal-title">Competition Tracks</h2>
       <p class="modal-lead">Four tracks designed to foster real-world impact. Build solutions that push boundaries.</p>
 
@@ -1433,7 +1226,7 @@
       </div>
 
       <div style="margin-top: 24px; text-align: center;">
-        <button class="pill" onclick="closeModal('tracks'); openModal('register');">Register for a Track &rarr;</button>
+        <button class="pill-cyber" onclick="closeModal('tracks'); openModal('register');">Register for a Track &rarr;</button>
       </div>
     </div>
   </div>
@@ -1442,7 +1235,7 @@
   <div class="modal-overlay" id="modal-schedule">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('schedule')">&times;</button>
-      <span class="modal-tag">36-Hour Run of Show</span>
+      <span class="modal-tag">[ RUN_OF_SHOW ]</span>
       <h2 class="modal-title">Event Timeline</h2>
       <p class="modal-lead">From the opening buzzer to the grand stage pitches, every milestone is designed to help you build at peak velocity.</p>
 
@@ -1457,7 +1250,7 @@
             <strong>02:00 PM</strong> — Opening Ceremony &amp; Keynote by Industry Visionaries<br>
             <strong>04:00 PM</strong> — ⚡ <strong>Hacking Officially Commences</strong><br>
             <strong>08:30 PM</strong> — Dinner &amp; Tech Mentor Matching Sessions<br>
-            <strong>11:59 PM</strong> — Midnight Pizza &amp; Lightning Lightning Demos
+            <strong>11:59 PM</strong> — Midnight Pizza &amp; Lightning Tech Demos
           </p>
         </div>
 
@@ -1491,7 +1284,7 @@
       </div>
 
       <div style="margin-top: 24px; text-align: center;">
-        <button class="pill" onclick="closeModal('schedule'); openModal('register');">Ready to Compete? Register &rarr;</button>
+        <button class="pill-cyber" onclick="closeModal('schedule'); openModal('register');">Ready to Compete? Register &rarr;</button>
       </div>
     </div>
   </div>
@@ -1500,7 +1293,7 @@
   <div class="modal-overlay" id="modal-prizes">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('prizes')">&times;</button>
-      <span class="modal-tag">Rewards &amp; Recognition</span>
+      <span class="modal-tag">[ PRIZE_MATRIX ]</span>
       <h2 class="modal-title">Prizes &amp; Hacker Perks</h2>
       <p class="modal-lead">₹15,00,000+ total reward pool plus seed funding fast-tracks, compute credits, and bespoke hardware kits.</p>
 
@@ -1508,7 +1301,7 @@
         <div class="info-card" style="border-color: rgba(56, 189, 248, 0.4);">
           <div class="info-card-header">
             <div class="info-card-title">🏆 1st Place — Lakshya Grand Champion</div>
-            <span class="info-card-badge" style="background: #ffffff; color: #061327;">₹5,00,000</span>
+            <span class="info-card-badge" style="background: #ffffff; color: #030712;">₹5,00,000</span>
           </div>
           <p class="info-card-p">
             Direct fast-track interview with top accelerator funds, $10,000 in GPU Cloud Credits, Lakshya Golden Trophy, and 1-year founder mentorship.
@@ -1551,7 +1344,7 @@
       </div>
 
       <div style="margin-top: 24px; text-align: center;">
-        <button class="pill" onclick="closeModal('prizes'); openModal('register');">Claim Your Shot at Glory &rarr;</button>
+        <button class="pill-cyber" onclick="closeModal('prizes'); openModal('register');">Claim Your Shot at Glory &rarr;</button>
       </div>
     </div>
   </div>
@@ -1560,7 +1353,7 @@
   <div class="modal-overlay" id="modal-faq">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closeModal('faq')">&times;</button>
-      <span class="modal-tag">Frequently Asked Questions</span>
+      <span class="modal-tag">[ FAQ_ARCHIVE ]</span>
       <h2 class="modal-title">Hackathon FAQ</h2>
       <p class="modal-lead">Everything you need to know about participating in Lakshya '26.</p>
 
@@ -1617,15 +1410,14 @@
       </div>
 
       <div style="margin-top: 24px; text-align: center;">
-        <button class="pill" onclick="closeModal('faq'); openModal('register');">Register Now &rarr;</button>
+        <button class="pill-cyber" onclick="closeModal('faq'); openModal('register');">Register Now &rarr;</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">Notice message here</div>
+  <div class="toast" id="toast">Notice message</div>
 
-  <!-- Real-time 3D Three.js WebGL Engine & Scroll Scrubber -->
+  <!-- Real-Time WebGL Morphing Cyber Iris & Fiber Tendril Engine -->
   <script>
     (function() {
       "use strict";
@@ -1641,7 +1433,7 @@
         [0.36, 0.44, 0.58, 0.66],
         [0.76, 0.84, 1.10, 1.20]
       ];
-      var DRIFT = 24;
+      var DRIFT = 28;
 
       function clamp(v, a, b) {
         return Math.max(a, Math.min(b, v));
@@ -1681,14 +1473,31 @@
         }
       }
 
-      /* ==========================================================
-         THREE.JS 3D QUANTUM NEURAL TECH CORE
-         ========================================================== */
+      /* =========================================================================
+         THREE.JS MORPHING CYBER IRIS & BIOLUMINESCENT FIBER TENDRILL SYSTEM
+         ========================================================================= */
       var canvas = document.getElementById('webgl-canvas');
       var scene, camera, renderer;
-      var coreGroup, icosahedronMesh, icosahedronWire, innerCube, ring1, ring2, ring3, particleCloud;
-      var mouseX = 0, mouseY = 0;
-      var targetMouseX = 0, targetMouseY = 0;
+      var strandLines, strandPositions, strandColors;
+      var irisRingMesh, centralCoreMesh, particleCloud;
+      var mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
+
+      var NUM_STRANDS = 320;
+      var PTS_PER_STRAND = 10;
+      var TOTAL_VERTS = NUM_STRANDS * PTS_PER_STRAND;
+
+      // Base strand parametric data
+      var strandAngles = new Float32Array(NUM_STRANDS);
+      var strandLengths = new Float32Array(NUM_STRANDS);
+      var strandOffX = new Float32Array(NUM_STRANDS);
+      var strandOffZ = new Float32Array(NUM_STRANDS);
+
+      for (var s = 0; s < NUM_STRANDS; s++) {
+        strandAngles[s] = (s / NUM_STRANDS) * Math.PI * 2;
+        strandLengths[s] = 1.0 + Math.random() * 0.45;
+        strandOffX[s] = (Math.random() - 0.5) * 1.8;
+        strandOffZ[s] = (Math.random() - 0.5) * 1.6;
+      }
 
       function initThree() {
         var width = window.innerWidth;
@@ -1696,7 +1505,7 @@
 
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-        camera.position.z = 11.5;
+        camera.position.z = 13.5;
 
         renderer = new THREE.WebGLRenderer({
           canvas: canvas,
@@ -1707,126 +1516,95 @@
         renderer.setSize(width, height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Group containing all 3D tech parts
-        coreGroup = new THREE.Group();
-        scene.add(coreGroup);
+        // 1. Dynamic Strand Lines (Lines connecting adjacent points per strand)
+        var lineCount = NUM_STRANDS * (PTS_PER_STRAND - 1);
+        strandPositions = new Float32Array(lineCount * 2 * 3);
+        strandColors = new Float32Array(lineCount * 2 * 3);
 
-        // 1. Faceted Icosahedron (Outer Processor Core)
-        var icoGeo = new THREE.IcosahedronGeometry(2.35, 1);
-        var icoMat = new THREE.MeshPhysicalMaterial({
-          color: 0x0c2854,
-          emissive: 0x051838,
-          roughness: 0.2,
-          metalness: 0.8,
-          transmission: 0.45,
-          opacity: 0.85,
+        var strandGeo = new THREE.BufferGeometry();
+        strandGeo.setAttribute('position', new THREE.BufferAttribute(strandPositions, 3));
+        strandGeo.setAttribute('color', new THREE.BufferAttribute(strandColors, 3));
+
+        var strandMat = new THREE.LineBasicMaterial({
+          vertexColors: true,
           transparent: true,
-          wireframe: false
+          opacity: 0.88,
+          blending: THREE.AdditiveBlending,
+          linewidth: 2
         });
-        icosahedronMesh = new THREE.Mesh(icoGeo, icoMat);
-        coreGroup.add(icosahedronMesh);
 
-        // 2. Wireframe Lattice Overlay (Glowing Cyber Grid)
-        var wireGeo = new THREE.WireframeGeometry(icoGeo);
-        var wireMat = new THREE.LineBasicMaterial({
-          color: 0x38bdf8,
-          linewidth: 1.5,
-          transparent: true,
-          opacity: 0.75
-        });
-        icosahedronWire = new THREE.LineSegments(wireGeo, wireMat);
-        coreGroup.add(icosahedronWire);
+        strandLines = new THREE.LineSegments(strandGeo, strandMat);
+        scene.add(strandLines);
 
-        // 3. Central Quantum Chip (Glowing Inner Monolith)
-        var cubeGeo = new THREE.BoxGeometry(1.4, 1.4, 1.4);
-        var cubeMat = new THREE.MeshStandardMaterial({
-          color: 0xffffff,
-          emissive: 0x38bdf8,
-          emissiveIntensity: 0.6,
-          roughness: 0.1,
-          metalness: 0.9
-        });
-        innerCube = new THREE.Mesh(cubeGeo, cubeMat);
-        coreGroup.add(innerCube);
-
-        // 4. Orbital Data Rings
-        var ringMat1 = new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.65 });
-        var ringMat2 = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.55 });
-        var ringMat3 = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.45 });
-
-        ring1 = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(createRingPoints(3.6, 80)), ringMat1);
-        ring2 = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(createRingPoints(4.3, 80)), ringMat2);
-        ring3 = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(createRingPoints(5.0, 80)), ringMat3);
-
-        ring1.rotation.x = Math.PI / 3;
-        ring2.rotation.y = Math.PI / 4;
-        ring3.rotation.z = Math.PI / 6;
-
-        coreGroup.add(ring1);
-        coreGroup.add(ring2);
-        coreGroup.add(ring3);
-
-        // 5. Constellation of Neural Data Particles
-        var particleCount = 280;
-        var pGeometry = new THREE.BufferGeometry();
-        var pPositions = new Float32Array(particleCount * 3);
-
-        for (var i = 0; i < particleCount; i++) {
-          var radius = 2.8 + Math.random() * 4.2;
-          var theta = Math.random() * Math.PI * 2;
-          var phi = Math.acos((Math.random() * 2) - 1);
-
-          pPositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-          pPositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-          pPositions[i * 3 + 2] = radius * Math.cos(phi);
+        // 2. Glowing Iris Halo Ring (Radial Ticks from video 00:01)
+        var ringTicks = 72;
+        var ringPos = new Float32Array(ringTicks * 2 * 3);
+        for (var t = 0; t < ringTicks; t++) {
+          var a = (t / ringTicks) * Math.PI * 2;
+          var r1 = 3.65;
+          var r2 = 3.95 + (t % 2 === 0 ? 0.35 : 0.1);
+          ringPos[t * 6] = Math.cos(a) * r1;
+          ringPos[t * 6 + 1] = Math.sin(a) * r1;
+          ringPos[t * 6 + 2] = 0;
+          ringPos[t * 6 + 3] = Math.cos(a) * r2;
+          ringPos[t * 6 + 4] = Math.sin(a) * r2;
+          ringPos[t * 6 + 5] = 0;
         }
-
-        pGeometry.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
-        var pMaterial = new THREE.PointsMaterial({
-          color: 0xffffff,
-          size: 0.08,
+        var ringGeo = new THREE.BufferGeometry();
+        ringGeo.setAttribute('position', new THREE.BufferAttribute(ringPos, 3));
+        var ringMat = new THREE.LineBasicMaterial({
+          color: 0x38bdf8,
           transparent: true,
-          opacity: 0.85
+          opacity: 0.7,
+          blending: THREE.AdditiveBlending
         });
-        particleCloud = new THREE.Points(pGeometry, pMaterial);
-        coreGroup.add(particleCloud);
+        irisRingMesh = new THREE.LineSegments(ringGeo, ringMat);
+        scene.add(irisRingMesh);
 
-        // Lights
-        var ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-        scene.add(ambientLight);
-
-        var blueLight = new THREE.PointLight(0x38bdf8, 3.5, 30);
-        blueLight.position.set(5, 5, 5);
-        scene.add(blueLight);
-
-        var whiteLight = new THREE.PointLight(0xffffff, 2.5, 30);
-        whiteLight.position.set(-6, -4, 6);
-        scene.add(whiteLight);
-
-        // Mouse Parallax Listeners
-        window.addEventListener('mousemove', function(e) {
-          targetMouseX = (e.clientX / window.innerWidth - 0.5) * 1.2;
-          targetMouseY = (e.clientY / window.innerHeight - 0.5) * 1.2;
+        // 3. Central Luminous Singularity / Pupil Core
+        var coreGeo = new THREE.SphereGeometry(1.15, 32, 32);
+        var coreMat = new THREE.MeshBasicMaterial({
+          color: 0x072658,
+          transparent: true,
+          opacity: 0.95
         });
+        centralCoreMesh = new THREE.Mesh(coreGeo, coreMat);
+        scene.add(centralCoreMesh);
 
-        // Resize Listener
+        // Inner electric nucleus
+        var innerNucleus = new THREE.Mesh(
+          new THREE.SphereGeometry(0.55, 24, 24),
+          new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 })
+        );
+        centralCoreMesh.add(innerNucleus);
+
+        // 4. Bioluminescent Tip Particles
+        var pGeo = new THREE.BufferGeometry();
+        var pPos = new Float32Array(NUM_STRANDS * 3);
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        var pMat = new THREE.PointsMaterial({
+          color: 0xffffff,
+          size: 0.12,
+          transparent: true,
+          opacity: 0.95,
+          blending: THREE.AdditiveBlending
+        });
+        particleCloud = new THREE.Points(pGeo, pMat);
+        scene.add(particleCloud);
+
+        // Resize & Mouse Listeners
         window.addEventListener('resize', onWindowResize);
+        window.addEventListener('mousemove', function(e) {
+          targetMouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
+          targetMouseY = (e.clientY / window.innerHeight - 0.5) * 1.5;
+        });
 
-        // Complete Booting
+        // Preloader Complete
         if (bootBar) bootBar.style.transform = "scaleX(1)";
         if (bootPct) bootPct.textContent = "READY 100%";
         setTimeout(function() {
           if (boot) boot.classList.add("done");
         }, 500);
-      }
-
-      function createRingPoints(radius, segments) {
-        var points = [];
-        for (var i = 0; i <= segments; i++) {
-          var theta = (i / segments) * Math.PI * 2;
-          points.push(new THREE.Vector3(Math.cos(theta) * radius, Math.sin(theta) * radius, 0));
-        }
-        return points;
       }
 
       function onWindowResize() {
@@ -1839,47 +1617,141 @@
 
       var clock = new THREE.Clock();
 
-      function frame() {
-        var delta = clock.getDelta();
-        var elapsedTime = clock.getElapsedTime();
+      function updateStrandGeometry(scrollNorm, time) {
+        // Morph interpolation parameters:
+        // scrollNorm 0.0 -> State A (Circular Cyber Iris)
+        // scrollNorm 0.5 -> State B (Flowing Vertical Fibers)
+        // scrollNorm 1.0 -> State C (Expansive Radiant Canopy)
 
-        // Smooth scroll interpolation (Easing)
-        var gap = seekTo - seekAt;
-        if (Math.abs(gap) > 0.0005) {
-          seekAt += gap * 0.12;
+        var tMorph1 = smooth(clamp(scrollNorm / 0.45, 0, 1));
+        var tMorph2 = smooth(clamp((scrollNorm - 0.45) / 0.55, 0, 1));
+
+        // Position offsets for editorial layout (in video, Iris is centered-right of text on desktop)
+        var isMobile = window.innerWidth < 800;
+        var centerX = isMobile ? 0 : 1.4 - tMorph1 * 0.4;
+        var centerY = isMobile ? -0.4 : 0.0;
+
+        var lineIdx = 0;
+        var pPositions = particleCloud ? particleCloud.geometry.attributes.position.array : null;
+
+        for (var s = 0; s < NUM_STRANDS; s++) {
+          var baseAngle = strandAngles[s];
+          var lenFactor = strandLengths[s];
+
+          // Compute strand points
+          var prevX = 0, prevY = 0, prevZ = 0;
+
+          for (var p = 0; p < PTS_PER_STRAND; p++) {
+            var frac = p / (PTS_PER_STRAND - 1);
+
+            // --- State A: Cyber Iris (Radiating circular disc) ---
+            var rA = 0.9 + frac * (2.9 * lenFactor);
+            var angleA = baseAngle + time * 0.08 + Math.sin(rA * 3.5 + time) * 0.12;
+            var xA = centerX + Math.cos(angleA) * rA;
+            var yA = centerY + Math.sin(angleA) * rA;
+            var zA = Math.sin(rA * 4.0 + time * 2.0) * 0.25;
+
+            // --- State B: Flowing Fiber Tendrils (Vertical undulating cables from video 00:03) ---
+            var waveB = Math.sin(frac * 4.0 + baseAngle + time * 1.5) * 0.8;
+            var xB = centerX + strandOffX[s] + waveB * 0.6;
+            var yB = (frac - 0.5) * 6.5 + centerY + Math.cos(time * 0.8 + baseAngle) * 0.4;
+            var zB = strandOffZ[s] + Math.cos(frac * 3.0 + time) * 1.1;
+
+            // --- State C: Radiant Canopy Fan (Upward expansive arch from video 00:00 & 00:05) ---
+            var normalizedAngle = (baseAngle / Math.PI) - 1.0;
+            var archX = normalizedAngle * 7.2;
+            var archHeight = Math.sqrt(Math.max(0, 1 - Math.pow(archX / 7.2, 2))) * 4.2;
+            var xC = archX * (0.6 + frac * 0.5);
+            var yC = -2.2 + archHeight * frac + Math.sin(time + baseAngle) * 0.3;
+            var zC = Math.sin(frac * 6.0 + baseAngle) * 0.7;
+
+            // Two-stage smooth blending
+            var xAB = xA + (xB - xA) * tMorph1;
+            var yAB = yA + (yB - yA) * tMorph1;
+            var zAB = zA + (zB - zA) * tMorph1;
+
+            var finalX = xAB + (xC - xAB) * tMorph2;
+            var finalY = yAB + (yC - yAB) * tMorph2;
+            var finalZ = zAB + (zC - zAB) * tMorph2;
+
+            if (p > 0) {
+              // Vertex 1 of segment
+              strandPositions[lineIdx * 3] = prevX;
+              strandPositions[lineIdx * 3 + 1] = prevY;
+              strandPositions[lineIdx * 3 + 2] = prevZ;
+
+              // Color for Vertex 1 (Gradient from Core White to Electric Cyan to Deep Blue)
+              var bright = 1.0 - frac * 0.4;
+              strandColors[lineIdx * 3] = (0.2 + bright * 0.6) * (1 - tMorph1 * 0.2);
+              strandColors[lineIdx * 3 + 1] = 0.6 + bright * 0.4;
+              strandColors[lineIdx * 3 + 2] = 1.0;
+
+              // Vertex 2 of segment
+              lineIdx++;
+              strandPositions[lineIdx * 3] = finalX;
+              strandPositions[lineIdx * 3 + 1] = finalY;
+              strandPositions[lineIdx * 3 + 2] = finalZ;
+
+              strandColors[lineIdx * 3] = (0.15 + bright * 0.5);
+              strandColors[lineIdx * 3 + 1] = 0.5 + bright * 0.4;
+              strandColors[lineIdx * 3 + 2] = 0.98;
+              lineIdx++;
+            }
+
+            prevX = finalX;
+            prevY = finalY;
+            prevZ = finalZ;
+
+            // Tip Particle Position
+            if (p === PTS_PER_STRAND - 1 && pPositions) {
+              pPositions[s * 3] = finalX;
+              pPositions[s * 3 + 1] = finalY;
+              pPositions[s * 3 + 2] = finalZ;
+            }
+          }
         }
 
-        // Smooth mouse parallax
+        strandLines.geometry.attributes.position.needsUpdate = true;
+        strandLines.geometry.attributes.color.needsUpdate = true;
+        if (particleCloud) particleCloud.geometry.attributes.position.needsUpdate = true;
+
+        // Iris Ring & Core visibility and rotation
+        if (irisRingMesh) {
+          irisRingMesh.position.set(centerX, centerY, 0);
+          irisRingMesh.rotation.z = time * 0.05;
+          // Fade out ring as we morph to vertical fibers
+          irisRingMesh.material.opacity = Math.max(0, 0.75 * (1 - tMorph1 * 1.5));
+          irisRingMesh.visible = irisRingMesh.material.opacity > 0.02;
+        }
+
+        if (centralCoreMesh) {
+          centralCoreMesh.position.set(centerX, centerY, 0);
+          centralCoreMesh.material.opacity = Math.max(0, 0.95 * (1 - tMorph1 * 1.4));
+          centralCoreMesh.visible = centralCoreMesh.material.opacity > 0.02;
+        }
+      }
+
+      function frame() {
+        var elapsedTime = clock.getElapsedTime();
+
+        // Smooth scroll scrubbing interpolation
+        var gap = seekTo - seekAt;
+        if (Math.abs(gap) > 0.0004) {
+          seekAt += gap * 0.11;
+        }
+
+        // Smooth cursor parallax
         mouseX += (targetMouseX - mouseX) * 0.05;
         mouseY += (targetMouseY - mouseY) * 0.05;
 
-        if (coreGroup) {
-          // 3D Model transformation tied directly to scroll depth:
-          // Scroll rotates the core across multiple axes (360° scrub)
-          var scrollRotY = seekAt * Math.PI * 3.8;
-          var scrollRotX = seekAt * Math.PI * 1.6;
-          var scrollScale = 1 + Math.sin(seekAt * Math.PI) * 0.22;
+        if (camera) {
+          camera.position.x = mouseX * 0.8;
+          camera.position.y = -mouseY * 0.6;
+          camera.lookAt(0, 0, 0);
+        }
 
-          coreGroup.rotation.y = scrollRotY + elapsedTime * 0.15 + mouseX;
-          coreGroup.rotation.x = scrollRotX + Math.sin(elapsedTime * 0.3) * 0.1 - mouseY;
-          coreGroup.rotation.z = seekAt * Math.PI * 0.8 + elapsedTime * 0.08;
-          coreGroup.scale.set(scrollScale, scrollScale, scrollScale);
-
-          // Inner cube spin
-          if (innerCube) {
-            innerCube.rotation.x += delta * 1.2;
-            innerCube.rotation.y += delta * 0.9;
-          }
-
-          // Orbital rings counter-rotation
-          if (ring1) ring1.rotation.z += delta * 0.6;
-          if (ring2) ring2.rotation.x += delta * 0.5;
-          if (ring3) ring3.rotation.y -= delta * 0.4;
-
-          // Particle cloud subtle pulse
-          if (particleCloud) {
-            particleCloud.rotation.y -= delta * 0.05;
-          }
+        if (strandLines) {
+          updateStrandGeometry(seekAt, elapsedTime);
         }
 
         paint();
@@ -1916,7 +1788,7 @@
       }
     }
 
-    // Close modal on Escape
+    // Close on Escape
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay.open').forEach(function(m) {
@@ -1926,7 +1798,7 @@
       }
     });
 
-    // Close modal on backdrop click
+    // Close on backdrop click
     document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
       overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
@@ -2012,7 +1884,6 @@
         members.push({ name: mName.trim(), email: mEmail.trim(), role: 'Member ' + i });
       }
 
-      // Generate Ticket ID
       var randomCode = Math.floor(10000 + Math.random() * 90000);
       var ticketId = "LAK-2026-" + randomCode;
 
@@ -2034,7 +1905,6 @@
         localStorage.setItem('lakshya_pass', JSON.stringify(regData));
       } catch (err) {}
 
-      // Populate Ticket Card
       document.getElementById('ticketIdBadge').textContent = ticketId;
       document.getElementById('ticketBarcodeText').textContent = ticketId;
       document.getElementById('ticketTeamName').textContent = teamName;
@@ -2080,7 +1950,6 @@
       });
     }
 
-    // Expose functions globally
     window.openModal = openModal;
     window.closeModal = closeModal;
     window.toggleFaq = toggleFaq;
