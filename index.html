@@ -472,28 +472,43 @@
     .editorial-stats-row {
       display: flex;
       align-items: center;
-      gap: clamp(16px, 3vw, 36px);
+      gap: clamp(14px, 2.5vw, 28px);
       margin-top: clamp(26px, 3.4vw, 42px);
       padding-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.16);
       will-change: transform;
+      flex-wrap: wrap;
+    }
+
+    .dynamic-box {
+      will-change: transform, opacity;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: box-shadow .25s ease, border-color .25s ease;
     }
 
     .stat-col {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: rgba(3, 10, 30, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
     }
 
     .stat-col-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 700;
       color: #ffffff;
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
     }
 
     .stat-col-lbl {
-      font-size: 11px;
+      font-size: 10.5px;
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--fg-faint);
@@ -503,71 +518,155 @@
     .panel-tags-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: clamp(20px, 2.8vw, 32px);
       will-change: transform;
+      perspective: 1000px;
     }
 
     .track-chip {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 16px;
-      border-radius: 999px;
-      background: rgba(3, 10, 30, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      gap: 12px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      background: rgba(4, 14, 38, 0.76);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: #ffffff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      letter-spacing: .03em;
       cursor: pointer;
-      transition: all .2s;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+      text-align: left;
+      flex: 1 1 calc(50% - 10px);
+      min-width: 220px;
     }
 
     .track-chip:hover {
-      background: rgba(56, 189, 248, 0.22);
+      background: rgba(56, 189, 248, 0.18);
       border-color: var(--cyan);
-      transform: translateY(-2px);
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5), 0 10px 30px rgba(0, 0, 0, 0.6);
+      transform: translateY(-3px) scale(1.02) !important;
+    }
+
+    .chip-icon {
+      font-size: 24px;
+      line-height: 1;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.5));
+    }
+
+    .chip-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chip-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: .02em;
+    }
+
+    .chip-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: var(--cyan);
+      letter-spacing: .04em;
     }
 
     /* Milestone timeline cards on Panel 3 */
     .milestone-strip {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin-bottom: clamp(20px, 2.8vw, 32px);
-      max-width: 540px;
+      max-width: 580px;
       will-change: transform;
+      perspective: 1000px;
     }
 
     .milestone-item {
-      padding: 12px 14px;
-      background: rgba(3, 10, 30, 0.88);
+      padding: 13px 16px;
+      background: rgba(4, 14, 40, 0.82);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+      gap: 4px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
     }
 
-    .milestone-item .m-time {
+    .milestone-item:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.4);
+    }
+
+    .m-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+
+    .m-time {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
+      font-weight: 600;
       color: var(--cyan);
       letter-spacing: .06em;
     }
 
-    .milestone-item .m-title {
+    .m-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseDot 1.8s infinite alternate;
+    }
+
+    @keyframes pulseDot {
+      0% { transform: scale(0.8); opacity: 0.7; }
+      100% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .m-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .m-badge.alert {
+      background: rgba(239, 68, 68, 0.16);
+      color: #f87171;
+      border-color: rgba(239, 68, 68, 0.35);
+    }
+
+    .m-badge.gold {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .m-title {
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 700;
       color: #ffffff;
+    }
+
+    .m-sub {
+      font-size: 11px;
+      color: var(--fg-soft);
+      opacity: 0.85;
     }
 
     /* Floating Dock at Bottom */
@@ -1148,19 +1247,19 @@
           <button class="pill-cyber-ghost" onclick="openModal('tracks')">EXPLORE TRACKS</button>
         </div>
         <div class="editorial-stats-row">
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="0">
             <span class="stat-col-num">₹15,00,000+</span>
             <span class="stat-col-lbl">Prize Matrix</span>
           </div>
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="1">
             <span class="stat-col-num">36 HOURS</span>
-            <span class="stat-col-lbl">Live Sprint</span>
+            <span class="stat-col-lbl">Non-Stop Sprint</span>
           </div>
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="2">
             <span class="stat-col-num">1,200+</span>
             <span class="stat-col-lbl">Builders</span>
           </div>
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="3">
             <span class="stat-col-num">OCT 24–26</span>
             <span class="stat-col-lbl">Grand Arena</span>
           </div>
@@ -1181,10 +1280,34 @@
           Four competitive arenas built for tangible impact. Tackle autonomous agent coordination, zero-knowledge decentralized infra, ClimateTech IoT, and open financial moonshots.
         </p>
         <div class="panel-tags-grid">
-          <button class="track-chip" onclick="openModal('tracks')"><span>🤖</span> Autonomous Agents</button>
-          <button class="track-chip" onclick="openModal('tracks')"><span>🔗</span> Web3 &amp; DePIN</button>
-          <button class="track-chip" onclick="openModal('tracks')"><span>🌱</span> ClimateTech IoT</button>
-          <button class="track-chip" onclick="openModal('tracks')"><span>⚡</span> Open Moonshots</button>
+          <button class="track-chip dynamic-box" data-idx="0" onclick="openModal('tracks')">
+            <span class="chip-icon">🤖</span>
+            <div class="chip-content">
+              <span class="chip-name">Autonomous AI</span>
+              <span class="chip-sub">Multi-Agent Systems &bull; ₹4L</span>
+            </div>
+          </button>
+          <button class="track-chip dynamic-box" data-idx="1" onclick="openModal('tracks')">
+            <span class="chip-icon">🔗</span>
+            <div class="chip-content">
+              <span class="chip-name">Web3 &amp; DePIN</span>
+              <span class="chip-sub">Zero-Knowledge &bull; ₹3.5L</span>
+            </div>
+          </button>
+          <button class="track-chip dynamic-box" data-idx="2" onclick="openModal('tracks')">
+            <span class="chip-icon">🌱</span>
+            <div class="chip-content">
+              <span class="chip-name">ClimateTech IoT</span>
+              <span class="chip-sub">Smart Hardware &bull; ₹3.5L</span>
+            </div>
+          </button>
+          <button class="track-chip dynamic-box" data-idx="3" onclick="openModal('tracks')">
+            <span class="chip-icon">⚡</span>
+            <div class="chip-content">
+              <span class="chip-name">Open Moonshots</span>
+              <span class="chip-sub">FinTech &amp; Health &bull; ₹4L</span>
+            </div>
+          </button>
         </div>
         <div class="editorial-actions">
           <button class="pill-cyber" onclick="openModal('tracks')">CHALLENGE STATEMENTS &rarr;</button>
@@ -1205,21 +1328,37 @@
           Non-stop velocity from the opening siren to the final pitch. Rapid mentorship checkpoints, midnight lightning tech showcases, and live demos before top tier VC judges.
         </p>
         <div class="milestone-strip">
-          <div class="milestone-item">
-            <span class="m-time">FRI 04:00 PM</span>
-            <span class="m-title">⚡ Hacking Begins</span>
+          <div class="milestone-item dynamic-box" data-idx="0">
+            <div class="m-top">
+              <span class="m-time">FRI 04:00 PM</span>
+              <span class="m-live-dot"></span>
+            </div>
+            <span class="m-title">⚡ Hacking Officially Begins</span>
+            <span class="m-sub">API keys &amp; GPU clusters live</span>
           </div>
-          <div class="milestone-item">
-            <span class="m-time">SAT 11:59 PM</span>
-            <span class="m-title">🍕 Midnight Demos</span>
+          <div class="milestone-item dynamic-box" data-idx="1">
+            <div class="m-top">
+              <span class="m-time">SAT 11:59 PM</span>
+              <span class="m-badge">Sprint</span>
+            </div>
+            <span class="m-title">🍕 Midnight Lightning Demos</span>
+            <span class="m-sub">Mentor review &amp; energy fuel</span>
           </div>
-          <div class="milestone-item">
-            <span class="m-time">SUN 10:00 AM</span>
-            <span class="m-title">🛑 Code Freeze</span>
+          <div class="milestone-item dynamic-box" data-idx="2">
+            <div class="m-top">
+              <span class="m-time">SUN 10:00 AM</span>
+              <span class="m-badge alert">Lock</span>
+            </div>
+            <span class="m-title">🛑 Code Freeze &amp; Devpost</span>
+            <span class="m-sub">Repo commit freeze</span>
           </div>
-          <div class="milestone-item">
-            <span class="m-time">SUN 02:30 PM</span>
-            <span class="m-title">🏆 Stage Finals &amp; VCs</span>
+          <div class="milestone-item dynamic-box" data-idx="3">
+            <div class="m-top">
+              <span class="m-time">SUN 02:30 PM</span>
+              <span class="m-badge gold">Stage</span>
+            </div>
+            <span class="m-title">🏆 Top 10 Live Pitch Finale</span>
+            <span class="m-sub">VC jury &amp; ₹15L prize reveal</span>
           </div>
         </div>
         <div class="editorial-actions">
@@ -1245,17 +1384,17 @@
           <button class="pill-cyber-ghost" onclick="openMyTicket()">VIEW MY PASS</button>
         </div>
         <div class="editorial-stats-row">
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="0">
             <span class="stat-col-num">100% FREE</span>
-            <span class="stat-col-lbl">Entry &amp; Meals</span>
+            <span class="stat-col-lbl">Zero Registration Fee</span>
           </div>
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="1">
             <span class="stat-col-num">1–4 SIZE</span>
-            <span class="stat-col-lbl">Squad Teams</span>
+            <span class="stat-col-lbl">Solo or Squad Formation</span>
           </div>
-          <div class="stat-col">
+          <div class="stat-col dynamic-box" data-idx="2">
             <span class="stat-col-num">FULL IP</span>
-            <span class="stat-col-lbl">Hacker Owned</span>
+            <span class="stat-col-lbl">Retained by Builders</span>
           </div>
         </div>
       </div>
@@ -1723,17 +1862,13 @@
           stage.style.transform = "scale(1.02) translate3d(" + (mouseX * 10).toFixed(1) + "px, " + (mouseY * 7).toFixed(1) + "px, 0)";
         }
 
-        // CONTINUOUS PARALLAX SCROLL MOTION ENGINE
-        // Every pixel of scroll moves all text, tags, buttons, and stats with differential velocity
+        // CONTINUOUS PARALLAX & DYNAMIC CASCADING SCROLL ENGINE
         for (var i = 0; i < panels.length; i++) {
           var cfg = PANELS_CFG[i];
           var el = panels[i];
           var d = progress - cfg.center;
           var dist = Math.abs(d);
 
-          // Full vertical glide sweep:
-          // When d is negative (user hasn't reached it), norm is negative, el sits below viewport (+vh)
-          // When d is positive (user scrolled past it), norm is positive, el glides up past top (-vh)
           var norm = d / cfg.span;
 
           if (dist > cfg.span * 1.35) {
@@ -1745,30 +1880,84 @@
 
           el.style.visibility = "visible";
 
-          // Cosine bell curve for seamless opacity cross-dissolve without dead gaps
+          // Cosine bell curve for seamless opacity cross-dissolve
           var clampedNorm = clamp(norm, -1.25, 1.25);
           var opacity = Math.max(0, Math.cos((clampedNorm / 1.25) * Math.PI * 0.5));
-          opacity = Math.pow(opacity, 1.35);
+          opacity = Math.pow(opacity, 1.25);
 
           // Main vertical translation (glide)
-          var yGlide = -norm * 44; // in vh
+          var yGlide = -norm * 34; // in vh
 
           el.style.opacity = opacity.toFixed(3);
           el.style.transform = "translate3d(0, " + yGlide.toFixed(2) + "vh, 0)";
           el.style.pointerEvents = opacity > 0.45 ? "auto" : "none";
 
-          // Differential Parallax on children layers inside the panel
-          var kicker = el.querySelector(".kicker-tag");
-          var headline = el.querySelector(".headline-opening") || el.querySelector(".headline-editorial");
-          var desc = el.querySelector(".editorial-desc");
-          var actions = el.querySelector(".editorial-actions");
-          var extra = el.querySelector(".editorial-stats-row") || el.querySelector(".panel-tags-grid") || el.querySelector(".milestone-strip");
+          // Entry progress: 0 when entering from bottom, 1 at center
+          // Exit progress: 0 at center, 1 when exiting towards top
+          var pEnter = clamp((norm + 1.0) / 1.0, 0, 1);
+          var pExit = clamp(norm / 1.0, 0, 1);
 
-          if (kicker) kicker.style.transform = "translate3d(0, " + (yGlide * 0.4).toFixed(2) + "vh, 0)";
-          if (headline) headline.style.transform = "translate3d(0, " + (yGlide * 0.15).toFixed(2) + "vh, 0)";
-          if (desc) desc.style.transform = "translate3d(0, " + (-yGlide * 0.12).toFixed(2) + "vh, 0)";
-          if (actions) actions.style.transform = "translate3d(0, " + (-yGlide * 0.22).toFixed(2) + "vh, 0)";
-          if (extra) extra.style.transform = "translate3d(0, " + (-yGlide * 0.32).toFixed(2) + "vh, 0)";
+          // 1. Kicker Tag entrance
+          var kicker = el.querySelector(".kicker-tag");
+          if (kicker) {
+            var kS = clamp((pEnter - 0.05) / 0.6, 0, 1);
+            var kEase = 1 - Math.pow(1 - kS, 3);
+            var kY = (1 - kEase) * 28 + (-pExit * 22);
+            var kOp = Math.min(1, kEase * 1.4) * (1 - pExit);
+            kicker.style.opacity = kOp.toFixed(3);
+            kicker.style.transform = "translate3d(0, " + kY.toFixed(1) + "px, 0)";
+          }
+
+          // 2. Headline entrance (Scale + Rise + 3D Tilt)
+          var headline = el.querySelector(".headline-opening") || el.querySelector(".headline-editorial");
+          if (headline) {
+            var hS = clamp((pEnter - 0.12) / 0.65, 0, 1);
+            var hEase = 1 - Math.pow(1 - hS, 3);
+            var hY = (1 - hEase) * 44 + (-pExit * 32);
+            var hScale = 0.92 + hEase * 0.08;
+            var hOp = Math.min(1, hEase * 1.35) * (1 - pExit);
+            headline.style.opacity = hOp.toFixed(3);
+            headline.style.transform = "translate3d(0, " + hY.toFixed(1) + "px, 0) scale(" + hScale.toFixed(3) + ")";
+          }
+
+          // 3. Description entrance
+          var desc = el.querySelector(".editorial-desc");
+          if (desc) {
+            var dS = clamp((pEnter - 0.20) / 0.65, 0, 1);
+            var dEase = 1 - Math.pow(1 - dS, 3);
+            var dY = (1 - dEase) * 36 + (-pExit * 26);
+            var dOp = Math.min(1, dEase * 1.3) * (1 - pExit);
+            desc.style.opacity = dOp.toFixed(3);
+            desc.style.transform = "translate3d(0, " + dY.toFixed(1) + "px, 0)";
+          }
+
+          // 4. DYNAMIC CASCADING REVEALS ON BOXES (Track Chips, Milestones, Stats)
+          var dynamicBoxes = el.querySelectorAll(".dynamic-box");
+          for (var b = 0; b < dynamicBoxes.length; b++) {
+            var box = dynamicBoxes[b];
+            var boxDelay = 0.22 + b * 0.10; // Staggered delay per box
+            var bProg = clamp((pEnter - boxDelay) / 0.45, 0, 1);
+            var bEase = 1 - Math.pow(1 - bProg, 3);
+
+            var bY = (1 - bEase) * 58 + (-pExit * 38);
+            var bScale = 0.84 + bEase * 0.16;
+            var bRotX = (1 - bEase) * 18;
+            var bOp = Math.min(1, bEase * 1.3) * (1 - pExit);
+
+            box.style.opacity = bOp.toFixed(3);
+            box.style.transform = "perspective(900px) translate3d(0, " + bY.toFixed(1) + "px, 0) scale(" + bScale.toFixed(3) + ") rotateX(" + bRotX.toFixed(1) + "deg)";
+          }
+
+          // 5. Action Buttons entrance
+          var actions = el.querySelector(".editorial-actions");
+          if (actions) {
+            var aS = clamp((pEnter - 0.42) / 0.5, 0, 1);
+            var aEase = 1 - Math.pow(1 - aS, 3);
+            var aY = (1 - aEase) * 34 + (-pExit * 24);
+            var aOp = Math.min(1, aEase * 1.3) * (1 - pExit);
+            actions.style.opacity = aOp.toFixed(3);
+            actions.style.transform = "translate3d(0, " + aY.toFixed(1) + "px, 0)";
+          }
         }
       }
 
