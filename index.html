@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lakshya '26 — National 36-Hour Hackathon &amp; Innovation Sprint</title>
+  <meta name="description" content="Lakshya '26 — India's premier 36-hour flagship hackathon. ₹15,00,000+ prize pool, 1,200+ builders, industry mentors, and transformative technology. Register your team now.">
+  <meta property="og:title" content="Lakshya '26 — National 36-Hour Hackathon">
+  <meta property="og:description" content="Define your aim. Build the future. 36 hours of relentless engineering and design at Lakshya '26.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://d2ol7oe51mr4n9.cloudfront.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fg: #0d0c0b;
+      --fg-soft: rgba(13,12,11,.64);
+      --fg-faint: rgba(13,12,11,.42);
+      --shade: #f2f0ec;
+      --shade-card: #f9f8f5;
+      --rule: rgba(13,12,11,.16);
+      --ease: cubic-bezier(.22,.61,.36,1);
+      --pill-bg: #0a0908;
+      --pill-fg: #ffffff;
+      --accent: #d94826;
+      --accent-soft: rgba(217, 72, 38, 0.12);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--shade);
+      color: var(--fg);
+      font-family: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Preloader */
+    .boot {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: var(--shade);
+      transition: opacity .7s var(--ease), visibility .7s;
+    }
+
+    .boot.done {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .boot-brand {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .boot p {
+      font-size: 12.5px;
+      letter-spacing: .05em;
+      color: var(--fg-faint);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bar {
+      width: 160px;
+      height: 1px;
+      background: var(--rule);
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--fg);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+    }
+
+    /* 3D Background Stage */
+    .stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: var(--shade);
+    }
+
+    .stage video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translate(-50%, -50%) scale(1.02);
+      object-fit: cover;
+      filter: contrast(1.02);
+      will-change: transform;
+    }
+
+    .veil {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom, rgba(242,240,236,.66) 0%, rgba(242,240,236,.14) 22%, rgba(242,240,236,.14) 78%, rgba(242,240,236,.72) 100%),
+        radial-gradient(100% 80% at 50% 48%, rgba(242,240,236,0) 0%, rgba(242,240,236,.36) 100%),
+        rgba(242,240,236,.22);
+    }
+
+    .grain {
+      position: absolute;
+      inset: -50%;
+      opacity: .13;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='.5'/></svg>");
+    }
+
+    .meter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 50;
+      height: 2px;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      background: var(--fg);
+      opacity: .65;
+    }
+
+    /* Header & Navigation */
+    .chrome {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: max(14px, calc(env(safe-area-inset-top, 0px) + 12px)) clamp(16px, 3.4vw, 44px) 14px;
+      background: linear-gradient(to bottom, rgba(242,240,236,.96) 0%, rgba(242,240,236,.82) 72%, rgba(242,240,236,0) 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15.5px;
+      font-weight: 500;
+      letter-spacing: -.015em;
+      color: var(--fg);
+      text-decoration: none;
+      min-width: 0;
+      flex-shrink: 1;
+      cursor: pointer;
+    }
+
+    .mark-symbol {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--fg);
+      color: var(--shade);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .mark-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .02em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(13,12,11,.06);
+      color: var(--fg-soft);
+      border: 1px solid rgba(13,12,11,.08);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(12px, 2.2vw, 28px);
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 14px;
+      letter-spacing: -.008em;
+      opacity: .84;
+      cursor: pointer;
+      transition: opacity .25s var(--ease);
+      padding: 6px 0;
+    }
+
+    .nav-btn:hover {
+      opacity: 1;
+    }
+
+    /* Buttons & Pills */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: var(--pill-bg);
+      color: var(--pill-fg);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -.008em;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid rgba(10,9,8,.12);
+      box-shadow: 0 1px 0 rgba(255,255,255,.10) inset;
+      -webkit-text-fill-color: var(--pill-fg);
+      transition: transform .35s var(--ease), background .25s var(--ease), color .25s var(--ease), border-color .25s;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      background: #000;
+      color: #fff;
+    }
+
+    .pill-secondary {
+      background: rgba(242, 240, 236, 0.85);
+      color: var(--fg);
+      -webkit-text-fill-color: var(--fg);
+      border: 1px solid var(--rule);
+      box-shadow: 0 1px 3px rgba(0,0,0,.03);
+    }
+
+    .pill-secondary:hover {
+      background: #fff;
+      color: var(--fg);
+      -webkit-text-fill-color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    /* Panels & Presentation */
+    .panels {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: max(100px, calc(env(safe-area-inset-top, 0px) + 84px)) clamp(20px, 5vw, 60px) max(96px, calc(env(safe-area-inset-bottom, 0px) + 80px));
+      opacity: 0;
+      will-change: opacity, transform;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--fg-soft);
+      margin-bottom: clamp(16px, 2vw, 22px);
+      max-width: min(54ch, 100%);
+      text-align: center;
+    }
+
+    .eyebrow span {
+      opacity: .4;
+    }
+
+    h1 {
+      font-weight: 400;
+      font-size: clamp(34px, 6.8vw, 98px);
+      line-height: .98;
+      letter-spacing: -.036em;
+      max-width: 16ch;
+      text-wrap: balance;
+    }
+
+    .sub {
+      margin-top: clamp(16px, 2.2vw, 26px);
+      font-size: clamp(15px, 1.25vw, 18.5px);
+      line-height: 1.52;
+      letter-spacing: -.008em;
+      color: var(--fg-soft);
+      max-width: min(52ch, 100%);
+      text-wrap: pretty;
+    }
+
+    .cta-group {
+      margin-top: clamp(24px, 3.2vw, 40px);
+      pointer-events: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cta-group .pill {
+      height: 48px;
+      padding: 0 26px;
+      font-size: 14.5px;
+    }
+
+    .stats-strip {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(14px, 3vw, 36px);
+      flex-wrap: wrap;
+      pointer-events: auto;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .stat-num {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      color: var(--fg);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-lbl {
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--fg-faint);
+    }
+
+    .track {
+      position: relative;
+      z-index: 1;
+      height: 560vh;
+      min-height: 3200px;
+    }
+
+    /* Footer */
+    .foot {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px clamp(16px, 4vw, 36px) max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px));
+      font-size: 12px;
+      line-height: 1.45;
+      letter-spacing: .01em;
+      color: var(--fg-faint);
+      pointer-events: auto;
+      background: linear-gradient(to top, rgba(242,240,236,.94) 0%, rgba(242,240,236,.76) 72%, rgba(242,240,236,0) 100%);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .foot-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .foot a {
+      color: var(--fg-soft);
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .foot a:hover {
+      color: var(--fg);
+    }
+
+    /* Interactive Modals */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(14px, 3vw, 32px);
+      background: rgba(13, 12, 11, 0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s var(--ease), visibility .35s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-sheet {
+      position: relative;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--shade-card);
+      border-radius: 20px;
+      border: 1px solid rgba(13, 12, 11, 0.12);
+      box-shadow: 0 24px 64px -12px rgba(13, 12, 11, 0.28);
+      transform: translateY(16px) scale(0.98);
+      transition: transform .4s var(--ease);
+      padding: clamp(22px, 4vw, 38px);
+    }
+
+    .modal-overlay.open .modal-sheet {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(13, 12, 11, 0.05);
+      border: 1px solid rgba(13, 12, 11, 0.08);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background .2s, transform .2s;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(13, 12, 11, 0.12);
+      transform: scale(1.05);
+    }
+
+    .modal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--fg-soft);
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: clamp(24px, 3.4vw, 32px);
+      font-weight: 500;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .modal-lead {
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--fg-soft);
+      margin-bottom: 24px;
+    }
+
+    /* Forms */
+    .form-section {
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 20px;
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .form-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--fg-soft);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .form-grid-full {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .field label {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--fg);
+      letter-spacing: -.005em;
+    }
+
+    .field input, .field select, .field textarea {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.16);
+      color: var(--fg);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--fg);
+      box-shadow: 0 0 0 3px rgba(13, 12, 11, 0.08);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 72px;
+    }
+
+    /* Radio / Selection Chips */
+    .track-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .track-card {
+      border: 1px solid rgba(13, 12, 11, 0.14);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+
+    .track-card:hover {
+      border-color: var(--fg);
+      transform: translateY(-1px);
+    }
+
+    .track-card.active {
+      border-color: var(--fg);
+      background: #0d0c0b;
+      color: #fff;
+    }
+
+    .track-card.active .track-card-desc {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .track-card-title {
+      font-size: 13.5px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .track-card-desc {
+      font-size: 11.5px;
+      color: var(--fg-soft);
+      line-height: 1.35;
+    }
+
+    /* Size selector pills */
+    .size-selector {
+      display: flex;
+      gap: 8px;
+    }
+
+    .size-btn {
+      flex: 1;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.16);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--fg);
+      transition: all .2s;
+    }
+
+    .size-btn.active {
+      background: var(--fg);
+      color: #fff;
+      border-color: var(--fg);
+    }
+
+    /* Team Member Row */
+    .member-block {
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.12);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 8px;
+    }
+
+    .member-block-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--fg-soft);
+      margin-bottom: 8px;
+    }
+
+    /* Hacker Pass / Ticket UI */
+    .ticket-container {
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.16);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(13, 12, 11, 0.05);
+      position: relative;
+    }
+
+    .ticket-header {
+      background: #0d0c0b;
+      color: #fff;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ticket-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: .06em;
+    }
+
+    .ticket-body {
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      text-align: left;
+    }
+
+    .ticket-field {
+      margin-bottom: 12px;
+    }
+
+    .ticket-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--fg-faint);
+      margin-bottom: 2px;
+    }
+
+    .ticket-val {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .ticket-val.mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .ticket-barcode-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-left: 1px dashed var(--rule);
+      padding-left: 18px;
+    }
+
+    .ticket-barcode {
+      width: 100%;
+      height: 68px;
+      background: repeating-linear-gradient(
+        90deg,
+        #0d0c0b 0px,
+        #0d0c0b 2px,
+        transparent 2px,
+        transparent 4px,
+        #0d0c0b 4px,
+        #0d0c0b 7px,
+        transparent 7px,
+        transparent 10px,
+        #0d0c0b 10px,
+        #0d0c0b 11px,
+        transparent 11px,
+        transparent 14px
+      );
+      margin-bottom: 6px;
+    }
+
+    .ticket-cutout-left, .ticket-cutout-right {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--shade-card);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .ticket-cutout-left { left: -10px; }
+    .ticket-cutout-right { right: -10px; }
+
+    /* Tracks & Schedule Cards */
+    .info-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.12);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .info-card:hover {
+      border-color: var(--fg);
+      transform: translateY(-1px);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .info-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .info-card-badge {
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(13, 12, 11, 0.06);
+      color: var(--fg);
+    }
+
+    .info-card-p {
+      font-size: 13.5px;
+      color: var(--fg-soft);
+      line-height: 1.5;
+    }
+
+    /* FAQ accordion */
+    .faq-item {
+      background: #fff;
+      border: 1px solid rgba(13, 12, 11, 0.12);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    .faq-q {
+      padding: 14px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .faq-a {
+      padding: 0 18px 14px 18px;
+      font-size: 13.5px;
+      color: var(--fg-soft);
+      line-height: 1.5;
+      display: none;
+    }
+
+    .faq-item.active .faq-a {
+      display: block;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 120;
+      padding: 12px 20px;
+      background: #0d0c0b;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transform: translateY(40px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .3s var(--ease), opacity .3s var(--ease);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 720px) {
+      .nav-btn:not(.reg-nav-btn) { display: none; }
+      .mark-status { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .track-options { grid-template-columns: 1fr; }
+      .ticket-body { grid-template-columns: 1fr; }
+      .ticket-barcode-wrap { border-left: none; border-top: 1px dashed var(--rule); padding-left: 0; padding-top: 14px; }
+      h1 { max-width: 13ch; font-size: clamp(30px, 9.6vw, 54px); }
+      .sub { font-size: 14.5px; max-width: 36ch; }
+      .panel { padding: max(92px, calc(env(safe-area-inset-top, 0px) + 76px)) 18px max(88px, calc(env(safe-area-inset-bottom, 0px) + 72px)); }
+      .foot { flex-direction: column; font-size: 11px; }
+    }
+
+    @media (max-width: 420px) {
+      .cta-group .pill { width: 100%; height: 46px; }
+      h1 { font-size: clamp(28px, 10vw, 42px); }
+      .stats-strip { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="boot" id="boot">
+    <div class="boot-brand">
+      <span class="mark-symbol">L</span>
+      <span>Lakshya '26</span>
+    </div>
+    <div class="bar"><i id="bootBar"></i></div>
+    <p id="bootPct">LOADING 0%</p>
+  </div>
+
+  <!-- Background Video Stage with Scroll Scrubbing -->
+  <div class="stage">
+    <video id="clip" muted playsinline preload="auto" disablepictureinpicture></video>
+    <div class="veil"></div>
+    <div class="grain"></div>
+  </div>
+
+  <i class="meter" id="meter"></i>
+
+  <!-- Navigation Header -->
+  <header class="chrome">
+    <div class="mark" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <span class="mark-symbol">L</span>
+      <span>Lakshya '26</span>
+      <span class="mark-status">
+        <span class="pulse-dot"></span>
+        Sprint Live &bull; Oct 24–26
+      </span>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn" onclick="openModal('tracks')">Tracks</button>
+      <button class="nav-btn" onclick="openModal('schedule')">Schedule</button>
+      <button class="nav-btn" onclick="openModal('prizes')">Prizes</button>
+      <button class="nav-btn" onclick="openModal('faq')">FAQ</button>
+      <button class="nav-btn" onclick="openMyTicket()">My Pass</button>
+      <button class="pill reg-nav-btn" onclick="openModal('register')">Register Team</button>
+    </nav>
+  </header>
+
+  <!-- Interactive Scroll-Triggered Panels -->
+  <main class="panels">
+    <!-- Panel 1: Hero / Vision -->
+    <section class="panel" data-panel>
+      <div class="eyebrow">
+        <span>NATIONAL 36-HOUR HACKATHON</span>
+        <span>&middot;</span>
+        <span>1,200+ BUILDERS</span>
+        <span>&middot;</span>
+        <span>OCT 24–26, 2026</span>
+      </div>
+      <h1>Define your aim.<br />Build the future.</h1>
+      <p class="sub">36 hours of code, adrenaline, and breakthrough engineering. Join top developers, AI researchers, and designers at Lakshya '26.</p>
+      
+      <div class="cta-group">
+        <button class="pill" onclick="openModal('register')">
+          <span>Register Your Team</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="pill pill-secondary" onclick="openModal('tracks')">Explore Tracks &amp; Bounties</button>
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-num">₹15,00,000+</span>
+          <span class="stat-lbl">Prize Pool</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">36 Hours</span>
+          <span class="stat-lbl">Non-Stop Sprint</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">4 Tracks</span>
+          <span class="stat-lbl">Frontier Tech</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100% Free</span>
+          <span class="stat-lbl">Food &amp; Stay</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 2: Tracks & Problem Statements -->
+    <section class="panel" data-panel>
+      <div class="eyebrow">
+        <span>FOUR COMPETITIVE TRACKS</span>
+        <span>&middot;</span>
+        <span>MENTORS FROM YC &amp; TOP LABS</span>
+      </div>
+      <h1>Zero limits.<br />High-impact builds.</h1>
+      <p class="sub">Tackle ambitious challenges across Autonomous AI Agents, Web3 Infrastructure, ClimateTech &amp; Hardware, and Open Innovation.</p>
+      
+      <div class="cta-group">
+        <button class="pill" onclick="openModal('tracks')">View Problem Statements</button>
+        <button class="pill pill-secondary" onclick="openModal('prizes')">Prize Matrix &amp; Perks</button>
+      </div>
+    </section>
+
+    <!-- Panel 3: Arena, Perks & Registration Call -->
+    <section class="panel" data-panel>
+      <div class="eyebrow">
+        <span>APPLICATIONS OPEN</span>
+        <span>&middot;</span>
+        <span>LIMITED PHYSICAL CAPACITY</span>
+      </div>
+      <h1>Claim your arena.<br />Ship to the world.</h1>
+      <p class="sub">Direct access to leading venture funds, cloud GPU compute credits, round-the-clock fuel, and national spotlight.</p>
+      
+      <div class="cta-group">
+        <button class="pill" onclick="openModal('register')">
+          <span>Claim Hacker Pass</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="pill pill-secondary" onclick="openModal('schedule')">Event Timeline</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="foot">
+    <div class="foot-left">
+      <span>Lakshya '26 Innovation Arena &bull; Grand Tech Campus</span>
+      <span>&bull;</span>
+      <span>Organized for Creators &amp; Engineers</span>
+    </div>
+    <div>
+      <a href="javascript:void(0)" onclick="openModal('faq')">Rules &amp; Code of Conduct</a>
+      &nbsp;&middot;&nbsp;
+      <a href="mailto:support@lakshyahack.org">support@lakshyahack.org</a>
+    </div>
+  </footer>
+
+  <!-- Scroll Scroller Track for Keyframed Scrubbing -->
+  <div class="track"></div>
+
+  <!-- MODAL: REGISTRATION -->
+  <div class="modal-overlay" id="modal-register">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('register')">&times;</button>
+      <span class="modal-tag">Official Registration &bull; Lakshya '26</span>
+      <h2 class="modal-title">Register Your Team</h2>
+      <p class="modal-lead">Form your squad of 1–4 hackers. Entry, food, GPU compute, and accommodation are completely free.</p>
+
+      <form id="regForm" onsubmit="handleRegistration(event)">
+        <!-- Team Lead Info -->
+        <div class="form-section">
+          <div class="form-section-title">01 / Team &amp; Leader Info</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="teamName">Team Name *</label>
+              <input type="text" id="teamName" required placeholder="e.g. NeuralKnights">
+            </div>
+            <div class="field">
+              <label for="leadName">Team Lead Name *</label>
+              <input type="text" id="leadName" required placeholder="Full Name">
+            </div>
+            <div class="field">
+              <label for="leadEmail">Lead Email Address *</label>
+              <input type="email" id="leadEmail" required placeholder="you@domain.edu">
+            </div>
+            <div class="field">
+              <label for="leadPhone">Contact Phone *</label>
+              <input type="tel" id="leadPhone" required placeholder="+91 98765 43210">
+            </div>
+            <div class="field form-grid-full">
+              <label for="college">University / Organization *</label>
+              <input type="text" id="college" required placeholder="Institute or Company name">
+            </div>
+            <div class="field">
+              <label for="githubUrl">Lead GitHub / Portfolio</label>
+              <input type="url" id="githubUrl" placeholder="https://github.com/username">
+            </div>
+            <div class="field">
+              <label for="linkedinUrl">Lead LinkedIn Profile</label>
+              <input type="url" id="linkedinUrl" placeholder="https://linkedin.com/in/username">
+            </div>
+          </div>
+        </div>
+
+        <!-- Track Selection -->
+        <div class="form-section">
+          <div class="form-section-title">02 / Choose Your Track</div>
+          <div class="track-options">
+            <div class="track-card active" onclick="selectTrack(this, 'AI & Autonomous Agents')">
+              <div class="track-card-title">🤖 AI &amp; Autonomous Agents</div>
+              <div class="track-card-desc">Multi-agent systems, multimodal reasoning, SLM fine-tuning, workflow automation.</div>
+            </div>
+            <div class="track-card" onclick="selectTrack(this, 'Web3 & Decentralized Systems')">
+              <div class="track-card-title">🔗 Web3 &amp; DePIN</div>
+              <div class="track-card-desc">Decentralized protocols, verifiable compute, smart contracts, ZK applications.</div>
+            </div>
+            <div class="track-card" onclick="selectTrack(this, 'ClimateTech & Smart Hardware')">
+              <div class="track-card-title">🌱 ClimateTech &amp; IoT</div>
+              <div class="track-card-desc">Renewable energy optimization, IoT telemetry, circular resource loops.</div>
+            </div>
+            <div class="track-card" onclick="selectTrack(this, 'Open Innovation & FinTech')">
+              <div class="track-card-title">⚡ Open Innovation</div>
+              <div class="track-card-desc">Digital public goods, financial inclusion, healthcare tech, moonshot prototypes.</div>
+            </div>
+          </div>
+          <input type="hidden" id="selectedTrack" value="AI & Autonomous Agents">
+        </div>
+
+        <!-- Team Size & Members -->
+        <div class="form-section">
+          <div class="form-section-title">03 / Team Size &amp; Teammates</div>
+          <div class="field" style="margin-bottom: 12px;">
+            <label>Total Team Size</label>
+            <div class="size-selector">
+              <button type="button" class="size-btn active" onclick="setTeamSize(1)">1 (Solo)</button>
+              <button type="button" class="size-btn" onclick="setTeamSize(2)">2 Members</button>
+              <button type="button" class="size-btn" onclick="setTeamSize(3)">3 Members</button>
+              <button type="button" class="size-btn" onclick="setTeamSize(4)">4 Members</button>
+            </div>
+          </div>
+
+          <div id="additionalMembersWrap"></div>
+        </div>
+
+        <!-- Project Pitch -->
+        <div class="form-section">
+          <div class="form-section-title">04 / Proposed Concept (Optional)</div>
+          <div class="field">
+            <label for="projectBrief">Briefly describe the problem you want to address at Lakshya:</label>
+            <textarea id="projectBrief" placeholder="E.g. Building an autonomous agent mesh for disaster relief logistics..."></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: flex-end;">
+          <button type="button" class="pill pill-secondary" onclick="closeModal('register')">Cancel</button>
+          <button type="submit" class="pill" id="submitBtn">
+            <span>Submit Registration</span>
+            <span>&rarr;</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Ticket Display (Revealed upon registration) -->
+      <div id="ticketSuccess" style="display: none; text-align: center; margin-top: 10px;">
+        <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
+        <h3 style="font-size: 22px; margin-bottom: 6px;">Registration Confirmed!</h3>
+        <p style="font-size: 14px; color: var(--fg-soft); margin-bottom: 20px;">Welcome to Lakshya '26. Your team's official digital pass has been generated.</p>
+        
+        <div class="ticket-container" id="passCard">
+          <div class="ticket-cutout-left"></div>
+          <div class="ticket-cutout-right"></div>
+          <div class="ticket-header">
+            <div>
+              <div style="font-weight: 600; font-size: 15px; letter-spacing: -.01em;">LAKSHYA '26 HACKER PASS</div>
+              <div style="font-size: 11px; opacity: .7;">Grand Innovation Arena &bull; Oct 24–26</div>
+            </div>
+            <div class="ticket-badge" id="ticketIdBadge">LAK-88392</div>
+          </div>
+          <div class="ticket-body">
+            <div>
+              <div class="ticket-field">
+                <div class="ticket-label">Team Name</div>
+                <div class="ticket-val" id="ticketTeamName">-</div>
+              </div>
+              <div class="ticket-field">
+                <div class="ticket-label">Track</div>
+                <div class="ticket-val" id="ticketTrack">-</div>
+              </div>
+              <div class="ticket-field">
+                <div class="ticket-label">Team Leader</div>
+                <div class="ticket-val" id="ticketLeadName">-</div>
+              </div>
+              <div class="ticket-field" style="margin-bottom: 0;">
+                <div class="ticket-label">Squad Size</div>
+                <div class="ticket-val" id="ticketSize">-</div>
+              </div>
+            </div>
+            <div class="ticket-barcode-wrap">
+              <div class="ticket-barcode"></div>
+              <div style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--fg-faint);" id="ticketBarcodeText">LAK-00000</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <button class="pill" onclick="window.print()">Print / Save Pass</button>
+          <button class="pill pill-secondary" onclick="copyPassDetails()">Copy Pass Details</button>
+          <button class="pill pill-secondary" onclick="closeModal('register')">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TRACKS & PROBLEM STATEMENTS -->
+  <div class="modal-overlay" id="modal-tracks">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('tracks')">&times;</button>
+      <span class="modal-tag">Innovation Arenas</span>
+      <h2 class="modal-title">Competition Tracks</h2>
+      <p class="modal-lead">Four tracks designed to foster real-world impact. Build solutions that push boundaries.</p>
+
+      <div class="info-card-list">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🤖 01. Autonomous AI &amp; Agentic Systems</div>
+            <span class="info-card-badge">₹4,00,000 Pool</span>
+          </div>
+          <p class="info-card-p">
+            Build multi-agent workflows, autonomous coding companions, localized small language model (SLM) runners, or multimodal tools that perform high-order real-world tasks without friction.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🔗 02. Web3 &amp; Decentralized Infrastructure</div>
+            <span class="info-card-badge">₹3,50,000 Pool</span>
+          </div>
+          <p class="info-card-p">
+            Architect resilient decentralized apps: account abstraction for seamless user onboarding, zero-knowledge proofs (ZKP) for privacy, DePIN telemetry, or cross-chain protocols.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🌱 03. ClimateTech &amp; Sustainable Hardware</div>
+            <span class="info-card-badge">₹3,50,000 Pool</span>
+          </div>
+          <p class="info-card-p">
+            Tackle climate urgency with edge computing, IoT environmental monitoring, smart agricultural sensors, grid load balancers, or circular supply-chain trackers.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">⚡ 04. Open Moonshots &amp; FinTech</div>
+            <span class="info-card-badge">₹4,00,000 Pool</span>
+          </div>
+          <p class="info-card-p">
+            Unconstrained problem domain: next-gen financial inclusion, offline-first assistive tech, telemedicine platforms, or educational tooling that elevates underprivileged communities.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <button class="pill" onclick="closeModal('tracks'); openModal('register');">Register for a Track &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SCHEDULE -->
+  <div class="modal-overlay" id="modal-schedule">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('schedule')">&times;</button>
+      <span class="modal-tag">36-Hour Run of Show</span>
+      <h2 class="modal-title">Event Timeline</h2>
+      <p class="modal-lead">From the opening buzzer to the grand stage pitches, every milestone is designed to help you build at peak velocity.</p>
+
+      <div class="info-card-list">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">Day 01 &bull; Friday, Oct 24</div>
+            <span class="info-card-badge">Kickoff</span>
+          </div>
+          <p class="info-card-p">
+            <strong>10:00 AM</strong> — Check-in, Badge Collection &amp; Welcome Kit Distribution<br>
+            <strong>02:00 PM</strong> — Opening Ceremony &amp; Keynote by Industry Visionaries<br>
+            <strong>04:00 PM</strong> — ⚡ <strong>Hacking Officially Commences</strong><br>
+            <strong>08:30 PM</strong> — Dinner &amp; Tech Mentor Matching Sessions<br>
+            <strong>11:59 PM</strong> — Midnight Pizza &amp; Lightning Lightning Demos
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">Day 02 &bull; Saturday, Oct 25</div>
+            <span class="info-card-badge">Full Sprint</span>
+          </div>
+          <p class="info-card-p">
+            <strong>08:30 AM</strong> — Breakfast &amp; Espresso Station<br>
+            <strong>11:00 AM</strong> — <strong>Mentorship Round 1:</strong> Architecture &amp; Scalability Check<br>
+            <strong>04:00 PM</strong> — Midway Progress Checkpoint &amp; VR Gaming Lounge<br>
+            <strong>09:00 PM</strong> — <strong>Mentorship Round 2:</strong> Product Polish &amp; Pitch Strategy<br>
+            <strong>02:00 AM</strong> — Jam Sessions, Late-Night Snacks &amp; Energy Fuel
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">Day 03 &bull; Sunday, Oct 26</div>
+            <span class="info-card-badge">Grand Finale</span>
+          </div>
+          <p class="info-card-p">
+            <strong>08:00 AM</strong> — Breakfast<br>
+            <strong>10:00 AM</strong> — 🛑 <strong>Code Freeze &amp; Devpost Submission Closes</strong><br>
+            <strong>11:30 AM</strong> — Expo Hall &amp; Preliminary Judging Rounds<br>
+            <strong>02:30 PM</strong> — Top 10 Finalists Live Stage Demos before Jury &amp; VCs<br>
+            <strong>04:30 PM</strong> — Valedictory Ceremony &amp; ₹15L Prize Awards
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <button class="pill" onclick="closeModal('schedule'); openModal('register');">Ready to Compete? Register &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PRIZES -->
+  <div class="modal-overlay" id="modal-prizes">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('prizes')">&times;</button>
+      <span class="modal-tag">Rewards &amp; Recognition</span>
+      <h2 class="modal-title">Prizes &amp; Hacker Perks</h2>
+      <p class="modal-lead">₹15,00,000+ total reward pool plus seed funding fast-tracks, compute credits, and bespoke hardware kits.</p>
+
+      <div class="info-card-list">
+        <div class="info-card" style="border-color: rgba(13, 12, 11, 0.3);">
+          <div class="info-card-header">
+            <div class="info-card-title">🏆 1st Place — Lakshya Grand Champion</div>
+            <span class="info-card-badge" style="background: #0d0c0b; color: #fff;">₹5,00,000</span>
+          </div>
+          <p class="info-card-p">
+            Direct fast-track interview with top accelerator funds, $10,000 in GPU Cloud Credits, Lakshya Golden Trophy, and 1-year founder mentorship.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🥈 2nd Place — First Runner-Up</div>
+            <span class="info-card-badge">₹3,00,000</span>
+          </div>
+          <p class="info-card-p">
+            ₹3 Lakh cash award, $5,000 cloud credits, high-end peripheral kits, and VC networking dinner.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🥉 3rd Place — Second Runner-Up</div>
+            <span class="info-card-badge">₹2,00,000</span>
+          </div>
+          <p class="info-card-p">
+            ₹2 Lakh cash prize, founder support, cloud infrastructure credits, and certificates of excellence.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-title">🎖️ Category &amp; Track Excellence Awards</div>
+            <span class="info-card-badge">₹5,00,000 Pool</span>
+          </div>
+          <p class="info-card-p">
+            &bull; Best in AI &amp; Agents: ₹1,00,000<br>
+            &bull; Best in Web3 / DePIN: ₹1,00,000<br>
+            &bull; Best in ClimateTech / Hardware: ₹1,00,000<br>
+            &bull; Best in Open Moonshots: ₹1,00,000<br>
+            &bull; Best All-Women Team &amp; Best Freshman Team: ₹50,000 each
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <button class="pill" onclick="closeModal('prizes'); openModal('register');">Claim Your Shot at Glory &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FAQ -->
+  <div class="modal-overlay" id="modal-faq">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeModal('faq')">&times;</button>
+      <span class="modal-tag">Frequently Asked Questions</span>
+      <h2 class="modal-title">Hackathon FAQ</h2>
+      <p class="modal-lead">Everything you need to know about participating in Lakshya '26.</p>
+
+      <div class="faq-list">
+        <div class="faq-item active">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Who can participate in Lakshya?</span>
+            <span>&plus;</span>
+          </div>
+          <div class="faq-a">
+            Lakshya is open to all university students (undergraduate, postgraduate), researchers, and early-stage professionals worldwide. No prior hackathon experience required.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>What is the team size policy?</span>
+            <span>&plus;</span>
+          </div>
+          <div class="faq-a">
+            Teams can have between 1 to 4 members. You can either register with friends from the same university or collaborate cross-institute.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Is there any registration or entry fee?</span>
+            <span>&plus;</span>
+          </div>
+          <div class="faq-a">
+            <strong>No, absolutely zero.</strong> Registration is 100% free. All accepted teams will receive complimentary accommodation, food, energy drinks, Wi-Fi, and swag packs.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Can we build hardware prototypes?</span>
+            <span>&plus;</span>
+          </div>
+          <div class="faq-a">
+            Yes! We have an on-site Hardware &amp; IoT lab equipped with 3D printers, soldering stations, microcontrollers (ESP32, Arduino, Raspberry Pi), and sensors available on request.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Who owns the intellectual property (IP)?</span>
+            <span>&plus;</span>
+          </div>
+          <div class="faq-a">
+            You do! 100% of the intellectual property, code, and inventions created by your team during the hackathon remain solely yours.
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <button class="pill" onclick="closeModal('faq'); openModal('register');">Register Now &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message -->
+  <div class="toast" id="toast">Notice message here</div>
+
+  <!-- Core JavaScript -->
+  <script>
+    (function() {
+      "use strict";
+
+      // 1920×1080, 10.04s, 241 frames, all-intra keyframe video for smooth scroll scrubbing
+      var VIDEO_URL = "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/45567745-d826-44a2-a5ce-7ef670944e60.mp4";
+
+      var clip = document.getElementById("clip");
+      var boot = document.getElementById("boot");
+      var bootBar = document.getElementById("bootBar");
+      var bootPct = document.getElementById("bootPct");
+      var meter = document.getElementById("meter");
+      var panels = [].slice.call(document.querySelectorAll("[data-panel]"));
+
+      var CUES = [
+        [0.00, 0.00, 0.18, 0.26],
+        [0.36, 0.44, 0.58, 0.66],
+        [0.76, 0.84, 1.10, 1.20]
+      ];
+      var DRIFT = 24;
+
+      function clamp(v, a, b) {
+        return Math.max(a, Math.min(b, v));
+      }
+
+      function smooth(t) {
+        return t * t * (3 - 2 * t);
+      }
+
+      function ramp(p, a, b) {
+        if (b <= a) return p >= b ? 1 : 0;
+        return smooth(clamp((p - a) / (b - a), 0, 1));
+      }
+
+      var progress = 0;
+      var seekTo = 0;
+      var seekAt = 0;
+      var duration = 0;
+      var ready = false;
+      var started = false;
+      var attached = false;
+
+      function readScroll() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progress = max > 0 ? clamp(window.pageYOffset / max, 0, 1) : 0;
+        if (duration) seekTo = progress * duration;
+      }
+
+      function paint() {
+        if (meter) meter.style.transform = "scaleX(" + progress + ")";
+        for (var i = 0; i < panels.length; i++) {
+          var c = CUES[i];
+          var el = panels[i];
+          var enter = ramp(progress, c[0], c[1]);
+          var leave = ramp(progress, c[2], c[3]);
+          var o = enter * (1 - leave);
+          var y = (1 - enter) * DRIFT - leave * DRIFT;
+          el.style.opacity = o;
+          el.style.transform = "translate3d(0," + y + "px,0)";
+          el.style.pointerEvents = o > 0.6 ? "auto" : "none";
+        }
+      }
+
+      function frame() {
+        if (ready && duration) {
+          var gap = seekTo - seekAt;
+          if (Math.abs(gap) > 0.0008) {
+            seekAt += gap * 0.115;
+            if (clip.readyState >= 2 && !clip.seeking) {
+              try { clip.currentTime = seekAt; } catch (e) {}
+            }
+          }
+        }
+        paint();
+        requestAnimationFrame(frame);
+      }
+
+      function setProgress(f) {
+        if (bootBar) bootBar.style.transform = "scaleX(" + f + ")";
+        if (bootPct) bootPct.textContent = "LOADING " + Math.round(f * 100) + "%";
+      }
+
+      function start() {
+        if (started) return;
+        started = true;
+        ready = true;
+        if (boot) boot.classList.add("done");
+        readScroll();
+        seekAt = seekTo;
+      }
+
+      function attach(src) {
+        if (attached) return;
+        attached = true;
+        clip.addEventListener("loadedmetadata", function() {
+          duration = clip.duration || 0;
+          clip.pause();
+          readScroll();
+          seekAt = seekTo;
+          try { clip.currentTime = seekAt; } catch (e) {}
+        });
+        clip.addEventListener("loadeddata", start);
+        clip.addEventListener("canplaythrough", start);
+        clip.addEventListener("error", start);
+        clip.src = src;
+        clip.load();
+        setTimeout(start, 10000);
+      }
+
+      function preload() {
+        var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        var bail = setTimeout(function() {
+          if (!attached) {
+            if (controller) controller.abort();
+            setProgress(1);
+            attach(VIDEO_URL);
+          }
+        }, 12000);
+
+        var fetchOpts = controller ? { signal: controller.signal } : {};
+        fetch(VIDEO_URL, fetchOpts)
+          .then(function(res) {
+            if (!res.ok || !res.body) throw new Error("Fetch failed");
+            var total = parseInt(res.headers.get("content-length"), 10) || 0;
+            var reader = res.body.getReader();
+            var chunks = [];
+            var got = 0;
+
+            function pump() {
+              return reader.read().then(function(r) {
+                if (r.done) {
+                  return new Blob(chunks, { type: "video/mp4" });
+                }
+                chunks.push(r.value);
+                got += r.value.length || 0;
+                setProgress(total ? got / total : Math.min(got / 11e6, 0.95));
+                return pump();
+              });
+            }
+            return pump();
+          })
+          .then(function(blob) {
+            clearTimeout(bail);
+            setProgress(1);
+            attach(URL.createObjectURL(blob));
+          })
+          .catch(function() {
+            clearTimeout(bail);
+            setProgress(1);
+            attach(VIDEO_URL);
+          });
+      }
+
+      function unlock() {
+        var p = clip.play();
+        if (p && p.then) {
+          p.then(function() { clip.pause(); }).catch(function() {});
+        } else {
+          clip.pause();
+        }
+      }
+      ["touchstart", "pointerdown", "wheel", "keydown"].forEach(function(ev) {
+        window.addEventListener(ev, unlock, { once: true, passive: true });
+      });
+
+      window.addEventListener("scroll", readScroll, { passive: true });
+      window.addEventListener("resize", readScroll);
+
+      readScroll();
+      paint();
+      preload();
+      requestAnimationFrame(frame);
+    })();
+
+    /* Interactive Modal & Registration Handlers */
+    var currentTeamSize = 1;
+
+    function openModal(id) {
+      var modal = document.getElementById('modal-' + id);
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      var modal = document.getElementById('modal-' + id);
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close modal on Escape
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(function(m) {
+          m.classList.remove('open');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close modal on backdrop click
+    document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    function toggleFaq(el) {
+      var item = el.parentElement;
+      item.classList.toggle('active');
+    }
+
+    function selectTrack(card, trackName) {
+      document.querySelectorAll('.track-card').forEach(function(c) {
+        c.classList.remove('active');
+      });
+      card.classList.add('active');
+      document.getElementById('selectedTrack').value = trackName;
+    }
+
+    function setTeamSize(n) {
+      currentTeamSize = n;
+      document.querySelectorAll('.size-btn').forEach(function(b, idx) {
+        b.classList.toggle('active', idx + 1 === n);
+      });
+      renderTeamMemberInputs(n);
+    }
+
+    function renderTeamMemberInputs(n) {
+      var wrap = document.getElementById('additionalMembersWrap');
+      if (!wrap) return;
+      if (n === 1) {
+        wrap.innerHTML = '';
+        return;
+      }
+
+      var html = '';
+      for (var i = 2; i <= n; i++) {
+        html += '<div class="member-block">' +
+          '<div class="member-block-title">Teammate ' + i + ' Details</div>' +
+          '<div class="form-grid">' +
+            '<div class="field">' +
+              '<label>Member ' + i + ' Full Name *</label>' +
+              '<input type="text" id="member' + i + 'Name" required placeholder="Member ' + i + ' Name">' +
+            '</div>' +
+            '<div class="field">' +
+              '<label>Member ' + i + ' Email *</label>' +
+              '<input type="email" id="member' + i + 'Email" required placeholder="member' + i + '@domain.edu">' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+      wrap.innerHTML = html;
+    }
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function handleRegistration(e) {
+      e.preventDefault();
+      
+      var teamName = document.getElementById('teamName').value.trim();
+      var leadName = document.getElementById('leadName').value.trim();
+      var leadEmail = document.getElementById('leadEmail').value.trim();
+      var leadPhone = document.getElementById('leadPhone').value.trim();
+      var college = document.getElementById('college').value.trim();
+      var track = document.getElementById('selectedTrack').value;
+      var brief = document.getElementById('projectBrief').value.trim();
+
+      var members = [{ name: leadName, email: leadEmail, role: 'Lead' }];
+      for (var i = 2; i <= currentTeamSize; i++) {
+        var mName = (document.getElementById('member' + i + 'Name') || {}).value || '';
+        var mEmail = (document.getElementById('member' + i + 'Email') || {}).value || '';
+        members.push({ name: mName.trim(), email: mEmail.trim(), role: 'Member ' + i });
+      }
+
+      // Generate Ticket ID
+      var randomCode = Math.floor(10000 + Math.random() * 90000);
+      var ticketId = "LAK-2026-" + randomCode;
+
+      var regData = {
+        ticketId: ticketId,
+        teamName: teamName,
+        leadName: leadName,
+        leadEmail: leadEmail,
+        leadPhone: leadPhone,
+        college: college,
+        track: track,
+        teamSize: currentTeamSize,
+        members: members,
+        brief: brief,
+        registeredAt: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('lakshya_pass', JSON.stringify(regData));
+      } catch (err) {}
+
+      // Populate Ticket Card
+      document.getElementById('ticketIdBadge').textContent = ticketId;
+      document.getElementById('ticketBarcodeText').textContent = ticketId;
+      document.getElementById('ticketTeamName').textContent = teamName;
+      document.getElementById('ticketTrack').textContent = track;
+      document.getElementById('ticketLeadName').textContent = leadName;
+      document.getElementById('ticketSize').textContent = currentTeamSize + (currentTeamSize === 1 ? ' Member (Solo)' : ' Members');
+
+      document.getElementById('regForm').style.display = 'none';
+      document.getElementById('ticketSuccess').style.display = 'block';
+
+      showToast("🎉 Team successfully registered for Lakshya '26!");
+    }
+
+    function openMyTicket() {
+      var saved = localStorage.getItem('lakshya_pass');
+      if (saved) {
+        var data = JSON.parse(saved);
+        document.getElementById('ticketIdBadge').textContent = data.ticketId;
+        document.getElementById('ticketBarcodeText').textContent = data.ticketId;
+        document.getElementById('ticketTeamName').textContent = data.teamName;
+        document.getElementById('ticketTrack').textContent = data.track;
+        document.getElementById('ticketLeadName').textContent = data.leadName;
+        document.getElementById('ticketSize').textContent = data.teamSize + (data.teamSize === 1 ? ' Member (Solo)' : ' Members');
+
+        document.getElementById('regForm').style.display = 'none';
+        document.getElementById('ticketSuccess').style.display = 'block';
+        openModal('register');
+      } else {
+        openModal('register');
+        showToast("No existing pass found. Please register your team!");
+      }
+    }
+
+    function copyPassDetails() {
+      var saved = localStorage.getItem('lakshya_pass');
+      if (!saved) return;
+      var d = JSON.parse(saved);
+      var text = "Lakshya '26 Hacker Pass\nTicket ID: " + d.ticketId + "\nTeam: " + d.teamName + "\nTrack: " + d.track + "\nLead: " + d.leadName + " (" + d.leadEmail + ")\nVenue: Grand Innovation Arena, Oct 24-26, 2026";
+      navigator.clipboard.writeText(text).then(function() {
+        showToast("Pass details copied to clipboard!");
+      }).catch(function() {
+        showToast("Ticket ID: " + d.ticketId);
+      });
+    }
+
+    // Expose functions globally
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.toggleFaq = toggleFaq;
+    window.selectTrack = selectTrack;
+    window.setTeamSize = setTeamSize;
+    window.handleRegistration = handleRegistration;
+    window.openMyTicket = openMyTicket;
+    window.copyPassDetails = copyPassDetails;
+  </script>
+</body>
+</html>
