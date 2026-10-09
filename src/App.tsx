@@ -1,50 +1,82 @@
 import React, { useState } from 'react';
+import { SmoothScroll } from './components/SmoothScroll';
+import { Preloader } from './components/Preloader';
+import { CustomCursor } from './components/CustomCursor';
+import { ScrollProgress } from './components/ScrollProgress';
+import { SpotlightGrid } from './components/SpotlightGrid';
+import { SectionDots } from './components/SectionDots';
 import { HeroSection } from './components/HeroSection';
 import { MarqueeSection } from './components/MarqueeSection';
 import { AboutSection } from './components/AboutSection';
-import { ServicesSection } from './components/ServicesSection';
-import { ProjectsSection } from './components/ProjectsSection';
-import { ContactModal } from './components/ContactModal';
+import { TracksSection } from './components/TracksSection';
+import { TimelineSection } from './components/TimelineSection';
+import { PrizesSection } from './components/PrizesSection';
+import { JudgingSection } from './components/JudgingSection';
+import { SponsorsSection } from './components/SponsorsSection';
+import { RegisterSection } from './components/RegisterSection';
+import { Footer } from './components/Footer';
 
 export default function App() {
-  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [preloaderDone, setPreloaderDone] = useState(false);
+
+  const scrollToRegister = () => {
+    const el = document.getElementById('register');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <div
-      className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative"
-      style={{ overflowX: 'clip' }}
-    >
-      {/* 1. HERO SECTION */}
-      <HeroSection onContactClick={() => setIsContactOpen(true)} />
+    <SmoothScroll>
+      <div
+        className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-cyan-200"
+        style={{ overflowX: 'clip' }}
+      >
+        {/* Full-Screen Preloader Counter + Curtain Reveal */}
+        <Preloader onComplete={() => setPreloaderDone(true)} />
 
-      {/* 2. MARQUEE SECTION */}
-      <MarqueeSection />
+        {/* Global Reticle Custom Cursor (Desktop Pointer Only) */}
+        <CustomCursor />
 
-      {/* 3. ABOUT SECTION */}
-      <AboutSection onContactClick={() => setIsContactOpen(true)} />
+        {/* Top Fixed Accent Progress Bar */}
+        <ScrollProgress />
 
-      {/* 4. SERVICES SECTION */}
-      <ServicesSection />
+        {/* Fixed Background Texture + Cursor Purple Spotlight */}
+        <SpotlightGrid />
 
-      {/* 5. PROJECTS SECTION */}
-      <ProjectsSection />
+        {/* Fixed Right-Edge Section Dots Nav */}
+        <SectionDots />
 
-      {/* Bottom Footer / Lakshya Acknowledgement */}
-      <footer id="register" className="bg-[#0C0C0C] border-t border-white/5 py-12 px-6 text-center select-none z-20 relative">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#D7E2EA]/50 font-mono uppercase tracking-wider">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#B600A8]" />
-            <span>Lakshya &apos;26 &bull; National Flagship Hackathon &bull; SJBIT Silver Jubilee</span>
-          </div>
-          <p>&copy; {new Date().getFullYear()} SJB Institute of Technology &bull; All Rights Reserved</p>
-        </div>
-      </footer>
+        {/* 1. HERO SECTION */}
+        <HeroSection onRegisterClick={scrollToRegister} />
 
-      {/* Interactive Contact Modal */}
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-      />
-    </div>
+        {/* 2. MARQUEE SECTION (Code-Generated Tiles with Velocity Skew) */}
+        <MarqueeSection />
+
+        {/* 3. ABOUT SECTION (+ 3D Shapes + TerminalCard + StatsStrip) */}
+        <AboutSection onRegisterClick={scrollToRegister} />
+
+        {/* 4. TRACKS SECTION (White Background) */}
+        <TracksSection />
+
+        {/* 5. TIMELINE SECTION (Pinned Horizontal Scroll-Scrub) */}
+        <TimelineSection />
+
+        {/* 6. PRIZES SECTION (Sticky-Stacking Cards with Code-Generated Panels) */}
+        <PrizesSection onRegisterClick={scrollToRegister} />
+
+        {/* 7. JUDGING SECTION (Criteria Bars + Morphing Radar Target Chart) */}
+        <JudgingSection />
+
+        {/* 8. SPONSORS SECTION (Typographic Wordmark Marquee) */}
+        <SponsorsSection />
+
+        {/* 9. REGISTER SECTION (+ 3-Step Form + Confetti + FAQ Accordion) */}
+        <RegisterSection />
+
+        {/* 10. FOOTER (+ Giant Rising Title + Contact Links + Back to Top) */}
+        <Footer onRegisterClick={scrollToRegister} />
+      </div>
+    </SmoothScroll>
   );
 }

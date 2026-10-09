@@ -1,35 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-const ALL_GIFS = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
-];
-
-const ROW_1_IMAGES = [...ALL_GIFS.slice(0, 11), ...ALL_GIFS.slice(0, 11), ...ALL_GIFS.slice(0, 11)];
-const ROW_2_IMAGES = [...ALL_GIFS.slice(11), ...ALL_GIFS.slice(11), ...ALL_GIFS.slice(11)];
+import { motion, useScroll, useVelocity, useSpring, useTransform } from 'framer-motion';
+import { GENERATED_TILES, TileCard } from './TileFactory';
 
 export const MarqueeSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [offset, setOffset] = useState(0);
+
+  // Velocity-driven skew: up to 4 degrees based on scroll velocity
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 40, stiffness: 300 });
+  const skewX = useTransform(smoothVelocity, [-1500, 0, 1500], [-4, 0, 4]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,15 +26,18 @@ export const MarqueeSection: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const row1Tiles = [...GENERATED_TILES.slice(0, 11), ...GENERATED_TILES.slice(0, 11), ...GENERATED_TILES.slice(0, 11)];
+  const row2Tiles = [...GENERATED_TILES.slice(11), ...GENERATED_TILES.slice(11), ...GENERATED_TILES.slice(11)];
+
   const row1Transform = `translateX(${offset - 200}px)`;
   const row2Transform = `translateX(${-(offset - 200)}px)`;
 
   return (
     <section
       ref={sectionRef}
-      className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden w-full select-none"
+      className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-16 overflow-hidden w-full select-none"
     >
-      <div className="flex flex-col gap-3 w-full">
+      <motion.div style={{ skewX }} className="flex flex-col gap-6 w-full">
         {/* Row 1 - Moves RIGHT on scroll */}
         <div
           className="flex gap-3 whitespace-nowrap"
@@ -62,19 +46,16 @@ export const MarqueeSection: React.FC = () => {
             willChange: 'transform',
           }}
         >
-          {ROW_1_IMAGES.map((src, index) => (
-            <div
-              key={`row1-${index}`}
-              className="w-[420px] h-[270px] shrink-0 rounded-2xl overflow-hidden bg-slate-900 border border-white/5"
-            >
-              <img
-                src={src}
-                alt="3D Motion Preview"
-                className="w-full h-full object-cover rounded-2xl"
-                loading="lazy"
-              />
-            </div>
+          {row1Tiles.map((tile, index) => (
+            <TileCard key={`row1-${tile.id}-${index}`} tile={tile} />
           ))}
+        </div>
+
+        {/* Divider Thin Centered Repeated Line */}
+        <div className="w-full overflow-hidden py-3 border-y border-white/5 bg-black/30 flex items-center justify-center">
+          <p className="whitespace-nowrap text-xs sm:text-sm font-mono uppercase tracking-[0.4em] text-[#D7E2EA]/60 select-none">
+            Code &bull; Design &bull; Build &bull; Pitch &bull; Win &bull; Code &bull; Design &bull; Build &bull; Pitch &bull; Win &bull; Code &bull; Design &bull; Build &bull; Pitch &bull; Win
+          </p>
         </div>
 
         {/* Row 2 - Moves LEFT on scroll */}
@@ -85,21 +66,11 @@ export const MarqueeSection: React.FC = () => {
             willChange: 'transform',
           }}
         >
-          {ROW_2_IMAGES.map((src, index) => (
-            <div
-              key={`row2-${index}`}
-              className="w-[420px] h-[270px] shrink-0 rounded-2xl overflow-hidden bg-slate-900 border border-white/5"
-            >
-              <img
-                src={src}
-                alt="3D Motion Preview"
-                className="w-full h-full object-cover rounded-2xl"
-                loading="lazy"
-              />
-            </div>
+          {row2Tiles.map((tile, index) => (
+            <TileCard key={`row2-${tile.id}-${index}`} tile={tile} />
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
