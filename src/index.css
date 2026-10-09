@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-kanit: 'Kanit', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 *, *::before, *::after {
@@ -10,15 +12,26 @@
   padding: 0;
 }
 
-html, body, #root {
+html {
   background-color: #0C0C0C;
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #D7E2EA;
+  scroll-behavior: smooth;
+}
+
+body, #root {
+  background-color: #0C0C0C;
   min-height: 100%;
 }
 
 body {
   overflow-x: clip;
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 /* Hide native cursor ONLY when desktop fine custom cursor is active */
@@ -30,13 +43,15 @@ html.custom-cursor-active * {
 /* Accessible focus outline */
 :focus-visible {
   outline: 2px solid #BBCCD7 !important;
-  outline-offset: 2px !important;
+  outline-offset: 3px !important;
 }
 
 .hero-heading {
-  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: linear-gradient(180deg, #FFFFFF 0%, #BBCCD7 60%, #646973 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
 }
 
 /* Accent gradient */

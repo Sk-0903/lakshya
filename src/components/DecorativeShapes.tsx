@@ -16,7 +16,7 @@ export const DecorativeShapes: React.FC = () => {
   const yBottomRight = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden select-none z-10">
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-40">
       {/* 1. Top-Left: Glass Cube with Code2 Icon */}
       <motion.div
         style={{ y: yTopLeft }}

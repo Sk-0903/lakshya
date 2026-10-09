@@ -47,7 +47,7 @@ export const Footer: React.FC<{ onRegisterClick?: () => void }> = ({ onRegisterC
     >
       {/* Top Banner Call to Action */}
       <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center relative z-20">
-        <h2 className="text-[clamp(1.8rem,5vw,4.5rem)] font-black uppercase tracking-tight text-white leading-tight mb-8">
+        <h2 className="font-heading font-black uppercase text-4xl sm:text-5xl md:text-6xl tracking-tight text-white mb-8">
           Ready to aim higher?
         </h2>
 

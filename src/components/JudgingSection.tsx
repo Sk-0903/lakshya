@@ -80,14 +80,17 @@ export const JudgingSection: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Section Heading */}
         <div className="text-center mb-16 sm:mb-20">
-          <FadeIn delay={0} y={40}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-4">
+          <FadeIn delay={0} y={20}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-[#BE4C00]" />
-              <span>Rigorous Evaluation</span>
+              <span>Transparent Evaluation</span>
             </div>
-            <h2 className="hero-heading font-black uppercase text-center text-[clamp(3rem,12vw,160px)] leading-none tracking-tight">
-              Judging
+            <h2 className="hero-heading font-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
+              Judging Rubric
             </h2>
+            <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-lg mx-auto leading-relaxed">
+              Every prototype is evaluated on merit, technical execution, and user impact by our mentor panel.
+            </p>
           </FadeIn>
         </div>
 

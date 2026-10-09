@@ -70,14 +70,17 @@ export const RegisterSection: React.FC = () => {
       <div className="max-w-4xl mx-auto flex flex-col items-center">
         {/* Section Heading */}
         <div className="text-center mb-12 sm:mb-16">
-          <FadeIn delay={0} y={40}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-4">
+          <FadeIn delay={0} y={20}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-              <span>Step Into The Arena</span>
+              <span>Free &bull; Zero Registration Fee</span>
             </div>
-            <h2 className="hero-heading font-black uppercase text-center text-[clamp(3rem,12vw,160px)] leading-none tracking-tight">
-              Register
+            <h2 className="hero-heading font-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
+              Register Your Squad
             </h2>
+            <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-md mx-auto leading-relaxed">
+              Join 500+ developers, designers, and thinkers at SJBIT. Complete the 3-step squad registration below.
+            </p>
           </FadeIn>
         </div>
 

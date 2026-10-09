@@ -1,6 +1,6 @@
 import React from 'react';
+import { Target, Sparkles } from 'lucide-react';
 import { FadeIn } from './FadeIn';
-import { AnimatedText } from './AnimatedText';
 import { ContactButton } from './ContactButton';
 import { DecorativeShapes } from './DecorativeShapes';
 import { TerminalCard } from './TerminalCard';
@@ -15,57 +15,54 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onRegisterClick }) =
   return (
     <section
       id="about"
-      className="relative min-h-screen bg-[#0C0C0C] flex flex-col justify-center items-center px-5 sm:px-8 md:px-10 py-24 overflow-hidden select-none"
+      className="relative min-h-screen bg-[#0C0C0C] flex flex-col justify-center items-center px-6 sm:px-10 py-32 overflow-hidden select-none"
     >
-      {/* 4 Code-Generated 3D Floating Corner Objects */}
+      {/* Subtle 3D Corner Accent Shapes */}
       <DecorativeShapes />
 
-      {/* Main Content Column */}
-      <div className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
-        {/* Section Pre-Label */}
-        <FadeIn delay={0} y={20}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B600A8]" />
-            <span>Mission &bull; The Flagship Sprint</span>
+      {/* Main Content Column with Generous Vertical Rhythm */}
+      <div className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto w-full">
+        {/* Section Badge */}
+        <FadeIn delay={0} y={15}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-8">
+            <Target className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Mission &bull; Lakshya &apos;26</span>
           </div>
         </FadeIn>
 
-        {/* Heading */}
-        <FadeIn delay={0.1} y={40}>
-          <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-center text-[clamp(3rem,12vw,160px)]">
-            About Lakshya
+        {/* Section Heading */}
+        <FadeIn delay={0.1} y={25}>
+          <h2 className="hero-heading font-heading font-black uppercase tracking-tight text-center text-5xl sm:text-6xl md:text-7xl mb-8">
+            Aim Higher. Build Bold.
           </h2>
         </FadeIn>
 
-        {/* Character-by-character Scroll-Driven Opacity Paragraph */}
-        <div className="mt-10 sm:mt-14 md:mt-16 w-full max-w-[560px] mx-auto">
-          <AnimatedText
-            text={EVENT_DATA.aboutParagraph}
-            className="text-[#D7E2EA] font-medium text-center leading-relaxed text-[clamp(1rem,2vw,1.35rem)]"
+        {/* Breathable, Legible About Paragraph */}
+        <FadeIn delay={0.2} y={20} className="w-full max-w-2xl mx-auto">
+          <p className="text-[#D7E2EA]/85 font-normal text-base sm:text-lg leading-relaxed text-center">
+            {EVENT_DATA.aboutParagraph}
+          </p>
+        </FadeIn>
+
+        {/* CTA Button */}
+        <FadeIn delay={0.3} y={20} className="mt-12">
+          <ContactButton
+            label="Register Your Squad"
+            onClick={onRegisterClick}
+            href="#register"
           />
-        </div>
+        </FadeIn>
 
-        {/* Register CTA Button */}
-        <div className="mt-16 sm:mt-20 md:mt-24">
-          <FadeIn delay={0.25} y={20}>
-            <ContactButton
-              label="Register Now"
-              onClick={onRegisterClick}
-              href="#register"
-            />
-          </FadeIn>
-        </div>
-
-        {/* Live Typing Terminal Card */}
-        <div className="mt-20 sm:mt-24 w-full flex justify-center">
-          <FadeIn delay={0.3} y={30} className="w-full flex justify-center">
+        {/* Live Typing Terminal Card with Spaced Margin */}
+        <div className="mt-20 w-full flex justify-center">
+          <FadeIn delay={0.35} y={25} className="w-full flex justify-center">
             <TerminalCard />
           </FadeIn>
         </div>
 
-        {/* Count-Up Stats Strip */}
-        <div className="w-full mt-10">
-          <FadeIn delay={0.4} y={30}>
+        {/* Stats Strip with Distinct Spacing */}
+        <div className="w-full mt-16">
+          <FadeIn delay={0.4} y={25}>
             <StatsStrip />
           </FadeIn>
         </div>
