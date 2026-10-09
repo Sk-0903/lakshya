@@ -9,7 +9,7 @@ interface AboutSectionProps {
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ onContactClick }) => {
   const bioText =
-    "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
+    "With 25 years of educational excellence, SJBIT presents Lakshya '26 — a premier 36-hour national hackathon uniting 1,200+ elite engineers, designers, and innovators. Compete for ₹15,00,000+ in prizes, solve real-world industry challenges, and present your best ideas. Let's build something incredible together!";
 
   return (
     <section
@@ -84,8 +84,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onContactClick }) =>
       <div className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto">
         {/* Heading */}
         <FadeIn delay={0} y={40}>
-          <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-center text-[clamp(3rem,12vw,160px)]">
-            About me
+          <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-center text-[clamp(2.8rem,11vw,150px)]">
+            About Lakshya
           </h2>
         </FadeIn>
 
@@ -93,14 +93,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onContactClick }) =>
         <div className="mt-10 sm:mt-14 md:mt-16">
           <AnimatedText
             text={bioText}
-            className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[560px] mx-auto text-[clamp(1rem,2vw,1.35rem)]"
+            className="text-[#D7E2EA] font-medium text-center leading-relaxed max-w-[620px] mx-auto text-[clamp(1rem,2vw,1.35rem)]"
           />
         </div>
 
         {/* Contact button */}
         <div className="mt-16 sm:mt-20 md:mt-24">
           <FadeIn delay={0.2} y={20}>
-            <ContactButton onClick={onContactClick} href="#contact" />
+            <ContactButton
+              onClick={onContactClick}
+              href="#register"
+              label="Register Team"
+            />
           </FadeIn>
         </div>
       </div>

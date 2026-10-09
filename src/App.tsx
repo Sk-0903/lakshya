@@ -30,13 +30,13 @@ export default function App() {
       <ProjectsSection />
 
       {/* Bottom Footer / Lakshya Acknowledgement */}
-      <footer id="contact" className="bg-[#0C0C0C] border-t border-white/5 py-12 px-6 text-center select-none z-20 relative">
+      <footer id="register" className="bg-[#0C0C0C] border-t border-white/5 py-12 px-6 text-center select-none z-20 relative">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#D7E2EA]/50 font-mono uppercase tracking-wider">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#B600A8]" />
-            <span>Jack &bull; 3D Creator &bull; Lakshya &apos;26 Flagship</span>
+            <span>Lakshya &apos;26 &bull; National Flagship Hackathon &bull; SJBIT Silver Jubilee</span>
           </div>
-          <p>&copy; {new Date().getFullYear()} Jack &bull; All Rights Reserved</p>
+          <p>&copy; {new Date().getFullYear()} SJB Institute of Technology &bull; All Rights Reserved</p>
         </div>
       </footer>
 

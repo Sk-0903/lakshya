@@ -1,62 +1,62 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 
-interface ServiceItem {
+interface TrackItem {
   number: string;
   name: string;
   description: string;
 }
 
-const SERVICES: ServiceItem[] = [
+const TRACKS: TrackItem[] = [
   {
     number: '01',
-    name: '3D Modeling',
+    name: 'Artificial Intelligence & Agents',
     description:
-      'Creation of detailed objects, characters, or environments tailored to specific client needs, ideal for games, products, and visualizations.',
+      'Generative AI, multimodal LLMs, autonomous agents, computer vision, and real-time neural networks solving high-impact challenges.',
   },
   {
     number: '02',
-    name: 'Rendering',
+    name: 'Web3 & Decentralized Systems',
     description:
-      'High-quality, photorealistic renders that showcase designs with custom lighting, textures, and materials to bring concepts to life.',
+      'Zero-knowledge protocols, DeFi primitives, decentralized identity (DID), smart contracts, and next-gen blockchain infrastructure.',
   },
   {
     number: '03',
-    name: 'Motion Design',
+    name: 'IoT & Smart Robotics',
     description:
-      'Dynamic animations and motion graphics that add energy and storytelling to brands, products, and digital experiences.',
+      'Edge computing, autonomous drones, embedded firmware, sensor mesh networks, and intelligent physical hardware.',
   },
   {
     number: '04',
-    name: 'Branding',
+    name: 'FinTech & Cyber Defense',
     description:
-      'Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear and memorable presence.',
+      'Real-time fraud prevention, cryptographic security, algorithmic finance pipelines, and resilient threat intelligence.',
   },
   {
     number: '05',
-    name: 'Web Design',
+    name: 'Open Innovation & Sustainability',
     description:
-      'Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience.',
+      'Moonshot ideas across healthcare, clean green energy, agritech, smart cities, and transformative social impact engineering.',
   },
 ];
 
 export const ServicesSection: React.FC = () => {
   return (
     <section
-      id="services"
+      id="tracks"
       className="bg-[#FFFFFF] text-[#0C0C0C] rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 w-full z-0 select-none"
     >
       <div className="max-w-5xl mx-auto">
         {/* Heading */}
         <FadeIn delay={0} y={40}>
           <h2 className="text-[#0C0C0C] font-black uppercase text-center text-[clamp(3rem,12vw,160px)] leading-none tracking-tight mb-16 sm:mb-20 md:mb-28">
-            Services
+            Tracks
           </h2>
         </FadeIn>
 
-        {/* 5 Service items list */}
+        {/* 5 Track items list */}
         <div className="flex flex-col">
-          {SERVICES.map((item, index) => (
+          {TRACKS.map((item, index) => (
             <FadeIn
               key={item.number}
               delay={index * 0.1}

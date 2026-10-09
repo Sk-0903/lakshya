@@ -10,10 +10,11 @@ interface ContactModalProps {
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    projectType: 'Lakshya 3D Experience',
-    message: '',
+    teamName: '',
+    leaderEmail: '',
+    track: 'AI & Autonomous Agents',
+    college: 'SJB Institute of Technology',
+    teamSize: '4 Members',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,13 +23,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     setTimeout(() => {
       setSubmitted(false);
       onClose();
-    }, 2500);
+    }, 2800);
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -50,7 +51,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <button
               type="button"
               onClick={onClose}
-              className="absolute top-6 right-6 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#D7E2EA]/70 hover:text-white hover:border-white/30 transition"
+              className="absolute top-6 right-6 w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#D7E2EA]/70 hover:text-white hover:border-white/30 transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -59,88 +60,105 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-4 h-4 text-[#B600A8]" />
               <span className="text-xs uppercase font-mono tracking-widest text-[#B600A8]">
-                Lakshya &apos;26 &bull; Direct Connect
+                Lakshya &apos;26 &bull; Team Registration
               </span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-black uppercase text-white mb-2 tracking-tight">
-              Let&apos;s Build Together
+              Register Your Squad
             </h3>
             <p className="text-sm font-light text-[#D7E2EA]/70 mb-6 leading-relaxed">
-              Have a project, 3D design inquiry, or want to collaborate for the Lakshya flagship sprint? Send a message below.
+              36 hours of non-stop innovation at SJBIT. ₹15,00,000+ prize pool. Fill your team details below:
             </p>
 
             {submitted ? (
               <div className="py-12 flex flex-col items-center justify-center text-center gap-3">
                 <CheckCircle2 className="w-12 h-12 text-emerald-400 animate-bounce" />
-                <h4 className="text-xl font-bold uppercase text-white">Message Dispatched!</h4>
-                <p className="text-xs text-[#D7E2EA]/70">
-                  Thank you! We&apos;ll be in touch with you right away.
+                <h4 className="text-xl font-bold uppercase text-white">Registration Received!</h4>
+                <p className="text-xs text-[#D7E2EA]/70 max-w-sm">
+                  Welcome to Lakshya &apos;26! A confirmation email and Discord access token have been dispatched to {formData.leaderEmail || 'your email'}.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div>
                   <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
-                    Your Name
+                    Team Name
                   </label>
                   <input
                     type="text"
                     required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Alex Morgan"
+                    value={formData.teamName}
+                    onChange={(e) => setFormData({ ...formData, teamName: e.target.value })}
+                    placeholder="e.g. CyberVanguard"
                     className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-[#B600A8] transition text-sm"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
-                    Your Email
+                    Team Lead Email
                   </label>
                   <input
                     type="email"
                     required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="alex@studio.com"
+                    value={formData.leaderEmail}
+                    onChange={(e) => setFormData({ ...formData, leaderEmail: e.target.value })}
+                    placeholder="lead@university.edu"
                     className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-[#B600A8] transition text-sm"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
-                    Collaboration Focus
-                  </label>
-                  <select
-                    value={formData.projectType}
-                    onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#B600A8] transition text-sm"
-                  >
-                    <option value="Lakshya 3D Experience">Lakshya &apos;26 3D Experience</option>
-                    <option value="3D Modeling & Rendering">3D Modeling &amp; Rendering</option>
-                    <option value="Motion Design">Motion Design</option>
-                    <option value="Brand Identity">Brand Identity</option>
-                    <option value="Web Design">Web Design</option>
-                  </select>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
+                      Primary Track
+                    </label>
+                    <select
+                      value={formData.track}
+                      onChange={(e) => setFormData({ ...formData, track: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#B600A8] transition text-xs sm:text-sm"
+                    >
+                      <option value="AI & Autonomous Agents">AI &amp; Autonomous Agents</option>
+                      <option value="Web3 & Decentralized">Web3 &amp; Decentralized</option>
+                      <option value="IoT & Smart Robotics">IoT &amp; Smart Robotics</option>
+                      <option value="FinTech & Cyber Defense">FinTech &amp; Cyber Defense</option>
+                      <option value="Open Innovation">Open Innovation</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
+                      Team Size
+                    </label>
+                    <select
+                      value={formData.teamSize}
+                      onChange={(e) => setFormData({ ...formData, teamSize: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#B600A8] transition text-xs sm:text-sm"
+                    >
+                      <option value="2 Members">2 Members</option>
+                      <option value="3 Members">3 Members</option>
+                      <option value="4 Members">4 Members</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-xs uppercase font-medium tracking-wider mb-1.5 text-[#D7E2EA]/80">
-                    Message
+                    College / Institute
                   </label>
-                  <textarea
-                    rows={3}
+                  <input
+                    type="text"
                     required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about your vision..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-[#B600A8] transition text-sm resize-none"
+                    value={formData.college}
+                    onChange={(e) => setFormData({ ...formData, college: e.target.value })}
+                    placeholder="e.g. SJBIT, Bangalore"
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-[#B600A8] transition text-sm"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full mt-2 py-3.5 rounded-full text-white font-medium uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition hover:opacity-95"
+                  className="w-full mt-2 py-3.5 rounded-full text-white font-medium uppercase tracking-widest text-sm flex items-center justify-center gap-2 transition hover:opacity-95 cursor-pointer"
                   style={{
                     background:
                       'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
@@ -151,7 +169,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   }}
                 >
                   <Send className="w-4 h-4" />
-                  <span>Send Inquiry</span>
+                  <span>Submit Registration</span>
                 </button>
               </form>
             )}
