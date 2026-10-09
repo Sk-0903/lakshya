@@ -107,7 +107,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => 
         {/* 3D Target Centerpiece with Breathable Sizing */}
         <motion.div
           style={{ y: visualY, scale: visualScale }}
-          className="w-[260px] sm:w-[320px] md:w-[380px] aspect-square my-2 relative flex items-center justify-center"
+          className="w-[260px] sm:w-[320px] md:w-[380px] aspect-square my-2 relative flex items-center justify-center overflow-hidden rounded-3xl"
         >
           <LakshyaTarget3D className="w-full h-full" />
         </motion.div>
