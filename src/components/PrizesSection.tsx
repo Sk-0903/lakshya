@@ -1,8 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useInView, animate } from 'framer-motion';
-import { Trophy, Gift, Sparkles, CheckCircle2 } from 'lucide-react';
+import { motion, useInView, animate } from 'framer-motion';
+import { Trophy, Gift, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { FadeIn } from './FadeIn';
-import { GhostButton } from './GhostButton';
 import { EVENT_DATA, PrizeCardData } from '../data/event';
 
 const TrophyVisual: React.FC<{ tier: 'gold' | 'silver' | 'bronze' }> = ({ tier }) => {
@@ -13,24 +12,15 @@ const TrophyVisual: React.FC<{ tier: 'gold' | 'silver' | 'bronze' }> = ({ tier }
   const strokeColor = isGold ? '#fde047' : isSilver ? '#cbd5e1' : '#f59e0b';
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden p-6">
+    <div className="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto flex items-center justify-center overflow-hidden my-2">
       <div
-        className="absolute w-72 h-72 rounded-full opacity-30 animate-spin blur-3xl pointer-events-none"
+        className="absolute inset-0 rounded-full opacity-25 blur-xl pointer-events-none"
         style={{
-          background: `conic-gradient(from 0deg, ${mainColor}, #B600A8, #38bdf8, ${mainColor})`,
-          animationDuration: '20s',
+          background: `radial-gradient(circle, ${mainColor} 0%, transparent 70%)`,
         }}
       />
 
-      <motion.div
-        animate={{ y: [-5, 5, -5], opacity: [0.4, 0.9, 0.4] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-8 right-12 text-amber-300"
-      >
-        <Sparkles className="w-6 h-6" />
-      </motion.div>
-
-      <svg className="w-3/5 h-3/5 drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none">
+      <svg className="w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]" viewBox="0 0 100 100" fill="none">
         <defs>
           <linearGradient id={`grad-${tier}`} x1="0" y1="0" x2="100" y2="100">
             <stop offset="0%" stopColor={strokeColor} />
@@ -66,23 +56,17 @@ const TrophyVisual: React.FC<{ tier: 'gold' | 'silver' | 'bronze' }> = ({ tier }
   );
 };
 
-const StackingPrizeCard: React.FC<{
+const PrizeCard: React.FC<{
   prize: PrizeCardData;
   index: number;
-  totalCards: number;
   onRegisterClick?: () => void;
-}> = ({ prize, index, totalCards, onRegisterClick }) => {
+}> = ({ prize, index, onRegisterClick }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: '-50px' });
+  const isInView = useInView(containerRef, { once: true, margin: '-40px' });
   const [animatedAmount, setAnimatedAmount] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const targetScale = 1 - (totalCards - 1 - index) * 0.03;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const isGold = prize.tier === 'gold';
+  const isSilver = prize.tier === 'silver';
 
   useEffect(() => {
     if (isInView) {
@@ -98,71 +82,89 @@ const StackingPrizeCard: React.FC<{
   return (
     <div
       ref={containerRef}
-      className="h-[85vh] flex items-center justify-center sticky top-24 md:top-32"
-      style={{ top: `calc(${index * 28}px + 5.5rem)` }}
+      className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+        isGold
+          ? 'bg-[#151520] border-2 border-amber-400/50 shadow-[0_0_30px_rgba(245,158,11,0.15)] md:-translate-y-3 z-20'
+          : isSilver
+          ? 'bg-[#111117] border border-cyan-400/30 shadow-xl z-10'
+          : 'bg-[#111117] border border-white/10 shadow-xl z-10'
+      }`}
     >
-      <motion.div
-        style={{ scale }}
-        className="w-full max-w-5xl rounded-[36px] sm:rounded-[44px] border-2 border-white/20 bg-[#101015] p-6 sm:p-8 md:p-10 flex flex-col justify-between shadow-2xl select-none"
-      >
-        {/* Top Header Row */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
-          <div className="flex items-baseline gap-4 sm:gap-6">
-            <span className="font-heading font-black text-5xl sm:text-6xl text-white leading-none">
-              {prize.number}
-            </span>
-            <div className="flex flex-col">
-              <span className="text-xs uppercase font-mono tracking-widest text-cyan-400">
-                {prize.category}
-              </span>
-              <h3 className="text-xl sm:text-2xl font-heading font-bold uppercase text-white tracking-tight">
-                {prize.name}
-              </h3>
-            </div>
-          </div>
+      {/* Top Banner Tag */}
+      {isGold && (
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-amber-300 text-black text-[11px] font-mono font-bold uppercase tracking-widest shadow-md">
+          Grand Champion
+        </div>
+      )}
 
-          <div>
-            <GhostButton label="Claim Spot" onClick={onRegisterClick} href="#register" />
+      {/* Header Info */}
+      <div>
+        <div className="flex items-center justify-between gap-2 pb-4 border-b border-white/10">
+          <span className="font-heading font-black text-3xl sm:text-4xl text-white/40 leading-none">
+            {prize.number}
+          </span>
+          <span
+            className={`text-xs uppercase font-mono tracking-wider px-2.5 py-1 rounded-full ${
+              isGold
+                ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                : isSilver
+                ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30'
+                : 'bg-white/10 text-white/70 border border-white/15'
+            }`}
+          >
+            {prize.category}
+          </span>
+        </div>
+
+        <h3 className="text-xl sm:text-2xl font-heading font-bold uppercase text-white tracking-tight mt-4 text-center">
+          {prize.name}
+        </h3>
+
+        {/* Trophy Visual */}
+        <TrophyVisual tier={prize.tier} />
+
+        {/* Amount Display */}
+        <div className="my-4 py-4 rounded-2xl bg-white/[0.03] border border-white/10 text-center">
+          <span className="text-[10px] uppercase font-mono tracking-widest text-white/50 block mb-1">
+            CASH GRANT
+          </span>
+          <div className="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight leading-none">
+            ₹{animatedAmount.toLocaleString()}
           </div>
         </div>
 
-        {/* Bottom 40/60 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-10 gap-6 pt-6 flex-1 items-stretch">
-          {/* Left Column (40%) */}
-          <div className="md:col-span-4 flex flex-col gap-5 justify-between">
-            {/* Prize Amount Panel */}
-            <div className="rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/15 p-6 flex flex-col justify-center items-center text-center shadow-lg">
-              <span className="text-[10px] uppercase font-mono tracking-widest text-white/50 mb-1.5">
-                CASH REWARD
-              </span>
-              <div className="font-heading font-black text-4xl sm:text-5xl text-white tracking-tight leading-none">
-                ₹{animatedAmount.toLocaleString()}
-              </div>
-            </div>
-
-            {/* Perks Panel */}
-            <div className="rounded-3xl bg-white/[0.03] border border-white/10 p-6 flex flex-col justify-center gap-3 shadow-lg">
-              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50">
-                <Gift className="w-3.5 h-3.5 text-[#B600A8]" />
-                <span>INCLUDED BENEFITS</span>
-              </div>
-              <ul className="space-y-2 text-xs sm:text-sm text-white/80">
-                {prize.perks.map((perk, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{perk}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* Perks list */}
+        <div className="mt-6">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50 mb-3">
+            <Gift className="w-3.5 h-3.5 text-[#B600A8]" />
+            <span>WHAT&apos;S INCLUDED</span>
           </div>
-
-          {/* Right Column (60%): Trophy Graphic */}
-          <div className="md:col-span-6 rounded-3xl bg-gradient-to-b from-[#161622] to-[#0c0c12] border border-white/10 overflow-hidden flex items-center justify-center min-h-[260px] shadow-2xl relative">
-            <TrophyVisual tier={prize.tier} />
-          </div>
+          <ul className="space-y-2.5 text-xs sm:text-sm text-[#D7E2EA]/85">
+            {prize.perks.map((perk, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <span>{perk}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Button CTA */}
+      <div className="mt-8 pt-6 border-t border-white/10">
+        <a
+          href="#register"
+          onClick={onRegisterClick ? (e) => { e.preventDefault(); onRegisterClick(); } : undefined}
+          className={`w-full py-3 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition cursor-pointer ${
+            isGold
+              ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:opacity-95 shadow-md'
+              : 'bg-white/10 hover:bg-white/15 text-white border border-white/15'
+          }`}
+        >
+          <span>Claim Spot</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
     </div>
   );
 };
@@ -173,32 +175,51 @@ export const PrizesSection: React.FC<{ onRegisterClick?: () => void }> = ({ onRe
       id="prizes"
       className="bg-[#0C0C0C] text-[#D7E2EA] border-t border-white/[0.06] relative z-10 pt-28 sm:pt-36 pb-32 px-6 sm:px-10 select-none"
     >
-      <div className="max-w-5xl mx-auto mb-16 text-center">
-        <FadeIn delay={0} y={20}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-mono uppercase tracking-widest text-amber-300 mb-4">
-            <Trophy className="w-3.5 h-3.5 text-amber-400" />
-            <span>₹45,000 Total Prize Pool</span>
-          </div>
-          <h2 className="hero-heading font-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
-            Bounties &amp; Awards
-          </h2>
-          <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-lg mx-auto">
-            Hard cash grants, official trophies, developer toolkits, and certificates for the top innovators.
-          </p>
-        </FadeIn>
-      </div>
+      <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto mb-16 text-center">
+          <FadeIn delay={0} y={20}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-mono uppercase tracking-widest text-amber-300 mb-4">
+              <Trophy className="w-3.5 h-3.5 text-amber-400" />
+              <span>₹45,000 Total Prize Pool</span>
+            </div>
+            <h2 className="hero-heading font-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
+              Bounties &amp; Awards
+            </h2>
+            <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-lg mx-auto">
+              Hard cash grants, official trophies, developer toolkits, and certificates for the top innovators.
+            </p>
+          </FadeIn>
+        </div>
 
-      {/* 3 Stacking Prize Cards */}
-      <div className="flex flex-col relative w-full max-w-5xl mx-auto pb-20">
-        {EVENT_DATA.prizes.map((prize, index) => (
-          <StackingPrizeCard
-            key={prize.id}
-            prize={prize}
-            index={index}
-            totalCards={EVENT_DATA.prizes.length}
-            onRegisterClick={onRegisterClick}
-          />
-        ))}
+        {/* 3 Responsive Prize Cards (Podium Order: 2nd, 1st, 3rd on md screens) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
+          {/* Runner Up (2nd Place - ₹15k) */}
+          <FadeIn delay={0.1} y={20} className="order-2 md:order-1 flex">
+            <PrizeCard
+              prize={EVENT_DATA.prizes[1]}
+              index={1}
+              onRegisterClick={onRegisterClick}
+            />
+          </FadeIn>
+
+          {/* Winner (1st Place - ₹25k) */}
+          <FadeIn delay={0.2} y={20} className="order-1 md:order-2 flex">
+            <PrizeCard
+              prize={EVENT_DATA.prizes[0]}
+              index={0}
+              onRegisterClick={onRegisterClick}
+            />
+          </FadeIn>
+
+          {/* Special / Track Winners (3rd Place - ₹5k) */}
+          <FadeIn delay={0.3} y={20} className="order-3 md:order-3 flex">
+            <PrizeCard
+              prize={EVENT_DATA.prizes[2]}
+              index={2}
+              onRegisterClick={onRegisterClick}
+            />
+          </FadeIn>
+        </div>
       </div>
     </section>
   );

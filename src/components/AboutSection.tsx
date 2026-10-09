@@ -2,7 +2,6 @@ import React from 'react';
 import { Target, Sparkles } from 'lucide-react';
 import { FadeIn } from './FadeIn';
 import { ContactButton } from './ContactButton';
-import { DecorativeShapes } from './DecorativeShapes';
 import { TerminalCard } from './TerminalCard';
 import { StatsStrip } from './StatsStrip';
 import { EVENT_DATA } from '../data/event';
@@ -17,8 +16,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onRegisterClick }) =
       id="about"
       className="relative min-h-screen bg-[#0C0C0C] flex flex-col justify-center items-center px-6 sm:px-10 py-32 overflow-hidden select-none"
     >
-      {/* Subtle 3D Corner Accent Shapes */}
-      <DecorativeShapes />
+
 
       {/* Main Content Column with Generous Vertical Rhythm */}
       <div className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto w-full">

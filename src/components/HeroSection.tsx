@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Calendar, Trophy, ArrowRight } from 'lucide-react';
 import { FadeIn } from './FadeIn';
-import { Magnet } from './Magnet';
 import { ContactButton } from './ContactButton';
 import { LakshyaTarget3D } from './LakshyaTarget3D';
 import { Countdown } from './Countdown';
@@ -110,15 +109,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onRegisterClick }) => 
           style={{ y: visualY, scale: visualScale }}
           className="w-[260px] sm:w-[320px] md:w-[380px] aspect-square my-2 relative flex items-center justify-center"
         >
-          <Magnet
-            padding={120}
-            strength={3}
-            activeTransition="transform 0.3s ease-out"
-            inactiveTransition="transform 0.6s ease-in-out"
-            className="w-full h-full flex items-center justify-center"
-          >
-            <LakshyaTarget3D className="w-full h-full" />
-          </Magnet>
+          <LakshyaTarget3D className="w-full h-full" />
         </motion.div>
 
         {/* Tagline Summary */}

@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SmoothScroll } from './components/SmoothScroll';
-import { Preloader } from './components/Preloader';
-import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
 import { SpotlightGrid } from './components/SpotlightGrid';
 import { SectionDots } from './components/SectionDots';
@@ -17,12 +15,14 @@ import { RegisterSection } from './components/RegisterSection';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  const [preloaderDone, setPreloaderDone] = useState(false);
-
   const scrollToRegister = () => {
     const el = document.getElementById('register');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      if ((window as any).__lenis) {
+        (window as any).__lenis.scrollTo(el, { offset: -20 });
+      } else {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -32,16 +32,10 @@ export default function App() {
         className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-cyan-200"
         style={{ overflowX: 'clip' }}
       >
-        {/* Full-Screen Preloader Counter + Curtain Reveal */}
-        <Preloader onComplete={() => setPreloaderDone(true)} />
-
-        {/* Global Reticle Custom Cursor (Desktop Pointer Only) */}
-        <CustomCursor />
-
         {/* Top Fixed Accent Progress Bar */}
         <ScrollProgress />
 
-        {/* Fixed Background Texture + Cursor Purple Spotlight */}
+        {/* Fixed Background Subtle Grid Texture + Ambient Cursor Spotlight */}
         <SpotlightGrid />
 
         {/* Fixed Right-Edge Section Dots Nav */}
@@ -50,31 +44,31 @@ export default function App() {
         {/* 1. HERO SECTION */}
         <HeroSection onRegisterClick={scrollToRegister} />
 
-        {/* 2. MARQUEE SECTION (Code-Generated Tiles with Velocity Skew) */}
+        {/* 2. MARQUEE SECTION */}
         <MarqueeSection />
 
-        {/* 3. ABOUT SECTION (+ 3D Shapes + TerminalCard + StatsStrip) */}
+        {/* 3. ABOUT SECTION */}
         <AboutSection onRegisterClick={scrollToRegister} />
 
-        {/* 4. TRACKS SECTION (White Background) */}
+        {/* 4. TRACKS SECTION */}
         <TracksSection />
 
-        {/* 5. TIMELINE SECTION (Pinned Horizontal Scroll-Scrub) */}
+        {/* 5. TIMELINE SECTION (2-Day Tabbed Roadmap) */}
         <TimelineSection />
 
-        {/* 6. PRIZES SECTION (Sticky-Stacking Cards with Code-Generated Panels) */}
+        {/* 6. PRIZES SECTION (Clean 3-Column Awards Deck) */}
         <PrizesSection onRegisterClick={scrollToRegister} />
 
-        {/* 7. JUDGING SECTION (Criteria Bars + Morphing Radar Target Chart) */}
+        {/* 7. JUDGING SECTION */}
         <JudgingSection />
 
-        {/* 8. SPONSORS SECTION (Typographic Wordmark Marquee) */}
+        {/* 8. SPONSORS SECTION */}
         <SponsorsSection />
 
         {/* 9. REGISTER SECTION (+ 3-Step Form + Confetti + FAQ Accordion) */}
         <RegisterSection />
 
-        {/* 10. FOOTER (+ Giant Rising Title + Contact Links + Back to Top) */}
+        {/* 10. FOOTER (+ Giant Title + Contact Links + Back to Top) */}
         <Footer onRegisterClick={scrollToRegister} />
       </div>
     </SmoothScroll>

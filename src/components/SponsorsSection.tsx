@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Terminal,
   Layers,
@@ -28,16 +29,16 @@ const SponsorTile: React.FC<{ sponsor: SponsorData }> = ({ sponsor }) => {
   const IconComponent = SPONSOR_ICON_MAP[sponsor.icon] || Sparkles;
 
   return (
-    <div className="w-[220px] h-[110px] shrink-0 rounded-2xl border border-[#D7E2EA]/20 bg-[#101015] p-4 flex flex-col justify-between items-center text-center select-none shadow-lg transition-all duration-300 grayscale hover:grayscale-0 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.25)] group cursor-pointer">
+    <div className="w-[220px] h-[110px] shrink-0 rounded-2xl border border-[#D7E2EA]/15 bg-[#121217] p-4 flex flex-col justify-between items-center text-center select-none shadow-md transition-all duration-300 hover:border-cyan-400/50 hover:bg-[#16161e] group cursor-pointer">
       <div className="flex items-center justify-between w-full">
         <span className="text-[9px] font-mono uppercase tracking-wider text-white/40 group-hover:text-cyan-300">
           {sponsor.category}
         </span>
-        <IconComponent className="w-4 h-4 text-white/50 group-hover:text-[#B600A8] transition-colors" />
+        <IconComponent className="w-4 h-4 text-white/40 group-hover:text-[#B600A8] transition-colors" />
       </div>
 
       <div className="my-auto">
-        <span className="font-black text-xl tracking-tight uppercase text-white group-hover:text-cyan-200 transition-colors">
+        <span className="font-heading font-black text-xl tracking-tight uppercase text-white group-hover:text-cyan-200 transition-colors">
           {sponsor.name}
         </span>
       </div>
@@ -51,55 +52,41 @@ const SponsorTile: React.FC<{ sponsor: SponsorData }> = ({ sponsor }) => {
 
 export const SponsorsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [offset, setOffset] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionTop = rect.top + window.scrollY;
-      const calculatedOffset = (window.scrollY - sectionTop + window.innerHeight) * 0.25;
-      setOffset(calculatedOffset);
-    };
+  const scrollX = useTransform(scrollYProgress, [0, 1], [0, -180]);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const tripledSponsors = [
+  const doubledSponsors = [
     ...EVENT_DATA.sponsors,
     ...EVENT_DATA.sponsors,
     ...EVENT_DATA.sponsors,
   ];
 
-  const transformStyle = `translateX(${-(offset - 150)}px)`;
-
   return (
     <section
       ref={sectionRef}
-      className="bg-[#0C0C0C] py-20 overflow-hidden w-full select-none relative"
+      className="bg-[#0C0C0C] py-20 overflow-hidden w-full select-none relative border-t border-white/[0.04]"
     >
       <div className="max-w-6xl mx-auto px-6 text-center mb-10">
-        <FadeIn delay={0} y={20}>
-          <h3 className="uppercase tracking-[0.4em] text-sm text-[#D7E2EA]/60 font-mono font-medium">
+        <FadeIn delay={0} y={15}>
+          <h3 className="uppercase tracking-[0.35em] text-xs text-[#D7E2EA]/50 font-mono font-medium">
             Backed By Industry Leaders
           </h3>
         </FadeIn>
       </div>
 
-      {/* Single-Row Scroll-Driven Marquee (Moves LEFT) */}
-      <div
-        className="flex gap-4 whitespace-nowrap"
-        style={{
-          transform: transformStyle,
-          willChange: 'transform',
-        }}
+      {/* Single-Row Compositor Scroll Marquee */}
+      <motion.div
+        style={{ x: scrollX }}
+        className="flex gap-4 whitespace-nowrap will-change-transform"
       >
-        {tripledSponsors.map((sponsor, index) => (
+        {doubledSponsors.map((sponsor, index) => (
           <SponsorTile key={`${sponsor.id}-${index}`} sponsor={sponsor} />
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

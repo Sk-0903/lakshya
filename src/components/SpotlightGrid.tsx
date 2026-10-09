@@ -46,10 +46,8 @@ export const SpotlightGrid: React.FC = () => {
           style={{
             x: smoothX,
             y: smoothY,
-            translateX: '-50%',
-            translateY: '-50%',
           }}
-          className="absolute w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(182,0,168,0.12)_0%,rgba(118,33,176,0.06)_40%,transparent_70%)] blur-2xl pointer-events-none"
+          className="absolute w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(182,0,168,0.12)_0%,rgba(118,33,176,0.06)_40%,transparent_70%)] blur-2xl pointer-events-none"
         />
       )}
     </div>

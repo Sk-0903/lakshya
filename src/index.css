@@ -16,7 +16,6 @@ html {
   background-color: #0C0C0C;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #D7E2EA;
-  scroll-behavior: smooth;
 }
 
 body, #root {
@@ -34,11 +33,8 @@ h1, h2, h3, h4, .font-heading {
   letter-spacing: -0.02em;
 }
 
-/* Hide native cursor ONLY when desktop fine custom cursor is active */
-html.custom-cursor-active,
-html.custom-cursor-active * {
-  cursor: none !important;
-}
+/* Native cursor is preserved for fluid, 0-latency control */
+
 
 /* Accessible focus outline */
 :focus-visible {
