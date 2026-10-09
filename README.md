@@ -1,37 +1,51 @@
-# Lakshya '26 — National 36-Hour Hackathon & Innovation Sprint
+# Lakshya'26 — National Hackathon
 
-A high-performance, scroll-scrubbed interactive hackathon registration platform for **Lakshya '26**.
+A modern, high-performance web experience for **Lakshya'26**, hosted by **SJB Institute of Technology (SJBIT)**.
 
-## 🚀 Features
+- **Dates**: 05–06 November 2026
+- **Format**: 24-Hour Innovation Sprint
+- **Prize Pool**: ₹45,000
 
-- **3D Scroll-Driven Immersion**: Smooth keyframed video scrubbing synced to the user's scroll progress.
-- **Team Registration Portal**:
-  - Support for solo participants and squads of 2–4 members.
-  - Track selection (AI & Autonomous Agents, Web3 & DePIN, ClimateTech & IoT, Open Innovation).
-  - Instant digital **Hacker Pass Generation** with unique pass codes and live barcodes.
-  - Local persistence via `localStorage` with a "My Pass" viewer and printable ticket.
-- **Interactive Information Modals**:
-  - **Tracks & Problem Statements**: Descriptions, sample ideas, and prize pools.
-  - **36-Hour Run of Show**: Full timeline from Friday check-in to Sunday demo day.
-  - **Prizes & Hacker Perks**: ₹15,00,000+ reward breakdown, hardware kits, and cloud compute.
-  - **FAQ**: Eligibility, IP ownership, amenities, and hardware lab details.
+---
 
-## 🛠️ Tech Stack & Setup
+## 🚀 Features & Architecture
 
-- **Frontend**: HTML5, Vanilla JavaScript, CSS3 with modern variables and responsive layouts.
-- **Server**: Vite 8.
-- **Runtime**: Node.js 22+.
+- **React Three Fiber (R3F)**: Code-generated 3D Lakshya Target with interactive magnetic hover and procedural torus rings.
+- **Pure Code Visuals**: Zero external images — procedural SVGs, CSS gradients, Lucide icons, and canvas particle confetti.
+- **Lenis Smooth Scroll**: Silky frame-synced scrolling respecting `prefers-reduced-motion`.
+- **Preloader**: Concentric SVG target lock-on animation with curtain split reveal (runs once per session).
+- **2-Day Roadmap**: Clean schedule breakdown for Day 1 (Nov 5) and Day 2 (Nov 6).
+- **Multi-Step Registration**: Interactive 3-step squad registration form with instant feedback.
+- **Modern Typography**: Plus Jakarta Sans headers, Inter body copy, and JetBrains Mono monospace badges.
 
-### Run Locally
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: React 19 + TypeScript + Vite 8
+- **Styling**: Tailwind CSS v4
+- **Animation**: Framer Motion
+- **3D Graphics**: Three.js + @react-three/fiber
+- **Icons**: Lucide React
+- **Smooth Scroll**: Lenis
+
+---
+
+## 💻 Local Development
 
 1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the development server:
+2. Start the local server:
    ```bash
    npm run dev
    ```
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+4. Build for production:
+   ```bash
+   npm run build
+   ```
