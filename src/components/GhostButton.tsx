@@ -6,49 +6,24 @@ interface GhostButtonProps {
   href?: string;
   onClick?: () => void;
   className?: string;
-  target?: string;
-  rel?: string;
 }
 
 export const GhostButton: React.FC<GhostButtonProps> = ({
   label,
-  href = '#register',
+  href,
   onClick,
   className = '',
-  target,
-  rel,
 }) => {
-  const baseClasses = `
-    inline-flex items-center justify-center rounded-full
-    border-2 border-[#D7E2EA] text-[#D7E2EA] font-medium uppercase tracking-widest
-    px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base
-    transition-colors duration-200 hover:bg-[#D7E2EA]/10
-    cursor-pointer select-none
-    ${className}
-  `;
-
-  if (onClick) {
-    return (
-      <motion.button
-        type="button"
-        onClick={onClick}
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.97 }}
-        className={baseClasses}
-      >
-        {label}
-      </motion.button>
-    );
-  }
-
   return (
     <motion.a
       href={href}
-      target={target}
-      rel={rel}
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      className={baseClasses}
+      target={href?.startsWith('http') ? '_blank' : undefined}
+      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      className={`inline-flex items-center justify-center rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] hover:bg-[#D7E2EA]/10 uppercase tracking-widest font-medium text-xs sm:text-sm px-6 py-2.5 md:px-8 md:py-3 transition-colors cursor-pointer select-none ${className}`}
     >
       {label}
     </motion.a>

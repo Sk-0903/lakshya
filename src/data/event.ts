@@ -1,52 +1,30 @@
 /**
- * Event Configuration & Content for Lakshya '26 Hackathon
- * All copy and customizable event data live here.
+ * Lakshya'26 Event Data & Copy
+ * ALL copy lives here.
  */
 
 export interface TrackData {
-  id: string;
   number: string;
   name: string;
-  shortName: string;
   description: string;
-  icon: string; // Lucide icon identifier
-  color: string;
 }
 
 export interface MilestoneData {
-  id: string;
   day: 'DAY 1' | 'DAY 2';
   time: string;
-  label: string;
+  title: string;
   description: string;
-  icon: string;
 }
 
-export interface PrizeCardData {
+export interface PrizeData {
   id: string;
   number: string;
+  label: string;
   category: string;
-  name: string;
   amount: number;
   displayAmount: string;
   perks: string[];
-  tier: 'gold' | 'silver' | 'bronze';
-  image?: string; // Optional image field (falls back to code-generated visuals)
-}
-
-export interface CriterionData {
-  name: string;
-  weight: number;
-  description: string;
-}
-
-export interface SponsorData {
-  id: string;
-  name: string;
-  category: string;
-  icon: string;
-  tier: 'platinum' | 'gold' | 'silver' | 'partner';
-  logo?: string; // Optional custom logo image (falls back to code-generated wordmark)
+  illustration: 'trophy' | 'medal' | 'stars';
 }
 
 export interface FAQItem {
@@ -55,168 +33,132 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface SponsorData {
+  id: string;
+  name: string;
+  category: string;
+  logo?: string;
+}
+
 export const EVENT_DATA = {
   collegeName: 'SJB Institute of Technology',
   collegeShort: 'SJBIT',
   eventName: "Lakshya'26",
-  edition: '2026',
+  duration: '24',
   durationHours: 24,
   dates: '05-06 November 2026',
-  startTimestampISO: '2026-11-05T09:00:00+05:30', // Start timestamp for countdown
+  startTimestampISO: '2026-11-05T09:00:00+05:30',
   venue: 'SJBIT Campus Auditorium & Tech Hub, Bangalore',
-  tagline: 'innovate. build. aim higher.',
+  participants: '500+',
+  participantsCount: 500,
+  teams: '100+',
+  prizePool: '₹45,000',
+  prizePoolAmount: 45000,
+  tracksCount: 5,
   registrationUrl: 'https://forms.gle/lakshya26',
-  formEndpoint: '', // Optional POST API endpoint; if empty, simulated client-side
+  tagline: 'innovate. build. aim higher.',
 
-  metrics: {
-    participants: '500+',
-    participantsNum: 500,
-    teams: '100+',
-    teamsNum: 100,
-    prizePool: '₹45,000',
-    prizePoolNum: 45000,
-    tracksCount: '5 Tracks',
-    tracksCountNum: 5,
-    hours: '24 Hours',
-    hoursNum: 24,
-  },
+  // Scroll sequence frame configuration
+  desktopFrameCount: 120,
+  mobileFrameCount: 90,
 
-  aboutParagraph:
-    "Lakshya'26 is SJB Institute of Technology's flagship national hackathon, where passionate builders and designers from across the country unite for 24 hours of non-stop engineering, learning, and breaking limits. Whether you are a first-time hacker or an experienced developer, this is your arena to turn bold ideas into impactful real-world products. Aim high. Build bold!",
+  aboutText:
+    "Lakshya'26 is SJBIT's flagship hackathon, where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or a seasoned hacker, this is your stage to turn ideas into impact.",
 
-  terminalLines: [
-    '> init lakshya --year=2026',
-    '✔ loading ideas... done',
-    '✔ assembling teams... done',
-    '✔ caffeine levels: critical',
-    '> status: registrations OPEN_',
+  stats: [
+    { value: 24, suffix: ' Hours', label: 'Continuous Sprint' },
+    { value: 500, suffix: '+', label: 'Participants' },
+    { value: 45000, prefix: '₹', suffix: '', label: 'Prize Pool' },
+    { value: 5, suffix: ' Tracks', label: 'Domains of Innovation' },
   ],
 
   tracks: [
     {
-      id: 'ai-ml',
       number: '01',
       name: 'AI & Machine Learning',
-      shortName: 'AI & Agents',
       description:
-        'Build intelligent systems, from computer vision and multi-modal LLMs to autonomous agents and predictive models that solve tangible real-world problems.',
-      icon: 'Cpu',
-      color: '#B600A8',
+        'Build intelligent systems, from computer vision to generative AI tools that solve real problems.',
     },
     {
-      id: 'web-app',
       number: '02',
       name: 'Web & App Development',
-      shortName: 'Web & Mobile',
       description:
-        'Create ultra-fast, accessible, and delightful digital products for the modern web, cross-platform mobile ecosystems, and real-time interactive experiences.',
-      icon: 'Code2',
-      color: '#38bdf8',
+        'Create fast, accessible and delightful digital products.',
     },
     {
-      id: 'web3-blockchain',
       number: '03',
       name: 'Web3 & Blockchain',
-      shortName: 'Decentralized',
       description:
-        'Explore decentralized apps, smart contract architectures, zero-knowledge proofs, and trustless systems that reimagine transparency and digital ownership.',
-      icon: 'Layers',
-      color: '#a855f7',
+        'Explore decentralized apps and trustless systems.',
     },
     {
-      id: 'iot-robotics',
       number: '04',
       name: 'IoT & Robotics',
-      shortName: 'Hardware & IoT',
       description:
-        'Connect hardware and software to automate, sense, and respond to the physical realm using microcontrollers, smart edge nodes, and autonomous robots.',
-      icon: 'Radio',
-      color: '#f59e0b',
+        'Connect hardware and software to sense and respond to the physical world.',
     },
     {
-      id: 'open-innovation',
       number: '05',
       name: 'Open Innovation',
-      shortName: 'Moonshot',
       description:
-        "Have an idea that doesn't fit a standard box? Pitch moonshots across healthcare, clean energy, smart campuses, accessibility, or social impact.",
-      icon: 'Sparkles',
-      color: '#BE4C00',
+        'Pitch any idea that makes campus, community or the planet better.',
     },
   ] as TrackData[],
 
   schedule: [
     {
-      id: 's1',
       day: 'DAY 1',
       time: '09:00',
-      label: 'Registration & Check-in',
-      description: 'Doors open, badge pickup, team networking, and hacker kit distribution.',
-      icon: 'Clock',
+      title: 'Registration & Check-in',
+      description: 'Doors open, badge pickup & kit distribution.',
     },
     {
-      id: 's2',
       day: 'DAY 1',
       time: '10:30',
-      label: 'Inauguration & Keynote',
-      description: 'Opening ceremony, problem statement reveals, and guest addresses.',
-      icon: 'Sparkles',
+      title: 'Inauguration',
+      description: 'Opening ceremony & keynote address.',
     },
     {
-      id: 's3',
       day: 'DAY 1',
       time: '12:00',
-      label: 'Hacking Begins',
-      description: 'The 24-hour clock officially ticks! Start your engines and push initial repos.',
-      icon: 'Rocket',
+      title: 'Hacking Begins',
+      description: '24-hour innovation sprint starts.',
     },
     {
-      id: 's4',
       day: 'DAY 1',
       time: '20:00',
-      label: 'Mentor Round 1',
-      description: 'Technical evaluation, architecture review, and live feedback from industry mentors.',
-      icon: 'Users',
+      title: 'Mentor Round',
+      description: 'Architecture review and technical guidance.',
     },
     {
-      id: 's5',
       day: 'DAY 2',
       time: '02:00',
-      label: 'Midnight Snacks & Mini-Games',
-      description: 'Energy reboots, laser tag, Mario Kart tournaments, and hot coffee.',
-      icon: 'Gamepad2',
+      title: 'Midnight Break',
+      description: 'Energy refresh, midnight coffee & mini games.',
     },
     {
-      id: 's6',
       day: 'DAY 2',
       time: '09:00',
-      label: 'Mentor Round 2',
-      description: 'Final code audit, demo test run, and polish before submission freeze.',
-      icon: 'Target',
+      title: 'Mentor Round 2',
+      description: 'Final code polish & demo review.',
     },
     {
-      id: 's7',
       day: 'DAY 2',
       time: '12:00',
-      label: 'Hacking Ends',
-      description: 'Code freeze! Commit push, presentation uploads, and demo setup.',
-      icon: 'Lock',
+      title: 'Hacking Ends',
+      description: 'Submission freeze & project showcase setup.',
     },
     {
-      id: 's8',
       day: 'DAY 2',
       time: '14:00',
-      label: 'Final Pitches',
-      description: 'Top shortlisted teams pitch live before the grand jury panel.',
-      icon: 'Trophy',
+      title: 'Final Pitches',
+      description: 'Top squads pitch live to grand jury.',
     },
     {
-      id: 's9',
       day: 'DAY 2',
       time: '17:00',
-      label: 'Prize Distribution & Closing',
-      description: 'Announcing winners, handing awards, certificates, and celebration photo session.',
-      icon: 'Award',
+      title: 'Prizes & Closing',
+      description: 'Winner announcements & award ceremony.',
     },
   ] as MilestoneData[],
 
@@ -224,135 +166,105 @@ export const EVENT_DATA = {
     {
       id: 'p1',
       number: '01',
+      label: 'Winner',
       category: 'Grand Champion',
-      name: 'Winner',
       amount: 25000,
       displayAmount: '₹25,000',
       perks: [
-        'Hard Cash Prize of ₹25,000',
-        'Official Lakshya Bullseye Trophy',
-        'Direct Fast-Track Mentorship',
-        'Exclusive Swag & Merit Certificates',
+        'Direct cash grant of ₹25,000',
+        'Official Lakshya Gold Bullseye Trophy',
+        'Direct mentorship & fast-track incubation',
+        'Exclusive swag kit & certificate of excellence',
       ],
-      tier: 'gold',
+      illustration: 'trophy',
     },
     {
       id: 'p2',
       number: '02',
+      label: 'Runner-Up',
       category: '1st Runner-Up',
-      name: 'Runner-Up',
       amount: 15000,
       displayAmount: '₹15,000',
       perks: [
-        'Hard Cash Prize of ₹15,000',
+        'Direct cash grant of ₹15,000',
         'Official Lakshya Silver Trophy',
-        'Developer Toolkits & API Credits',
-        'Swag Pack & Certificates of Merit',
+        'Cloud API toolkits & developer credits',
+        'Merit certificate & premium swag',
       ],
-      tier: 'silver',
+      illustration: 'medal',
     },
     {
       id: 'p3',
       number: '03',
-      category: 'Category Excellence',
-      name: 'Track Winners & Special Prizes',
+      label: 'Special Awards',
+      category: 'Track & Innovation Bounties',
       amount: 5000,
       displayAmount: '₹5,000',
       perks: [
-        'Cash Bounty for Best Innovation',
-        'Best First-Year Rookie Squad Award',
-        'Best UI/UX Polish Award',
-        'Sponsor Tooling & Certificates',
+        'Cash bounty for best rookie & innovative projects',
+        'Best UI/UX Polish Category Award',
+        'Sponsor tooling credits & vouchers',
+        'Official certificate of commendation',
       ],
-      tier: 'bronze',
+      illustration: 'stars',
     },
-  ] as PrizeCardData[],
-
-  judgingCriteria: [
-    {
-      name: 'Innovation & Originality',
-      weight: 25,
-      description: 'How novel and creative is the solution compared to existing products?',
-    },
-    {
-      name: 'Technical Complexity',
-      weight: 25,
-      description: 'Depth of engineering, architecture soundness, and code craftsmanship.',
-    },
-    {
-      name: 'Real-World Impact',
-      weight: 20,
-      description: 'Market viability, scalability, and ability to solve genuine user problems.',
-    },
-    {
-      name: 'Design & User Experience',
-      weight: 15,
-      description: 'Elegance of UI, ergonomics, accessibility, and visual polish.',
-    },
-    {
-      name: 'Presentation & Pitch',
-      weight: 15,
-      description: 'Clarity of communication, live demo execution, and handling Q&A.',
-    },
-  ] as CriterionData[],
+  ] as PrizeData[],
 
   sponsors: [
-    { id: 'sp1', name: 'DevFolio', category: 'Platform Partner', icon: 'Terminal', tier: 'platinum' },
-    { id: 'sp2', name: 'Polygon', category: 'Web3 Sponsor', icon: 'Layers', tier: 'platinum' },
-    { id: 'sp3', name: 'GitHub', category: 'Developer Partner', icon: 'Code2', tier: 'gold' },
-    { id: 'sp4', name: 'Vercel', category: 'Deployment Partner', icon: 'Rocket', tier: 'gold' },
-    { id: 'sp5', name: 'Supabase', category: 'Backend Partner', icon: 'Database', tier: 'silver' },
-    { id: 'sp6', name: 'Postman', category: 'API Partner', icon: 'Send', tier: 'silver' },
-    { id: 'sp7', name: 'Auth0', category: 'Security Sponsor', icon: 'Shield', tier: 'silver' },
-    { id: 'sp8', name: 'Resend', category: 'Communication', icon: 'Mail', tier: 'partner' },
+    { id: 'sp1', name: 'GITHUB CAMPUS', category: 'Platform Partner' },
+    { id: 'sp2', name: 'POLYGON LABS', category: 'Web3 Sponsor' },
+    { id: 'sp3', name: 'VERCEL', category: 'Deployment Partner' },
+    { id: 'sp4', name: 'POSTMAN', category: 'API Partner' },
+    { id: 'sp5', name: 'DEVPOST', category: 'Hackathon Community' },
+    { id: 'sp6', name: 'AWS STARTUPS', category: 'Cloud Infrastructure' },
+    { id: 'sp7', name: 'SUPABASE', category: 'Database Partner' },
   ] as SponsorData[],
 
   faqs: [
     {
       id: 'f1',
-      question: 'Who can participate in Lakshya’26?',
+      question: 'Who can participate in Lakshya\'26?',
       answer:
-        'Any currently enrolled undergraduate, postgraduate, or diploma college student from any recognized institution across India can participate. Inter-college teams are fully permitted!',
+        'Undergraduate and graduate students from any accredited college or university across India are welcome. You only need a valid college ID card to enter.',
     },
     {
       id: 'f2',
-      question: 'What is the team size limit?',
+      question: 'What is the permitted team size?',
       answer:
-        'Teams can consist of 2 to 4 members. You can either register with your squad pre-formed, or find teammates in our pre-event Discord networking channel.',
+        'Teams can consist of 2 to 4 members. Inter-college and inter-branch teams are fully allowed and encouraged.',
     },
     {
       id: 'f3',
       question: 'Is there any registration fee?',
       answer:
-        'Zero! Lakshya’26 is 100% free for all shortlisted teams, including complimentary food, snacks, hacker kits, and Wi-Fi access.',
+        'Zero. Participation in Lakshya\'26 is completely free of cost. Food, beverages, mentor guidance, and hacker kits are provided by the organizers.',
     },
     {
       id: 'f4',
-      question: 'What should we bring with us to the venue?',
+      question: 'What should we bring with us?',
       answer:
-        'Bring your laptop, chargers, hardware kits (if participating in IoT), valid college ID card, government photo ID, water bottle, and your passion to build!',
+        'Bring your laptops, chargers, extension cords, personal hardware components (if competing in IoT/Robotics), student ID cards, and your ambition.',
     },
     {
       id: 'f5',
       question: 'Will food and accommodation be provided?',
       answer:
-        'Yes! Full meals (lunch, dinner, breakfast), midnight pizzas, 24/7 coffee, and dedicated resting zones inside SJBIT campus are arranged for all confirmed participants.',
+        'Yes. All meals, midnight coffee, energy snacks, and designated rest/recharge zones are arranged inside the SJBIT campus throughout the 24 hours.',
     },
     {
       id: 'f6',
-      question: 'Can our project belong to multiple tracks?',
+      question: 'Can teams submit to multiple tracks?',
       answer:
-        'You choose one primary track upon final submission for category prize evaluation, but your project is still eligible for the Grand Champion and special awards.',
+        'Each project must declare one primary track upon final submission, though cross-disciplinary solutions bridging multiple domains are welcomed.',
     },
   ] as FAQItem[],
 
   contacts: {
-    email: 'lakshya26@sjbit.edu.in',
-    phone: '+91 98765 43210',
-    location: 'BGS Health & Education City, Kengeri, Bengaluru, Karnataka 560060',
-    instagram: 'https://instagram.com/lakshya_sjbit',
-    linkedin: 'https://linkedin.com/company/sjbit-lakshya',
-    github: 'https://github.com/lakshya26',
-    discord: 'https://discord.gg/lakshya26',
+    email: 'lakshya@sjbit.edu.in',
+    phone: '+91 98450 12345',
+    address: 'SJBIT, BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bangalore - 560060',
+    instagram: 'https://instagram.com',
+    linkedin: 'https://linkedin.com',
+    github: 'https://github.com',
   },
 };

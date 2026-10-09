@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Kanit', sans-serif;
+  --font-heading: 'Kanit', sans-serif;
 }
 
 *, *::before, *::after {
@@ -14,7 +13,7 @@
 
 html {
   background-color: #0C0C0C;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Kanit', sans-serif;
   color: #D7E2EA;
 }
 
@@ -25,16 +24,13 @@ body, #root {
 
 body {
   overflow-x: clip;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 h1, h2, h3, h4, .font-heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Kanit', sans-serif;
   letter-spacing: -0.02em;
 }
-
-/* Native cursor is preserved for fluid, 0-latency control */
-
 
 /* Accessible focus outline */
 :focus-visible {
@@ -43,14 +39,22 @@ h1, h2, h3, h4, .font-heading {
 }
 
 .hero-heading {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: linear-gradient(180deg, #FFFFFF 0%, #BBCCD7 60%, #646973 100%);
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
 }
 
-/* Accent gradient */
+/* Single Accent Gradient across the site */
 .accent-gradient-bg {
   background: linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%);
+}
+
+.border-hairline {
+  border-color: rgba(215, 226, 234, 0.12);
+}
+
+.text-muted {
+  color: rgba(215, 226, 234, 0.6);
 }

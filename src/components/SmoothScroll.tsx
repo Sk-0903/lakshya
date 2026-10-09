@@ -7,13 +7,14 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 0.9,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1,
+      syncTouch: false, // Ensure native smooth touch scrolling on mobile
     });
 
     let animationFrameId: number;
@@ -23,7 +24,7 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
     }
     animationFrameId = requestAnimationFrame(raf);
 
-    // Expose lenis instance globally for smooth scrollTo triggers if needed
+    // Expose lenis instance globally for smooth scrollTo triggers
     (window as any).__lenis = lenis;
 
     return () => {

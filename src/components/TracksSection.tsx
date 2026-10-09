@@ -1,74 +1,95 @@
-import React, { useState } from 'react';
-import { Cpu, Code2, Layers, Radio, Sparkles } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { FadeIn } from './FadeIn';
-import { EVENT_DATA, TrackData } from '../data/event';
-
-const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
-  Cpu,
-  Code2,
-  Layers,
-  Radio,
-  Sparkles,
-};
+import { EVENT_DATA } from '../data/event';
 
 export const TracksSection: React.FC = () => {
+  const [nearestIndex, setNearestIndex] = useState<number | null>(null);
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const centerY = window.innerHeight / 2;
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      rowRefs.current.forEach((el, idx) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const rowCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(centerY - rowCenter);
+        if (dist < minDistance) {
+          minDistance = dist;
+          closestIdx = idx;
+        }
+      });
+
+      // If section is roughly in view, activate center focus
+      if (minDistance < window.innerHeight * 0.4) {
+        setNearestIndex(closestIdx);
+      } else {
+        setNearestIndex(null);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section
       id="tracks"
-      className="bg-[#0C0C0C] text-[#D7E2EA] px-6 sm:px-10 py-28 sm:py-36 w-full relative select-none border-t border-white/[0.06]"
+      className="bg-[#FFFFFF] text-[#0C0C0C] rounded-t-[48px] py-36 md:py-48 px-6 md:px-10 relative z-10 select-none overflow-hidden"
     >
       <div className="max-w-5xl mx-auto">
-        {/* Section Heading */}
-        <FadeIn delay={0} y={20}>
-          <div className="text-center mb-16 sm:mb-20">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#B600A8]" />
-              <span>5 Core Innovation Pillars</span>
-            </div>
-            <h2 className="hero-heading font-heading font-black uppercase text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
-              Challenge Tracks
-            </h2>
-            <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-lg mx-auto">
-              Choose your domain, assemble your team, and build a working solution over 24 hours.
-            </p>
-          </div>
+        {/* Section Label: 02 — Tracks */}
+        <FadeIn delay={0} y={16}>
+          <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#0C0C0C]/50 font-mono block mb-4">
+            02 &mdash; Tracks
+          </span>
         </FadeIn>
 
-        {/* 5 Spacious Track Rows */}
-        <div className="flex flex-col border-t border-white/10">
-          {EVENT_DATA.tracks.map((track, index) => {
-            const IconComponent = ICON_MAP[track.icon] || Sparkles;
+        {/* Section Heading: Tracks */}
+        <FadeIn delay={0.1} y={20}>
+          <h2 className="font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] text-[#0C0C0C] tracking-tight leading-none mb-16 sm:mb-20">
+            Tracks
+          </h2>
+        </FadeIn>
+
+        {/* 5 Vertical Rows with 1px dark hairline between rows */}
+        <div className="flex flex-col border-t border-[#0C0C0C]/10">
+          {EVENT_DATA.tracks.map((track, idx) => {
+            const isCenterFocused = nearestIndex === null || nearestIndex === idx;
 
             return (
-              <FadeIn key={track.id} delay={index * 0.08} y={15}>
+              <FadeIn key={track.number} delay={idx * 0.08} y={20}>
                 <div
-                  className="relative group flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-10 py-8 sm:py-10 border-b border-white/10 hover:border-white/20 transition-all cursor-pointer"
+                  ref={(el) => {
+                    rowRefs.current[idx] = el;
+                  }}
+                  className={`group relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-10 py-10 md:py-14 border-b border-[#0C0C0C]/10 transition-opacity duration-300 cursor-pointer ${
+                    isCenterFocused ? 'opacity-100' : 'opacity-40 hover:opacity-100'
+                  }`}
                 >
-                  {/* Row Hover Background Accent */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl -mx-4 px-4" />
-
-                  {/* Left Number */}
-                  <div className="font-heading font-black text-4xl sm:text-5xl md:text-6xl text-white/30 group-hover:text-cyan-400 leading-none shrink-0 tracking-tight transition-colors duration-300 w-24">
+                  {/* Left: Number with 12px hover shift */}
+                  <div className="font-heading font-black text-[clamp(2.5rem,8vw,7rem)] text-[#0C0C0C] leading-none shrink-0 tracking-tight transition-transform duration-300 group-hover:translate-x-3 w-32 md:w-44">
                     {track.number}
                   </div>
 
-                  {/* Center Title + Description */}
-                  <div className="flex flex-col gap-2 flex-1 max-w-2xl relative z-10">
-                    <div className="inline-block relative">
-                      <h3 className="font-heading font-bold uppercase text-xl sm:text-2xl text-white group-hover:text-cyan-200 tracking-tight transition-colors">
-                        {track.name}
-                      </h3>
-                      <span className="block h-[2px] w-full bg-gradient-to-r from-[#B600A8] via-[#7621B0] to-[#BE4C00] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left mt-1" />
-                    </div>
-
-                    <p className="font-normal leading-relaxed text-xs sm:text-sm text-[#D7E2EA]/70">
+                  {/* Center/Right: Name + Description */}
+                  <div className="flex-1 max-w-xl">
+                    <h3 className="font-heading font-medium uppercase text-[clamp(1.1rem,2.2vw,2rem)] text-[#0C0C0C] tracking-tight leading-snug mb-2">
+                      {track.name}
+                    </h3>
+                    <p className="font-light text-[clamp(0.95rem,1.1vw,1.1rem)] text-[#0C0C0C]/60 leading-relaxed">
                       {track.description}
                     </p>
                   </div>
 
-                  {/* Right Icon Box */}
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/[0.04] border border-white/10 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 transition-all duration-300 shrink-0">
-                    <IconComponent className="w-5 h-5 text-white/60 group-hover:text-cyan-300 transition-colors duration-300" />
+                  {/* Far Right: ArrowUpRight fades in on hover */}
+                  <div className="hidden md:flex items-center justify-end w-12 shrink-0">
+                    <ArrowUpRight className="w-8 h-8 text-[#0C0C0C] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </div>
               </FadeIn>

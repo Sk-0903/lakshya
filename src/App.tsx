@@ -1,75 +1,52 @@
 import React from 'react';
 import { SmoothScroll } from './components/SmoothScroll';
 import { ScrollProgress } from './components/ScrollProgress';
-import { SpotlightGrid } from './components/SpotlightGrid';
-import { SectionDots } from './components/SectionDots';
-import { HeroSection } from './components/HeroSection';
-import { MarqueeSection } from './components/MarqueeSection';
+import { Navbar } from './components/Navbar';
+import { ScrollSequence } from './components/ScrollSequence';
 import { AboutSection } from './components/AboutSection';
 import { TracksSection } from './components/TracksSection';
 import { TimelineSection } from './components/TimelineSection';
 import { PrizesSection } from './components/PrizesSection';
-import { JudgingSection } from './components/JudgingSection';
 import { SponsorsSection } from './components/SponsorsSection';
 import { RegisterSection } from './components/RegisterSection';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  const scrollToRegister = () => {
-    const el = document.getElementById('register');
-    if (el) {
-      if ((window as any).__lenis) {
-        (window as any).__lenis.scrollTo(el, { offset: -20 });
-      } else {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
-
   return (
     <SmoothScroll>
       <div
-        className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-cyan-200"
+        className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-white"
         style={{ overflowX: 'clip' }}
       >
-        {/* Top Fixed Accent Progress Bar */}
+        {/* Fixed Top 2px Accent Scroll Progress Bar */}
         <ScrollProgress />
 
-        {/* Fixed Background Subtle Grid Texture + Ambient Cursor Spotlight */}
-        <SpotlightGrid />
+        {/* Fixed Navigation Bar */}
+        <Navbar />
 
-        {/* Fixed Right-Edge Section Dots Nav */}
-        <SectionDots />
+        {/* 1. HERO: Signature Scroll-Scrubbed Video Sequence (id="top") */}
+        <ScrollSequence />
 
-        {/* 1. HERO SECTION */}
-        <HeroSection onRegisterClick={scrollToRegister} />
+        {/* 2. ABOUT: Character-by-Character Animated Text + Stats Strip (id="about") */}
+        <AboutSection />
 
-        {/* 2. MARQUEE SECTION */}
-        <MarqueeSection />
-
-        {/* 3. ABOUT SECTION */}
-        <AboutSection onRegisterClick={scrollToRegister} />
-
-        {/* 4. TRACKS SECTION */}
+        {/* 3. TRACKS: Clean White Section with Hover Focus Interaction (id="tracks") */}
         <TracksSection />
 
-        {/* 5. TIMELINE SECTION (2-Day Tabbed Roadmap) */}
+        {/* 4. SCHEDULE: Pinned Horizontal Scrub Timeline on Desktop (id="schedule") */}
         <TimelineSection />
 
-        {/* 6. PRIZES SECTION (Clean 3-Column Awards Deck) */}
-        <PrizesSection onRegisterClick={scrollToRegister} />
+        {/* 5. PRIZES: 3 Sticky-Stacking Cards with Thin-Line SVG Illustrations (id="prizes") */}
+        <PrizesSection />
 
-        {/* 7. JUDGING SECTION */}
-        <JudgingSection />
-
-        {/* 8. SPONSORS SECTION */}
+        {/* 6. SPONSORS: Calm Understated Scroll Marquee (id="sponsors") */}
         <SponsorsSection />
 
-        {/* 9. REGISTER SECTION (+ 3-Step Form + Confetti + FAQ Accordion) */}
+        {/* 7. FAQ + REGISTER: 6 Accordion Items + High-Impact CTA (id="faq" & id="register") */}
         <RegisterSection />
 
-        {/* 10. FOOTER (+ Giant Title + Contact Links + Back to Top) */}
-        <Footer onRegisterClick={scrollToRegister} />
+        {/* 8. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}
+        <Footer />
       </div>
     </SmoothScroll>
   );

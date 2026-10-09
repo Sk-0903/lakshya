@@ -9,37 +9,35 @@ interface StatItemProps {
   label: string;
 }
 
-const StatItem: React.FC<StatItemProps> = ({ finalNumber, suffix = '', prefix = '', label }) => {
+const StatItem: React.FC<StatItemProps> = ({
+  finalNumber,
+  suffix = '',
+  prefix = '',
+  label,
+}) => {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-40px' });
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   useEffect(() => {
     if (isInView) {
       const controls = animate(0, finalNumber, {
-        duration: 1.8,
-        ease: 'easeOut',
-        onUpdate: (value) => {
-          setDisplayValue(Math.floor(value));
-        },
+        duration: 1.6,
+        ease: [0.25, 0.1, 0.25, 1],
+        onUpdate: (val) => setDisplayValue(Math.floor(val)),
       });
       return () => controls.stop();
     }
   }, [isInView, finalNumber]);
 
-  const formattedDisplay =
-    finalNumber >= 100000
-      ? `${(displayValue / 100000).toFixed(1)}L`
-      : displayValue.toLocaleString();
-
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center p-6 text-center select-none">
-      <div className="hero-heading font-black tracking-tight leading-none text-[clamp(2.5rem,8vw,110px)] mb-2">
+    <div ref={ref} className="flex flex-col items-center justify-center p-6 sm:p-8 text-center select-none">
+      <div className="hero-heading font-heading font-black tracking-tight leading-none text-[clamp(2.5rem,6vw,5.5rem)] mb-3">
         {prefix}
-        {formattedDisplay}
+        {displayValue.toLocaleString()}
         {suffix}
       </div>
-      <span className="text-xs sm:text-sm uppercase tracking-widest font-light text-[#D7E2EA]/70">
+      <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono">
         {label}
       </span>
     </div>
@@ -48,25 +46,25 @@ const StatItem: React.FC<StatItemProps> = ({ finalNumber, suffix = '', prefix = 
 
 export const StatsStrip: React.FC = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto border-y border-[#D7E2EA]/20 my-16 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#D7E2EA]/15">
+    <div className="w-full max-w-5xl mx-auto border-y border-[#D7E2EA]/12 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#D7E2EA]/12">
       <StatItem
-        finalNumber={EVENT_DATA.metrics.hoursNum}
-        label="Relentless Sprints"
-        suffix=" HRS"
+        finalNumber={EVENT_DATA.durationHours}
+        label="Hours"
+        suffix=" Hours"
       />
       <StatItem
-        finalNumber={EVENT_DATA.metrics.participantsNum}
-        label="Elite Hackers"
+        finalNumber={EVENT_DATA.participantsCount}
+        label="Participants"
         suffix="+"
       />
       <StatItem
-        finalNumber={EVENT_DATA.metrics.prizePoolNum}
+        finalNumber={EVENT_DATA.prizePoolAmount}
         label="Prize Pool"
         prefix="₹"
       />
       <StatItem
-        finalNumber={EVENT_DATA.metrics.tracksCountNum}
-        label="Domains of Impact"
+        finalNumber={EVENT_DATA.tracksCount}
+        label="Tracks"
         suffix=" Tracks"
       />
     </div>

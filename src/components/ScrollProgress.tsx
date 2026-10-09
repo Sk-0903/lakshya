@@ -11,7 +11,7 @@ export const ScrollProgress: React.FC = () => {
         transformOrigin: 'left',
         background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
       }}
-      className="fixed top-0 left-0 right-0 h-[3px] z-50 pointer-events-none shadow-[0_0_12px_rgba(182,0,168,0.6)]"
+      className="fixed top-0 left-0 right-0 h-[2px] z-50 pointer-events-none"
     />
   );
 };

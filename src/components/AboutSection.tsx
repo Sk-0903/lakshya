@@ -1,66 +1,41 @@
 import React from 'react';
-import { Target, Sparkles } from 'lucide-react';
 import { FadeIn } from './FadeIn';
-import { ContactButton } from './ContactButton';
-import { TerminalCard } from './TerminalCard';
+import { AnimatedText } from './AnimatedText';
 import { StatsStrip } from './StatsStrip';
 import { EVENT_DATA } from '../data/event';
 
-interface AboutSectionProps {
-  onRegisterClick?: () => void;
-}
-
-export const AboutSection: React.FC<AboutSectionProps> = ({ onRegisterClick }) => {
+export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen bg-[#0C0C0C] flex flex-col justify-center items-center px-6 sm:px-10 py-32 overflow-hidden select-none"
+      className="relative min-h-screen bg-[#0C0C0C] text-[#D7E2EA] flex flex-col justify-center items-center py-28 sm:py-36 md:py-48 px-6 md:px-10 border-t border-[#D7E2EA]/12 select-none"
     >
-
-
-      {/* Main Content Column with Generous Vertical Rhythm */}
-      <div className="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto w-full">
-        {/* Section Badge */}
-        <FadeIn delay={0} y={15}>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono uppercase tracking-widest text-[#BBCCD7] mb-8">
-            <Target className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Mission &bull; Lakshya &apos;26</span>
-          </div>
+      <div className="max-w-6xl mx-auto w-full flex flex-col items-center text-center">
+        {/* Section Label: 01 — About */}
+        <FadeIn delay={0} y={16}>
+          <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-6">
+            01 &mdash; About
+          </span>
         </FadeIn>
 
         {/* Section Heading */}
-        <FadeIn delay={0.1} y={25}>
-          <h2 className="hero-heading font-heading font-black uppercase tracking-tight text-center text-5xl sm:text-6xl md:text-7xl mb-8">
-            Aim Higher. Build Bold.
+        <FadeIn delay={0.1} y={20}>
+          <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none mb-12">
+            About Lakshya
           </h2>
         </FadeIn>
 
-        {/* Breathable, Legible About Paragraph */}
-        <FadeIn delay={0.2} y={20} className="w-full max-w-2xl mx-auto">
-          <p className="text-[#D7E2EA]/85 font-normal text-base sm:text-lg leading-relaxed text-center">
-            {EVENT_DATA.aboutParagraph}
-          </p>
-        </FadeIn>
-
-        {/* CTA Button */}
-        <FadeIn delay={0.3} y={20} className="mt-12">
-          <ContactButton
-            label="Register Your Squad"
-            onClick={onRegisterClick}
-            href="#register"
+        {/* Scrubbed Character-by-Character Animated Text */}
+        <div className="w-full max-w-[640px] mx-auto text-center px-4">
+          <AnimatedText
+            text={EVENT_DATA.aboutText}
+            className="text-[clamp(1rem,1.3vw,1.25rem)] font-light leading-relaxed text-[#D7E2EA]"
           />
-        </FadeIn>
-
-        {/* Live Typing Terminal Card with Spaced Margin */}
-        <div className="mt-20 w-full flex justify-center">
-          <FadeIn delay={0.35} y={25} className="w-full flex justify-center">
-            <TerminalCard />
-          </FadeIn>
         </div>
 
-        {/* Stats Strip with Distinct Spacing */}
-        <div className="w-full mt-16">
-          <FadeIn delay={0.4} y={25}>
+        {/* Stats Strip with Generous mt-24 Spacing */}
+        <div className="w-full mt-24">
+          <FadeIn delay={0.2} y={24}>
             <StatsStrip />
           </FadeIn>
         </div>
