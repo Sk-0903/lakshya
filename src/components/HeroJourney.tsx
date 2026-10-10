@@ -648,7 +648,7 @@ export const HeroJourney: React.FC = () => {
         {/* Step 1: 0.66 to 0.77 -> Assembling Lakshya'26 Letters + Tagline */}
         <motion.div
           style={{ opacity: step1Opacity, scale: step1Scale }}
-          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10"
         >
           <div className="max-w-5xl mx-auto flex flex-col items-center">
             <h1
@@ -676,7 +676,7 @@ export const HeroJourney: React.FC = () => {
         {/* Step 2: 0.77 to 0.85 -> [24] hours (Left) + SJBIT (Right) */}
         <motion.div
           style={{ opacity: step2Opacity }}
-          className="absolute inset-0 flex items-center justify-center p-6 text-center pointer-events-none"
+          className="absolute inset-0 flex items-center justify-center p-6 text-center pointer-events-none z-10"
         >
           <div className="max-w-4xl mx-auto flex flex-col items-center">
             <motion.h2
@@ -697,7 +697,7 @@ export const HeroJourney: React.FC = () => {
         {/* Step 3: 0.85 to 0.93 -> Heading (Top) + Countdown (Bottom) */}
         <motion.div
           style={{ opacity: step3Opacity }}
-          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10"
         >
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
             <div className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-white/60">
@@ -718,7 +718,7 @@ export const HeroJourney: React.FC = () => {
         {/* Step 4: 0.93 to 1.00 -> Heading (Top) + Register button (Bottom) */}
         <motion.div
           style={{ opacity: step4Opacity }}
-          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
+          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
         >
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-emerald-400">
