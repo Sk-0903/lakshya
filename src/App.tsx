@@ -7,7 +7,6 @@ import { AboutSection } from './components/AboutSection';
 import { TracksSection } from './components/TracksSection';
 import { TimelineSection } from './components/TimelineSection';
 import { PrizesSection } from './components/PrizesSection';
-import { SponsorsSection } from './components/SponsorsSection';
 import { RegisterSection } from './components/RegisterSection';
 import { Footer } from './components/Footer';
 
@@ -39,10 +38,7 @@ export default function App() {
         {/* 5. PRIZES: 3 Sticky-Stacking Cards with Thin-Line SVG Illustrations (id="prizes") */}
         <PrizesSection />
 
-        {/* 6. SPONSORS: Calm Understated Scroll Marquee (id="sponsors") */}
-        <SponsorsSection />
-
-        {/* 7. FAQ + REGISTER: 6 Accordion Items + High-Impact CTA (id="faq" & id="register") */}
+        {/* 6. FAQ + REGISTER: Clean FAQ Accordion + High-Impact Framed CTA (id="faq" & id="register") */}
         <RegisterSection />
 
         {/* 8. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}

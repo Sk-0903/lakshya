@@ -30,17 +30,17 @@ export const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#0C0C0C] text-[#D7E2EA] border-t border-[#D7E2EA]/12 pt-20 sm:pt-24 md:pt-28 pb-8 overflow-hidden relative select-none"
+      className="bg-[#0C0C0C] text-[#D7E2EA] border-t border-[#D7E2EA]/12 pt-24 sm:pt-32 md:pt-36 pb-10 overflow-hidden relative select-none"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
         {/* Three Columns Grid: Desktop 1.4fr : 1fr : 1.2fr (5 cols, 3 cols, 4 cols) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-16 pb-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 md:gap-16 lg:gap-20 pb-16 items-start">
           {/* Col 1: Brand + Tagline (lg:col-span-5) */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             <span className="font-heading font-black text-2xl uppercase tracking-tight text-white block">
               Lakshya&apos;26
             </span>
-            <p className="text-sm font-light text-[#D7E2EA]/75 max-w-[40ch] leading-[1.65]">
+            <p className="text-sm font-light text-[#D7E2EA]/75 max-w-[42ch] leading-[1.7]">
               Where students come together for 24 hours of non-stop building, learning and breaking limits at {EVENT_DATA.collegeName}.
             </p>
             <span className="text-[12px] uppercase font-mono tracking-[0.25em] text-[#D7E2EA]/50 mt-1 block">
@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/60 mb-2 block">
               Navigation
             </span>
-            <nav className="flex flex-col gap-2.5">
+            <nav className="flex flex-col gap-3">
               {[
                 { label: 'About Lakshya', href: '#about' },
                 { label: 'Innovation Tracks', href: '#tracks' },
@@ -156,7 +156,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Giant "Lakshya'26" in .hero-heading rising in via scroll scrub (Contained, no overflow) */}
-      <div className="w-full overflow-hidden relative flex justify-center items-end mt-4">
+      <div className="w-full overflow-hidden relative flex justify-center items-end mt-16 sm:mt-24 md:mt-28">
         <motion.div
           style={{ y: giantTextY, opacity: giantTextOpacity }}
           className="w-full flex justify-center overflow-hidden"
