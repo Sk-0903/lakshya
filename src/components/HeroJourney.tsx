@@ -31,12 +31,12 @@ const ConvergingHeroLetter: React.FC<{
   progress: any;
   isReducedMotion: boolean;
 }> = ({ item, progress, isReducedMotion }) => {
-  // Mapped across segment B step (0.66 to 0.76)
-  const x = useTransform(progress, [0.66, 0.72, 0.76], [`${item.initX}vw`, '0vw', '0vw']);
-  const y = useTransform(progress, [0.66, 0.72, 0.76], [`${item.initY}vh`, '0vh', '0vh']);
-  const rotate = useTransform(progress, [0.66, 0.72, 0.76], [item.initRot, 0, 0]);
-  const scale = useTransform(progress, [0.66, 0.72, 0.76, 0.77], [item.initScale, 1, 1, 1.06]);
-  const opacity = useTransform(progress, [0.66, 0.70, 0.75, 0.77], [0, 0.95, 1, 0]);
+  // Mapped across extended segment B step (0.50 to 0.63)
+  const x = useTransform(progress, [0.50, 0.56, 0.61], [`${item.initX}vw`, '0vw', '0vw']);
+  const y = useTransform(progress, [0.50, 0.56, 0.61], [`${item.initY}vh`, '0vh', '0vh']);
+  const rotate = useTransform(progress, [0.50, 0.56, 0.61], [item.initRot, 0, 0]);
+  const scale = useTransform(progress, [0.50, 0.56, 0.61, 0.63], [item.initScale, 1, 1, 1.05]);
+  const opacity = useTransform(progress, [0.50, 0.54, 0.60, 0.63], [0, 0.95, 1, 0]);
 
   if (isReducedMotion) {
     return <span className="inline-block">{item.char}</span>;
@@ -60,7 +60,7 @@ export const HeroJourney: React.FC = () => {
   const [useFallback, setUseFallback] = useState(false);
   const isVisibleRef = useRef(true);
 
-  // Scroll Progress across 600vh desktop / 480vh mobile
+  // Scroll Progress across expanded 850vh desktop / 650vh mobile
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -76,27 +76,27 @@ export const HeroJourney: React.FC = () => {
   // Scroll Indicator only visible at start
   const scrollIndicatorOpacity = useTransform(smoothProgress, [0, 0.04, 0.07], [1, 1, 0]);
 
-  // Lakshya Text Steps mapped to Segment B range: 0.66 to 0.97
-  // Step 1: 0.66 to 0.77 -> Assembling "Lakshya'26" letters + tagline
-  const step1Opacity = useTransform(smoothProgress, [0.66, 0.70, 0.75, 0.77], [0, 1, 1, 0]);
-  const step1Scale = useTransform(smoothProgress, [0.66, 0.71, 0.75, 0.77], [0.98, 1, 1, 1.06]);
-  const taglineY = useTransform(smoothProgress, [0.68, 0.72, 0.76], [28, 0, -14]);
-  const taglineOpacity = useTransform(smoothProgress, [0.68, 0.71, 0.75, 0.77], [0, 1, 1, 0]);
+  // Lakshya Text Steps mapped to expanded Segment B range: 0.50 to 1.00
+  // Step 1: 0.50 to 0.63 -> Assembling "Lakshya'26" letters + tagline
+  const step1Opacity = useTransform(smoothProgress, [0.50, 0.54, 0.60, 0.63], [0, 1, 1, 0]);
+  const step1Scale = useTransform(smoothProgress, [0.50, 0.55, 0.60, 0.63], [0.98, 1, 1, 1.05]);
+  const taglineY = useTransform(smoothProgress, [0.52, 0.56, 0.61], [28, 0, -14]);
+  const taglineOpacity = useTransform(smoothProgress, [0.52, 0.55, 0.60, 0.63], [0, 1, 1, 0]);
 
-  // Step 2: 0.77 to 0.85 -> 24 Hours. 500+ Builders. One Goal.
-  const step2Opacity = useTransform(smoothProgress, [0.77, 0.79, 0.83, 0.85], [0, 1, 1, 0]);
-  const step2HeadingX = useTransform(smoothProgress, [0.77, 0.79, 0.83, 0.85], [-36, 0, 0, -36]);
-  const step2BrandX = useTransform(smoothProgress, [0.77, 0.79, 0.83, 0.85], [36, 0, 0, 36]);
+  // Step 2: 0.63 to 0.75 -> 24 Hours. 500+ Builders. One Goal.
+  const step2Opacity = useTransform(smoothProgress, [0.63, 0.66, 0.72, 0.75], [0, 1, 1, 0]);
+  const step2HeadingX = useTransform(smoothProgress, [0.63, 0.66, 0.72, 0.75], [-36, 0, 0, -36]);
+  const step2BrandX = useTransform(smoothProgress, [0.63, 0.66, 0.72, 0.75], [36, 0, 0, 36]);
 
-  // Step 3: 0.85 to 0.93 -> The Clock is Ticking + Countdown
-  const step3Opacity = useTransform(smoothProgress, [0.85, 0.87, 0.91, 0.93], [0, 1, 1, 0]);
-  const step3HeadingY = useTransform(smoothProgress, [0.85, 0.87, 0.91, 0.93], [-30, 0, 0, -30]);
-  const step3CountdownY = useTransform(smoothProgress, [0.85, 0.87, 0.91, 0.93], [40, 0, 0, 40]);
+  // Step 3: 0.75 to 0.87 -> The Clock is Ticking + Countdown
+  const step3Opacity = useTransform(smoothProgress, [0.75, 0.78, 0.84, 0.87], [0, 1, 1, 0]);
+  const step3HeadingY = useTransform(smoothProgress, [0.75, 0.78, 0.84, 0.87], [-30, 0, 0, -30]);
+  const step3CountdownY = useTransform(smoothProgress, [0.75, 0.78, 0.84, 0.87], [40, 0, 0, 40]);
 
-  // Step 4: 0.93 to 1.00 -> Registrations are open + Magnetic Register button (holds till end)
-  const step4Opacity = useTransform(smoothProgress, [0.93, 0.95, 1], [0, 1, 1]);
-  const step4HeadingY = useTransform(smoothProgress, [0.93, 0.95, 1], [-24, 0, 0]);
-  const step4ButtonY = useTransform(smoothProgress, [0.93, 0.95, 1], [28, 0, 0]);
+  // Step 4: 0.87 to 1.00 -> Registrations are open + Magnetic Register button (holds till end)
+  const step4Opacity = useTransform(smoothProgress, [0.87, 0.90, 1], [0, 1, 1]);
+  const step4HeadingY = useTransform(smoothProgress, [0.87, 0.90, 1], [-24, 0, 0]);
+  const step4ButtonY = useTransform(smoothProgress, [0.87, 0.90, 1], [28, 0, 0]);
 
   // Device inspection
   useEffect(() => {
@@ -246,10 +246,10 @@ export const HeroJourney: React.FC = () => {
       const loadRemainingA = async () => {
         while (pendingA.size > 0 && !isCancelled) {
           const currentP = currentScrollPRef.current;
-          // Approximate target in A (0.0 to 0.42)
+          // Approximate target in A (0.0 to 0.34)
           const targetIndex = Math.max(
             startFrameA,
-            Math.min(totalFramesA, Math.round(startFrameA + (currentP / 0.42) * (totalFramesA - startFrameA)))
+            Math.min(totalFramesA, Math.round(startFrameA + (currentP / 0.34) * (totalFramesA - startFrameA)))
           );
           const sorted = Array.from(pendingA).sort((a, b) => Math.abs(a - targetIndex) - Math.abs(b - targetIndex));
           const batch = sorted.slice(0, 10);
@@ -269,7 +269,7 @@ export const HeroJourney: React.FC = () => {
         }
       };
 
-      // In parallel: Preload Segment B (guarantee B's first 30 frames are ready before progress 0.50)
+      // In parallel: Preload Segment B (guarantee B's first 30 frames are ready before progress 0.40)
       const preloadB = async () => {
         // 1. First 30 frames of B
         const first30B = Array.from({ length: Math.min(30, totalFramesB) }, (_, i) => i + 1);
@@ -290,8 +290,8 @@ export const HeroJourney: React.FC = () => {
 
         while (pendingB.size > 0 && !isCancelled) {
           const currentP = currentScrollPRef.current;
-          // Approximate target in B (0.66 to 0.97)
-          const targetIndex = Math.max(1, Math.min(totalFramesB, Math.round(((currentP - 0.66) / 0.31) * (totalFramesB - 1)) + 1));
+          // Approximate target in B (0.50 to 0.90)
+          const targetIndex = Math.max(1, Math.min(totalFramesB, Math.round(((currentP - 0.50) / 0.40) * (totalFramesB - 1)) + 1));
           const sorted = Array.from(pendingB).sort((a, b) => Math.abs(a - targetIndex) - Math.abs(b - targetIndex));
           const batch = sorted.slice(0, 10);
 
@@ -444,41 +444,41 @@ export const HeroJourney: React.FC = () => {
   }, [useFallback, drawProceduralTarget]);
 
   // Evaluation & Mapping Logic:
-  // 0.00 - 0.42: Segment A frames startFrameA to totalFramesA
-  // 0.42 - 0.50: Hold A's last frame, push-in scale 1.0 to 1.04
-  // 0.50 - 0.60: EXIT: scale 1.04 to 1.3, alpha falls 1 -> 0 (gentle dip through black)
-  // 0.60 - 0.66: Near-black beat. Segment B frame 1 fades in (alpha 0 -> 1, scale 1.10 -> 1.0)
-  // 0.66 - 0.97: Segment B frames 1 to totalFramesB, scale 1.0, alpha 1.0
-  // 0.97 - 1.00: Hold B's last frame
+  // 0.00 - 0.34: Segment A frames startFrameA to totalFramesA
+  // 0.34 - 0.40: Hold A's last frame, push-in scale 1.0 to 1.04
+  // 0.40 - 0.46: EXIT: scale 1.04 to 1.25, alpha falls 1 -> 0 (gentle dip through black)
+  // 0.46 - 0.50: Near-black beat. Segment B frame 1 emerges from dark (scale 1.08 -> 1.0, alpha 0 -> 1)
+  // 0.50 - 0.90: Segment B frames 1 to totalFramesB (slow, relaxed scrub across 40% of scroll space)
+  // 0.90 - 1.00: Hold B's last frame with Register CTA
   const evaluateAndDraw = useCallback((p: number) => {
     currentScrollPRef.current = p;
 
-    if (p <= 0.42) {
+    if (p <= 0.34) {
       // Segment A playback starting a few seconds before the logo emergence
-      const segAProg = Math.max(0, Math.min(1, p / 0.42));
+      const segAProg = Math.max(0, Math.min(1, p / 0.34));
       const rawIdx = Math.round(startFrameA + segAProg * (totalFramesA - startFrameA));
       const frameIdx = Math.max(startFrameA, Math.min(totalFramesA, rawIdx));
       drawToCanvas('A', frameIdx, 1.0, 1.0, p, segAProg);
-    } else if (p <= 0.50) {
+    } else if (p <= 0.40) {
       // Hold A's last frame with very slow push-in scale (1.0 -> 1.04)
-      const holdProg = (p - 0.42) / 0.08;
+      const holdProg = (p - 0.34) / 0.06;
       const scale = 1.0 + holdProg * 0.04;
       drawToCanvas('A', totalFramesA, scale, 1.0, p, 1.0);
-    } else if (p <= 0.60) {
-      // Exit A: scale 1.04 -> 1.30, alpha 1.0 -> 0.0
-      const exitProg = (p - 0.50) / 0.10;
-      const scale = 1.04 + exitProg * 0.26;
+    } else if (p <= 0.46) {
+      // Exit A: scale 1.04 -> 1.25, alpha 1.0 -> 0.0
+      const exitProg = (p - 0.40) / 0.06;
+      const scale = 1.04 + exitProg * 0.21;
       const alpha = 1.0 - exitProg;
       drawToCanvas('A', totalFramesA, scale, alpha, p, 1.0);
-    } else if (p <= 0.66) {
-      // Near-black beat: Segment B Frame 1 emerges from dark (scale 1.10 -> 1.0, alpha 0 -> 1)
-      const beatProg = (p - 0.60) / 0.06;
-      const scale = 1.10 - beatProg * 0.10;
+    } else if (p <= 0.50) {
+      // Near-black beat: Segment B Frame 1 emerges from dark (scale 1.08 -> 1.0, alpha 0 -> 1)
+      const beatProg = (p - 0.46) / 0.04;
+      const scale = 1.08 - beatProg * 0.08;
       const alpha = beatProg;
       drawToCanvas('B', 1, scale, alpha, p, 0);
-    } else if (p <= 0.97) {
-      // Segment B playback
-      const segBProg = (p - 0.66) / 0.31;
+    } else if (p <= 0.90) {
+      // Segment B playback: relaxed, cinematic scrub matching Swamiji's pace
+      const segBProg = (p - 0.50) / 0.40;
       const rawIdx = Math.round(segBProg * (totalFramesB - 1)) + 1;
       const frameIdx = Math.max(1, Math.min(totalFramesB, rawIdx));
       drawToCanvas('B', frameIdx, 1.0, 1.0, p, 0);
@@ -609,7 +609,7 @@ export const HeroJourney: React.FC = () => {
     <section
       id="top"
       ref={containerRef}
-      className={`relative w-full ${isMobile ? 'h-[480vh]' : 'h-[600vh]'} select-none`}
+      className={`relative w-full ${isMobile ? 'h-[650vh]' : 'h-[850vh]'} select-none`}
     >
       {/* Screen reader semantic description */}
       <div className="sr-only">
