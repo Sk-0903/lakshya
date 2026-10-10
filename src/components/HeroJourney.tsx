@@ -456,7 +456,24 @@ export const HeroJourney: React.FC = () => {
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
-  }, [isMobile]);
+  }, [isMobile, evaluateAndDraw]);
+
+  // Initial draw on mount using HTMLImageElement preload
+  useEffect(() => {
+    const img = new Image();
+    img.src = getFrameUrlA(startFrameA);
+    const onLoad = () => {
+      if (!cacheARef.current.has(startFrameA)) {
+        cacheARef.current.set(startFrameA, img);
+      }
+      renderFrameImmediate();
+    };
+    if (img.complete) {
+      onLoad();
+    } else {
+      img.onload = onLoad;
+    }
+  }, [getFrameUrlA, startFrameA, renderFrameImmediate]);
 
   // IntersectionObserver to pause rendering when offscreen
   useEffect(() => {
@@ -586,9 +603,10 @@ export const HeroJourney: React.FC = () => {
 
       {/* Sticky Viewport Stage (100svh, top 0) */}
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0C0C0C]">
-        {/* Render Canvas (feathered top and bottom edges via 12% gradient mask) */}
-        <canvas
-          ref={canvasRef}
+        {/* Instant Poster Image (guarantees zero flash on initial page paint before canvas paint) */}
+        <img
+          src={getFrameUrlA(startFrameA)}
+          alt=""
           aria-hidden="true"
           style={{
             maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
@@ -597,8 +615,19 @@ export const HeroJourney: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
 
+        {/* Render Canvas (feathered top and bottom edges via 12% gradient mask) */}
+        <canvas
+          ref={canvasRef}
+          aria-hidden="true"
+          style={{
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+          }}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1]"
+        />
+
         {/* Ambient Dark Vignette for Ultra-Crisp Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/35 to-[#0C0C0C]/60 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/35 to-[#0C0C0C]/60 pointer-events-none z-[2]" />
 
         {/* ================= OVERLAY TEXT STEPS ================= */}
 
