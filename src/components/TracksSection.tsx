@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { FadeIn } from './FadeIn';
 import { ConvergeText } from './motion/ConvergeText';
-import { SectionCurtain } from './motion/SectionCurtain';
 import { useConvergeConfig } from './motion/useConvergeConfig';
 import { EVENT_DATA } from '../data/event';
 
@@ -43,25 +42,25 @@ export const TracksSection: React.FC = () => {
   }, []);
 
   return (
-    <SectionCurtain id="tracks" overlap={48} roundedClass="rounded-t-[48px]">
-      <section
-        className="bg-[#FFFFFF] text-[#0C0C0C] rounded-t-[48px] py-36 md:py-48 px-6 md:px-10 relative z-10 select-none overflow-hidden"
-      >
-        <div className="max-w-5xl mx-auto">
-          {/* Section Label: 02 — Tracks */}
-          <FadeIn delay={0} y={16}>
-            <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#0C0C0C]/50 font-mono block mb-4">
-              02 &mdash; Tracks
-            </span>
-          </FadeIn>
+    <section
+      id="tracks"
+      className="bg-[#FFFFFF] text-[#0C0C0C] py-28 sm:py-36 md:py-44 px-6 md:px-10 relative z-10 select-none overflow-hidden"
+    >
+      <div className="max-w-5xl mx-auto">
+        {/* Section Label: 02 — Tracks */}
+        <FadeIn delay={0} y={16}>
+          <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#0C0C0C]/50 font-mono block mb-4">
+            02 &mdash; Tracks
+          </span>
+        </FadeIn>
 
-          {/* Section Heading: Tracks (Assembled via ConvergeText) */}
-          <div className="mb-16 sm:mb-20">
-            <ConvergeText
-              text="Tracks"
-              className="font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] text-[#0C0C0C] tracking-tight leading-none block"
-            />
-          </div>
+        {/* Section Heading: Tracks (Assembled via ConvergeText) */}
+        <div className="mb-16 sm:mb-20">
+          <ConvergeText
+            text="Tracks"
+            className="font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] text-[#0C0C0C] tracking-tight leading-none block"
+          />
+        </div>
 
           {/* 5 Vertical Rows with alternating entrance & self-drawing dividers */}
           <div className="flex flex-col border-t border-[#0C0C0C]/10">
@@ -132,6 +131,5 @@ export const TracksSection: React.FC = () => {
           </div>
         </div>
       </section>
-    </SectionCurtain>
   );
 };
