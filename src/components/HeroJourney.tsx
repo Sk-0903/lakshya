@@ -349,17 +349,17 @@ export const HeroJourney: React.FC = () => {
       return;
     }
 
-    // Always clear/fill #0C0C0C first
-    ctx.fillStyle = '#0C0C0C';
-    ctx.fillRect(0, 0, canvasW, canvasH);
-
     if (useFallback) {
+      ctx.fillStyle = '#0C0C0C';
+      ctx.fillRect(0, 0, canvasW, canvasH);
       drawProceduralTarget(ctx, canvasW, canvasH, progressVal);
       lastStateRef.current = { segment, frameIndex, scale: scaleTransform, alpha: globalAlpha, p: progressVal };
       return;
     }
 
     if (segment === 'NONE' || globalAlpha <= 0.001) {
+      ctx.fillStyle = '#0C0C0C';
+      ctx.fillRect(0, 0, canvasW, canvasH);
       lastStateRef.current = { segment, frameIndex, scale: scaleTransform, alpha: globalAlpha, p: progressVal };
       return;
     }
@@ -370,7 +370,7 @@ export const HeroJourney: React.FC = () => {
     // If exact frame is loading, find closest loaded frame in the same segment
     if (!img) {
       let closestDist = Infinity;
-      let closestIdx = 1;
+      let closestIdx = -1;
       for (const idx of cache.keys()) {
         const dist = Math.abs(idx - frameIndex);
         if (dist < closestDist) {
@@ -378,14 +378,28 @@ export const HeroJourney: React.FC = () => {
           closestIdx = idx;
         }
       }
-      img = cache.get(closestIdx);
+      if (closestIdx !== -1) {
+        img = cache.get(closestIdx);
+      }
+    }
+
+    // If still no img, check if DOM poster image is available (instant frame 48)
+    if (!img && segment === 'A') {
+      const posterEl = document.getElementById('hero-poster-frame') as HTMLImageElement;
+      if (posterEl && posterEl.complete && posterEl.naturalWidth > 0) {
+        img = posterEl;
+      }
     }
 
     if (!img) {
-      // In near-black beat or before ready, hold solid black rather than showing stale frames
+      // Keep canvas transparent so eager poster <img> is 100% visible immediately without black flash!
+      ctx.clearRect(0, 0, canvasW, canvasH);
       lastStateRef.current = { segment, frameIndex, scale: scaleTransform, alpha: globalAlpha, p: progressVal };
       return;
     }
+
+    // Clear canvas cleanly for drawing
+    ctx.clearRect(0, 0, canvasW, canvasH);
 
     const imgW = img.width;
     const imgH = img.height;
@@ -606,24 +620,19 @@ export const HeroJourney: React.FC = () => {
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0C0C0C]">
         {/* Instant Poster Image (guarantees zero flash on initial page paint before canvas paint) */}
         <img
+          id="hero-poster-frame"
           src={getFrameUrlA(startFrameA)}
-          alt=""
+          alt="Lakshya 26 Initial Circuit Tunnel"
           aria-hidden="true"
-          style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-          }}
+          fetchPriority="high"
+          loading="eager"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
 
-        {/* Render Canvas (feathered top and bottom edges via 12% gradient mask) */}
+        {/* Render Canvas */}
         <canvas
           ref={canvasRef}
           aria-hidden="true"
-          style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-          }}
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1]"
         />
 
