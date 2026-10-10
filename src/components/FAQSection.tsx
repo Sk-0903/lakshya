@@ -20,22 +20,22 @@ export const FAQSection: React.FC = () => {
     >
       <div className="max-w-[880px] mx-auto px-5 sm:px-8">
         {/* Centered Clean Header */}
-        <div className="text-center mb-16 sm:mb-20">
-          <FadeIn delay={0} y={12}>
-            <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 block mb-3 sm:mb-4">
+        <div className="w-full flex flex-col items-center justify-center text-center mb-16 sm:mb-20">
+          <FadeIn delay={0} y={12} className="w-full flex flex-col items-center justify-center text-center">
+            <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center block mb-3 sm:mb-4">
               05 &mdash; QUESTIONS
             </span>
           </FadeIn>
-          <FadeIn delay={0.1} y={16}>
+          <FadeIn delay={0.1} y={16} className="w-full flex flex-col items-center justify-center text-center">
             <h2
               id="faq-heading"
-              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5rem)] tracking-tight leading-[0.95] text-balance mb-5"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5rem)] tracking-tight leading-[0.95] text-center w-full mx-auto mb-5 block"
             >
               Frequently Asked Questions
             </h2>
           </FadeIn>
-          <FadeIn delay={0.15} y={16}>
-            <p className="text-sm sm:text-base font-light text-[#D7E2EA]/65 leading-relaxed max-w-[50ch] mx-auto">
+          <FadeIn delay={0.15} y={16} className="w-full flex flex-col items-center justify-center text-center">
+            <p className="text-sm sm:text-base font-light text-[#D7E2EA]/65 leading-relaxed max-w-[52ch] text-center w-full mx-auto block">
               Everything you need to know about eligibility, rules, teams, and the 24-hour sprint.
             </p>
           </FadeIn>
