@@ -108,6 +108,7 @@ export const HeroJourney: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const startFrameA = isMobile ? EVENT_DATA.segmentA.startFrameMobile : EVENT_DATA.segmentA.startFrameDesktop;
   const totalFramesA = isMobile ? EVENT_DATA.segmentA.mobileFrames : EVENT_DATA.segmentA.desktopFrames;
   const totalFramesB = isMobile ? EVENT_DATA.segmentB.mobileFrames : EVENT_DATA.segmentB.desktopFrames;
   const folderA = isMobile ? 'a/mobile' : 'a/desktop';
@@ -211,7 +212,7 @@ export const HeroJourney: React.FC = () => {
   };
 
   // Progressive Preloading Pipeline:
-  // 1. Load A frame 1 immediately (instant poster).
+  // 1. Load A start frame immediately (instant poster).
   // 2. Load Segment A in batches prioritized near current progress.
   // 3. In background, load Segment B (first 30 frames guaranteed before progress 0.50).
   useEffect(() => {
@@ -223,27 +224,32 @@ export const HeroJourney: React.FC = () => {
 
     const startLoading = async () => {
       try {
-        // Poster frame (A frame 1)
-        const frameA1 = await fetchSingleFrame(getFrameUrlA(1));
+        // Poster frame (A at trimmed startFrame)
+        const frameAStart = await fetchSingleFrame(getFrameUrlA(startFrameA));
         if (!isCancelled) {
-          cacheA.set(1, frameA1);
+          cacheA.set(startFrameA, frameAStart);
           renderFrameImmediate();
         }
       } catch (err) {
-        console.warn('Hero frame A1 failed, enabling fallback:', err);
+        console.warn('Hero frame A poster failed, enabling fallback:', err);
         if (!isCancelled) setUseFallback(true);
         return;
       }
 
-      // Preload Segment A (all frames)
+      // Preload Segment A (from startFrameA to totalFramesA)
       const pendingA = new Set<number>();
-      for (let i = 2; i <= totalFramesA; i++) pendingA.add(i);
+      for (let i = startFrameA; i <= totalFramesA; i++) {
+        if (i !== startFrameA) pendingA.add(i);
+      }
 
       const loadRemainingA = async () => {
         while (pendingA.size > 0 && !isCancelled) {
           const currentP = currentScrollPRef.current;
           // Approximate target in A (0.0 to 0.42)
-          const targetIndex = Math.max(1, Math.min(totalFramesA, Math.round((currentP / 0.42) * (totalFramesA - 1)) + 1));
+          const targetIndex = Math.max(
+            startFrameA,
+            Math.min(totalFramesA, Math.round(startFrameA + (currentP / 0.42) * (totalFramesA - startFrameA)))
+          );
           const sorted = Array.from(pendingA).sort((a, b) => Math.abs(a - targetIndex) - Math.abs(b - targetIndex));
           const batch = sorted.slice(0, 10);
 
@@ -424,8 +430,8 @@ export const HeroJourney: React.FC = () => {
 
   // Immediate frame render helper
   const renderFrameImmediate = useCallback(() => {
-    drawToCanvas('A', 1, 1, 1, 0, 0);
-  }, [drawToCanvas]);
+    drawToCanvas('A', startFrameA, 1, 1, 0, 0);
+  }, [drawToCanvas, startFrameA]);
 
   // Canvas Resizing with devicePixelRatio cap (2 desktop, 1.5 mobile)
   useEffect(() => {
@@ -468,7 +474,7 @@ export const HeroJourney: React.FC = () => {
   }, []);
 
   // Evaluation & Mapping Logic:
-  // 0.00 - 0.42: Segment A frames 1 to totalFramesA
+  // 0.00 - 0.42: Segment A frames startFrameA to totalFramesA
   // 0.42 - 0.50: Hold A's last frame, push-in scale 1.0 to 1.04
   // 0.50 - 0.60: EXIT: scale 1.04 to 1.3, alpha falls 1 -> 0 (gentle dip through black)
   // 0.60 - 0.66: Near-black beat. Segment B frame 1 fades in (alpha 0 -> 1, scale 1.10 -> 1.0)
@@ -478,10 +484,10 @@ export const HeroJourney: React.FC = () => {
     currentScrollPRef.current = p;
 
     if (p <= 0.42) {
-      // Segment A playback
+      // Segment A playback starting a few seconds before the logo emergence
       const segAProg = Math.max(0, Math.min(1, p / 0.42));
-      const rawIdx = Math.round(segAProg * (totalFramesA - 1)) + 1;
-      const frameIdx = Math.max(1, Math.min(totalFramesA, rawIdx));
+      const rawIdx = Math.round(startFrameA + segAProg * (totalFramesA - startFrameA));
+      const frameIdx = Math.max(startFrameA, Math.min(totalFramesA, rawIdx));
       drawToCanvas('A', frameIdx, 1.0, 1.0, p, segAProg);
     } else if (p <= 0.50) {
       // Hold A's last frame with very slow push-in scale (1.0 -> 1.04)
@@ -510,7 +516,7 @@ export const HeroJourney: React.FC = () => {
       // Hold B's last frame till 1.00
       drawToCanvas('B', totalFramesB, 1.0, 1.0, p, 0);
     }
-  }, [totalFramesA, totalFramesB, drawToCanvas]);
+  }, [startFrameA, totalFramesA, totalFramesB, drawToCanvas]);
 
   // Hook smooth progress changes to RAF draw
   useEffect(() => {

@@ -64,12 +64,17 @@ export const EVENT_DATA = {
   segmentA: {
     desktopFrames: 240,
     mobileFrames: 120,
+    // Trim initial tunnel sequence so the journey starts a few seconds before the logo emergence (frame 48 desktop, frame 24 mobile)
+    startFrameDesktop: 48,
+    startFrameMobile: 24,
     desktopPath: '/frames/a/desktop',
     mobilePath: '/frames/a/mobile',
   },
   segmentB: {
     desktopFrames: 240,
     mobileFrames: 120,
+    startFrameDesktop: 1,
+    startFrameMobile: 1,
     desktopPath: '/frames/b/desktop',
     mobilePath: '/frames/b/mobile',
   },
