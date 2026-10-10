@@ -1,139 +1,176 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { SectionHeader } from './SectionHeader';
 import { FadeIn } from './FadeIn';
 import { EVENT_DATA } from '../data/event';
 
 export const TimelineSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  // Map 0 to 1 scroll progress to horizontal translation percentage
-  // Total 9 cards with min-w-[30vw] and gap-6 -> ~-70% total translation
-  const xTranslate = useTransform(scrollYProgress, [0, 1], ['5%', '-72%']);
-  const progressLineWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+  const day1Items = EVENT_DATA.schedule.filter((item) => item.day === 'DAY 1');
+  const day2Items = EVENT_DATA.schedule.filter((item) => item.day === 'DAY 2');
 
   return (
     <section
       id="schedule"
-      ref={containerRef}
-      className="bg-[#0C0C0C] text-[#D7E2EA] relative select-none md:h-[300vh]"
+      aria-labelledby="schedule-heading"
+      className="bg-[#0C0C0C] text-[#D7E2EA] py-20 sm:py-[104px] md:py-32 border-t border-[#D7E2EA]/12 select-none"
     >
-      {/* ================= DESKTOP PINNED HORIZONTAL TRACK ================= */}
-      <div className="hidden md:flex sticky top-0 h-screen w-full flex-col justify-between overflow-hidden py-14 px-8 md:px-14">
-        {/* Header Row */}
-        <div className="max-w-6xl w-full mx-auto flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
+        {/* Unified Section Header */}
+        <SectionHeader
+          label="03 — SCHEDULE"
+          title="24-HOUR TIMELINE"
+          headingId="schedule-heading"
+          className="mb-12 sm:mb-14 md:mb-16"
+        />
+
+        {/* ================= DESKTOP & TABLET: RESPONSIVE CARDS GRID ================= */}
+        <div className="hidden md:flex flex-col gap-12 sm:gap-14">
+          {/* Day 1 Group */}
           <div>
-            <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-2">
-              03 &mdash; Schedule
-            </span>
-            <h2 className="hero-heading font-heading font-black uppercase text-4xl sm:text-5xl tracking-tight leading-none">
-              24-Hour Timeline
-            </h2>
+            <div className="flex items-center gap-3 mb-6 pb-3 border-b border-[#D7E2EA]/12">
+              <span className="w-2 h-2 rounded-full bg-[#B600A8]" />
+              <h3 className="text-xs font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/70">
+                Day 1 &mdash; Thursday, 05 November
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+              {day1Items.map((item, idx) => {
+                const phaseNum = (idx + 1).toString().padStart(2, '0');
+                return (
+                  <FadeIn key={`d1-${item.time}`} delay={idx * 0.05} y={16} className="h-full">
+                    <div className="h-full rounded-2xl border border-[#D7E2EA]/12 bg-[#101015] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200 hover:border-[#B600A8]/50 min-w-0">
+                      <div>
+                        {/* Row 1: Day Badge & Phase */}
+                        <div className="flex items-center justify-between gap-2 mb-6">
+                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-full border border-[#B600A8]/30 bg-[#B600A8]/10 text-fuchsia-300">
+                            {item.day}
+                          </span>
+                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#D7E2EA]/50">
+                            Phase {phaseNum}
+                          </span>
+                        </div>
+
+                        {/* Large Fluid Gradient Time with Tabular Numerals */}
+                        <div className="hero-heading font-heading font-black text-[clamp(2rem,3.8vw,3.25rem)] tracking-tight leading-none tabular-nums whitespace-nowrap mb-4">
+                          {item.time}
+                        </div>
+
+                        {/* Title */}
+                        <h4 className="font-heading font-medium uppercase text-base sm:text-lg text-white tracking-tight leading-snug mb-2">
+                          {item.title}
+                        </h4>
+                      </div>
+
+                      {/* Description */}
+                      <p className="font-light text-sm text-[#D7E2EA]/70 leading-relaxed mt-3">
+                        {item.description}
+                      </p>
+                    </div>
+                  </FadeIn>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Thin Progress Rail with Dot */}
-          <div className="w-56 h-[2px] bg-[#D7E2EA]/12 relative rounded-full overflow-hidden">
-            <motion.div
-              style={{ width: progressLineWidth }}
-              className="h-full bg-gradient-to-r from-[#B600A8] to-[#BE4C00]"
-            />
+          {/* Day 2 Group */}
+          <div>
+            <div className="flex items-center gap-3 mb-6 pb-3 border-b border-[#D7E2EA]/12">
+              <span className="w-2 h-2 rounded-full bg-[#BE4C00]" />
+              <h3 className="text-xs font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/70">
+                Day 2 &mdash; Friday, 06 November
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+              {day2Items.map((item, idx) => {
+                const phaseNum = (idx + 5).toString().padStart(2, '0');
+                return (
+                  <FadeIn key={`d2-${item.time}`} delay={idx * 0.05} y={16} className="h-full">
+                    <div className="h-full rounded-2xl border border-[#D7E2EA]/12 bg-[#101015] p-6 sm:p-7 flex flex-col justify-between transition-colors duration-200 hover:border-[#BE4C00]/50 min-w-0">
+                      <div>
+                        {/* Row 1: Day Badge & Phase */}
+                        <div className="flex items-center justify-between gap-2 mb-6">
+                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-full border border-[#BE4C00]/30 bg-[#BE4C00]/10 text-amber-300">
+                            {item.day}
+                          </span>
+                          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#D7E2EA]/50">
+                            Phase {phaseNum}
+                          </span>
+                        </div>
+
+                        {/* Large Fluid Gradient Time with Tabular Numerals */}
+                        <div className="hero-heading font-heading font-black text-[clamp(2rem,3.8vw,3.25rem)] tracking-tight leading-none tabular-nums whitespace-nowrap mb-4">
+                          {item.time}
+                        </div>
+
+                        {/* Title */}
+                        <h4 className="font-heading font-medium uppercase text-base sm:text-lg text-white tracking-tight leading-snug mb-2">
+                          {item.title}
+                        </h4>
+                      </div>
+
+                      {/* Description */}
+                      <p className="font-light text-sm text-[#D7E2EA]/70 leading-relaxed mt-3">
+                        {item.description}
+                      </p>
+                    </div>
+                  </FadeIn>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        {/* Horizontal Scrolling Flex Track */}
-        <div className="w-full my-auto overflow-hidden">
-          <motion.div
-            style={{ x: xTranslate }}
-            className="flex items-center gap-6 will-change-transform"
-          >
-            {EVENT_DATA.schedule.map((item, idx) => (
-              <div
-                key={`${item.time}-${idx}`}
-                className="min-w-[30vw] max-w-[34vw] rounded-3xl border border-[#D7E2EA]/12 bg-[#101015]/80 p-8 md:p-10 flex flex-col justify-between shrink-0 transition-transform duration-300 hover:border-[#D7E2EA]/25"
-              >
-                {/* Day Tag */}
-                <div className="flex items-center justify-between mb-8">
-                  <span
-                    className={`text-[0.7rem] font-mono uppercase tracking-[0.25em] px-3 py-1 rounded-full border ${
-                      item.day === 'DAY 1'
-                        ? 'border-[#B600A8]/40 bg-[#B600A8]/10 text-fuchsia-300'
-                        : 'border-[#BE4C00]/40 bg-[#BE4C00]/10 text-amber-300'
-                    }`}
-                  >
-                    {item.day}
-                  </span>
-                  <span className="text-xs font-mono text-[#D7E2EA]/40">
-                    PHASE 0{idx + 1}
-                  </span>
-                </div>
+        {/* ================= MOBILE: CLEAN VERTICAL TIMELINE ================= */}
+        <div className="md:hidden">
+          <div className="relative pl-6 border-l border-[#D7E2EA]/12 flex flex-col gap-6">
+            {EVENT_DATA.schedule.map((item, idx) => {
+              const phaseNum = (idx + 1).toString().padStart(2, '0');
+              const isDay1 = item.day === 'DAY 1';
 
-                {/* Big Gradient Time */}
-                <div className="hero-heading font-heading font-black text-[clamp(2.5rem,5vw,4.5rem)] tracking-tight leading-none mb-4">
-                  {item.time}
-                </div>
+              return (
+                <FadeIn key={`mob-${item.time}`} delay={idx * 0.04} y={12}>
+                  <div className="relative rounded-2xl border border-[#D7E2EA]/12 bg-[#101015] p-5 sm:p-6 min-w-0">
+                    {/* Node marker on vertical rail line */}
+                    <span
+                      className={`absolute -left-[31px] top-6 w-2.5 h-2.5 rounded-full ring-4 ring-[#0C0C0C] ${
+                        isDay1 ? 'bg-[#B600A8]' : 'bg-[#BE4C00]'
+                      }`}
+                    />
 
-                {/* Title & Description */}
-                <div>
-                  <h3 className="font-heading font-medium uppercase text-lg text-white tracking-tight mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="font-light text-sm text-[#D7E2EA]/60 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+                    {/* Badge & Phase */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span
+                        className={`text-[10px] font-mono uppercase tracking-[0.2em] px-2 py-0.5 rounded-full border ${
+                          isDay1
+                            ? 'border-[#B600A8]/30 bg-[#B600A8]/10 text-fuchsia-300'
+                            : 'border-[#BE4C00]/30 bg-[#BE4C00]/10 text-amber-300'
+                        }`}
+                      >
+                        {item.day}
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#D7E2EA]/50">
+                        Phase {phaseNum}
+                      </span>
+                    </div>
 
-        {/* Footer Hint */}
-        <div className="max-w-6xl w-full mx-auto flex items-center justify-between text-xs font-mono text-[#D7E2EA]/40">
-          <span>05-06 NOVEMBER 2026</span>
-          <span>SCROLL DOWN TO PROGRESS</span>
-        </div>
-      </div>
+                    {/* Time */}
+                    <div className="hero-heading font-heading font-black text-3xl tabular-nums whitespace-nowrap mb-2">
+                      {item.time}
+                    </div>
 
-      {/* ================= MOBILE CLEAN VERTICAL TIMELINE ================= */}
-      <div className="md:hidden py-24 px-6">
-        <div className="mb-12">
-          <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-2">
-            03 &mdash; Schedule
-          </span>
-          <h2 className="hero-heading font-heading font-black uppercase text-4xl tracking-tight leading-none">
-            Schedule
-          </h2>
-        </div>
+                    {/* Title */}
+                    <h4 className="font-heading font-medium uppercase text-base text-white tracking-tight leading-snug mb-1">
+                      {item.title}
+                    </h4>
 
-        {/* Vertical Rail */}
-        <div className="relative pl-6 border-l border-[#D7E2EA]/12 flex flex-col gap-6">
-          {EVENT_DATA.schedule.map((item, idx) => (
-            <FadeIn key={`mob-${item.time}-${idx}`} delay={idx * 0.05} y={15}>
-              <div className="relative rounded-3xl border border-[#D7E2EA]/12 bg-[#101015] p-6">
-                {/* Node marker on vertical line */}
-                <span className="absolute -left-[31px] top-7 w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#B600A8] to-[#BE4C00] ring-4 ring-[#0C0C0C]" />
-
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#D7E2EA]/50">
-                    {item.day}
-                  </span>
-                  <span className="font-heading font-black text-2xl hero-heading">
-                    {item.time}
-                  </span>
-                </div>
-
-                <h3 className="font-heading font-medium uppercase text-base text-white tracking-tight mb-1">
-                  {item.title}
-                </h3>
-                <p className="font-light text-xs text-[#D7E2EA]/60 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
+                    {/* Description */}
+                    <p className="font-light text-xs text-[#D7E2EA]/70 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

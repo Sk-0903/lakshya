@@ -34,7 +34,7 @@ export const AnimatedText: React.FC<{
   return (
     <p
       ref={containerRef}
-      className={`font-light leading-relaxed text-[#D7E2EA] select-none text-center ${className}`}
+      className={`font-light leading-[1.65] text-[#D7E2EA] select-none text-pretty ${className}`}
     >
       {chars.map((char, index) => (
         <CharSpan
