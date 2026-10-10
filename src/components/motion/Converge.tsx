@@ -104,7 +104,7 @@ export const Converge: React.FC<ConvergeProps> = ({
           opacity,
           filter: filterBlur,
         }}
-        className="w-full h-full"
+        className={`w-full h-full ${className.includes('justify-center') ? 'flex flex-col items-center justify-center text-center' : ''}`}
       >
         {children}
       </motion.div>
