@@ -254,7 +254,7 @@ export const EVENT_DATA = {
       id: 'f3',
       question: 'Is there any registration fee?',
       answer:
-        'Zero. Participation in Lakshya\'26 is completely free of cost. Food, beverages, mentor guidance, and hacker kits are provided by the organizers.',
+        'The registration fee is ₹1,000 per squad (2 to 4 members). This covers 24-hour hackathon participation, all meals, energy snacks, mentor reviews, hacker kit, and full eligibility for all track prizes.',
     },
     {
       id: 'f4',

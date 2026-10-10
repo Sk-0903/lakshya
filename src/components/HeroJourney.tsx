@@ -727,8 +727,8 @@ export const HeroJourney: React.FC = () => {
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
         >
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
-            <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-emerald-400">
-              LIMITED SPOTS AVAILABLE
+            <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-amber-300">
+              LIMITED SPOTS AVAILABLE &bull; ENTRY: ₹1,000 / SQUAD
             </span>
             <motion.h2
               style={{ y: step4HeadingY }}

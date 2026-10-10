@@ -53,12 +53,12 @@ export const CTASection: React.FC = () => {
           </Converge>
 
           {/* Main High-Impact Heading */}
-          <div className="w-full flex justify-center mb-6 sm:mb-8">
+          <div className="w-full flex justify-center items-center text-center mb-6 sm:mb-8">
             <h2
               id="cta-heading"
-              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5.5rem)] tracking-tight leading-[1.02] text-center w-full mx-auto text-balance"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5.5rem)] tracking-tight leading-[1.02] text-center w-full mx-auto"
             >
-              <ConvergeText text="READY TO AIM HIGHER?" mode="words" stagger={0.06} />
+              <ConvergeText text="READY TO AIM HIGHER?" mode="words" stagger={0.06} className="text-center" />
             </h2>
           </div>
 
@@ -76,7 +76,7 @@ export const CTASection: React.FC = () => {
               <span className="text-[#D7E2EA]/30">&bull;</span>
               <span>SJBIT BANGALORE</span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
-              <span className="text-cyan-300 font-medium">FREE ENTRY</span>
+              <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD</span>
             </div>
           </Converge>
 

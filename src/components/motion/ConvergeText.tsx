@@ -43,9 +43,9 @@ export const ConvergeText: React.FC<ConvergeTextProps> = ({
   }
 
   return (
-    <div ref={containerRef} className="inline-block relative">
+    <div ref={containerRef} className="inline-block relative w-full text-center">
       <Component id={id} className={className} aria-label={text}>
-        <span className="inline-flex flex-wrap items-baseline gap-x-[0.25em]" aria-hidden="true">
+        <span className="inline-flex flex-wrap items-baseline justify-center gap-x-[0.25em] w-full text-center" aria-hidden="true">
           {tokens.map((token, idx) => {
             // Deterministic scattered offsets per token
             const seed = (idx * 37) % 100;
