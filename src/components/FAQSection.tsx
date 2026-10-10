@@ -16,9 +16,13 @@ export const FAQSection: React.FC = () => {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-28 sm:py-36 md:py-44 border-t border-[#D7E2EA]/12 select-none"
+      className="bg-[#0C0C0C] text-[#D7E2EA] py-32 sm:py-44 md:py-52 border-t border-[#D7E2EA]/12 select-none relative"
     >
-      <div className="max-w-[880px] mx-auto px-5 sm:px-8">
+      {/* Horizontally centered container with guaranteed margin: 0 auto */}
+      <div
+        className="w-full px-5 sm:px-8"
+        style={{ maxWidth: '860px', margin: '0 auto' }}
+      >
         {/* Centered Clean Header */}
         <div className="w-full flex flex-col items-center justify-center text-center mb-16 sm:mb-20">
           <FadeIn delay={0} y={12} className="w-full flex flex-col items-center justify-center text-center">
@@ -29,7 +33,7 @@ export const FAQSection: React.FC = () => {
           <FadeIn delay={0.1} y={16} className="w-full flex flex-col items-center justify-center text-center">
             <h2
               id="faq-heading"
-              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5rem)] tracking-tight leading-[0.95] text-center w-full mx-auto mb-5 block"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-tight leading-[0.95] text-center w-full mx-auto mb-5 block"
             >
               Frequently Asked Questions
             </h2>
@@ -41,8 +45,8 @@ export const FAQSection: React.FC = () => {
           </FadeIn>
         </div>
 
-        {/* Clean, Spacious Accordion List */}
-        <div className="border-t border-[#D7E2EA]/12">
+        {/* Spacious, Centered Accordion Cards */}
+        <div className="w-full flex flex-col gap-4">
           {EVENT_DATA.faqs.map((faq) => {
             const isOpen = openFaqId === faq.id;
             const buttonId = `faq-btn-${faq.id}`;
@@ -51,7 +55,11 @@ export const FAQSection: React.FC = () => {
             return (
               <div
                 key={faq.id}
-                className="border-b border-[#D7E2EA]/12 transition-colors duration-200"
+                className={`w-full rounded-2xl border transition-all duration-300 ${
+                  isOpen
+                    ? 'border-[#B600A8]/50 bg-white/[0.03] shadow-lg shadow-[#B600A8]/5'
+                    : 'border-[#D7E2EA]/12 bg-white/[0.015] hover:border-[#D7E2EA]/25 hover:bg-white/[0.025]'
+                }`}
               >
                 <h3 className="m-0 p-0 font-normal">
                   <button
@@ -60,9 +68,9 @@ export const FAQSection: React.FC = () => {
                     onClick={() => toggleFaq(faq.id)}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    className="w-full flex items-center justify-between text-left gap-6 py-6 sm:py-7 cursor-pointer group focus-visible:outline-2 focus-visible:outline-[#BBCCD7] rounded-lg transition-colors"
+                    className="w-full flex items-center justify-between text-left gap-6 px-6 sm:px-8 py-6 sm:py-7 cursor-pointer group focus-visible:outline-2 focus-visible:outline-[#BBCCD7] rounded-2xl"
                   >
-                    <span className="font-heading font-normal sm:font-medium text-[clamp(1.05rem,1.4vw,1.25rem)] text-white/90 group-hover:text-white transition-colors leading-snug">
+                    <span className="font-heading font-normal sm:font-medium text-[clamp(1.05rem,1.35vw,1.25rem)] text-white/95 group-hover:text-white transition-colors leading-snug">
                       {faq.question}
                     </span>
 
@@ -70,7 +78,7 @@ export const FAQSection: React.FC = () => {
                     <span
                       className={`w-10 h-10 shrink-0 rounded-full border flex items-center justify-center transition-all duration-200 ${
                         isOpen
-                          ? 'border-[#B600A8] bg-[#B600A8]/15 text-white'
+                          ? 'border-[#B600A8] bg-[#B600A8]/20 text-white'
                           : 'border-[#D7E2EA]/15 text-[#D7E2EA]/60 group-hover:border-[#D7E2EA]/40 group-hover:text-white'
                       }`}
                     >
@@ -97,7 +105,7 @@ export const FAQSection: React.FC = () => {
                       transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="text-[clamp(0.95rem,1.05vw,1.025rem)] font-light text-[#D7E2EA]/75 leading-[1.8] max-w-[70ch] pb-7 pr-6 sm:pr-12 text-pretty">
+                      <p className="text-[clamp(0.95rem,1.05vw,1.025rem)] font-light text-[#D7E2EA]/75 leading-[1.8] max-w-[70ch] px-6 sm:px-8 pb-7 text-pretty">
                         {faq.answer}
                       </p>
                     </motion.div>
