@@ -644,7 +644,7 @@ export const TimelineSection: React.FC = () => {
                 const isItemActive = activeCardIndex === idx;
 
                 return (
-                  <li key={`mob-${item.time}`} className="relative">
+                  <li key={`mob-${item.day}-${item.time}-${idx}`} className="relative">
                     {/* Node marker on vertical rail line */}
                     <motion.span
                       animate={{

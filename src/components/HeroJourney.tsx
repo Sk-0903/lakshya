@@ -52,6 +52,7 @@ const ConvergingHeroLetter: React.FC<{
   );
 };
 
+
 export const HeroJourney: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -626,10 +627,6 @@ export const HeroJourney: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1]"
         />
 
-        {/* Ambient Dark Vignette for Ultra-Crisp Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/35 to-[#0C0C0C]/60 pointer-events-none z-[2]" />
-
-        {/* ================= OVERLAY TEXT STEPS ================= */}
 
         {/* Animated Scroll Down Indicator (visible at start only: 0.00 to 0.07) */}
         <motion.div
