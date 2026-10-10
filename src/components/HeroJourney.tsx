@@ -428,6 +428,51 @@ export const HeroJourney: React.FC = () => {
     };
   }, [useFallback, drawProceduralTarget]);
 
+  // Evaluation & Mapping Logic:
+  // 0.00 - 0.42: Segment A frames startFrameA to totalFramesA
+  // 0.42 - 0.50: Hold A's last frame, push-in scale 1.0 to 1.04
+  // 0.50 - 0.60: EXIT: scale 1.04 to 1.3, alpha falls 1 -> 0 (gentle dip through black)
+  // 0.60 - 0.66: Near-black beat. Segment B frame 1 fades in (alpha 0 -> 1, scale 1.10 -> 1.0)
+  // 0.66 - 0.97: Segment B frames 1 to totalFramesB, scale 1.0, alpha 1.0
+  // 0.97 - 1.00: Hold B's last frame
+  const evaluateAndDraw = useCallback((p: number) => {
+    currentScrollPRef.current = p;
+
+    if (p <= 0.42) {
+      // Segment A playback starting a few seconds before the logo emergence
+      const segAProg = Math.max(0, Math.min(1, p / 0.42));
+      const rawIdx = Math.round(startFrameA + segAProg * (totalFramesA - startFrameA));
+      const frameIdx = Math.max(startFrameA, Math.min(totalFramesA, rawIdx));
+      drawToCanvas('A', frameIdx, 1.0, 1.0, p, segAProg);
+    } else if (p <= 0.50) {
+      // Hold A's last frame with very slow push-in scale (1.0 -> 1.04)
+      const holdProg = (p - 0.42) / 0.08;
+      const scale = 1.0 + holdProg * 0.04;
+      drawToCanvas('A', totalFramesA, scale, 1.0, p, 1.0);
+    } else if (p <= 0.60) {
+      // Exit A: scale 1.04 -> 1.30, alpha 1.0 -> 0.0
+      const exitProg = (p - 0.50) / 0.10;
+      const scale = 1.04 + exitProg * 0.26;
+      const alpha = 1.0 - exitProg;
+      drawToCanvas('A', totalFramesA, scale, alpha, p, 1.0);
+    } else if (p <= 0.66) {
+      // Near-black beat: Segment B Frame 1 emerges from dark (scale 1.10 -> 1.0, alpha 0 -> 1)
+      const beatProg = (p - 0.60) / 0.06;
+      const scale = 1.10 - beatProg * 0.10;
+      const alpha = beatProg;
+      drawToCanvas('B', 1, scale, alpha, p, 0);
+    } else if (p <= 0.97) {
+      // Segment B playback
+      const segBProg = (p - 0.66) / 0.31;
+      const rawIdx = Math.round(segBProg * (totalFramesB - 1)) + 1;
+      const frameIdx = Math.max(1, Math.min(totalFramesB, rawIdx));
+      drawToCanvas('B', frameIdx, 1.0, 1.0, p, 0);
+    } else {
+      // Hold B's last frame till 1.00
+      drawToCanvas('B', totalFramesB, 1.0, 1.0, p, 0);
+    }
+  }, [startFrameA, totalFramesA, totalFramesB, drawToCanvas]);
+
   // Immediate frame render helper
   const renderFrameImmediate = useCallback(() => {
     drawToCanvas('A', startFrameA, 1, 1, 0, 0);
@@ -489,51 +534,6 @@ export const HeroJourney: React.FC = () => {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  // Evaluation & Mapping Logic:
-  // 0.00 - 0.42: Segment A frames startFrameA to totalFramesA
-  // 0.42 - 0.50: Hold A's last frame, push-in scale 1.0 to 1.04
-  // 0.50 - 0.60: EXIT: scale 1.04 to 1.3, alpha falls 1 -> 0 (gentle dip through black)
-  // 0.60 - 0.66: Near-black beat. Segment B frame 1 fades in (alpha 0 -> 1, scale 1.10 -> 1.0)
-  // 0.66 - 0.97: Segment B frames 1 to totalFramesB, scale 1.0, alpha 1.0
-  // 0.97 - 1.00: Hold B's last frame
-  const evaluateAndDraw = useCallback((p: number) => {
-    currentScrollPRef.current = p;
-
-    if (p <= 0.42) {
-      // Segment A playback starting a few seconds before the logo emergence
-      const segAProg = Math.max(0, Math.min(1, p / 0.42));
-      const rawIdx = Math.round(startFrameA + segAProg * (totalFramesA - startFrameA));
-      const frameIdx = Math.max(startFrameA, Math.min(totalFramesA, rawIdx));
-      drawToCanvas('A', frameIdx, 1.0, 1.0, p, segAProg);
-    } else if (p <= 0.50) {
-      // Hold A's last frame with very slow push-in scale (1.0 -> 1.04)
-      const holdProg = (p - 0.42) / 0.08;
-      const scale = 1.0 + holdProg * 0.04;
-      drawToCanvas('A', totalFramesA, scale, 1.0, p, 1.0);
-    } else if (p <= 0.60) {
-      // Exit A: scale 1.04 -> 1.30, alpha 1.0 -> 0.0
-      const exitProg = (p - 0.50) / 0.10;
-      const scale = 1.04 + exitProg * 0.26;
-      const alpha = 1.0 - exitProg;
-      drawToCanvas('A', totalFramesA, scale, alpha, p, 1.0);
-    } else if (p <= 0.66) {
-      // Near-black beat: Segment B Frame 1 emerges from dark (scale 1.10 -> 1.0, alpha 0 -> 1)
-      const beatProg = (p - 0.60) / 0.06;
-      const scale = 1.10 - beatProg * 0.10;
-      const alpha = beatProg;
-      drawToCanvas('B', 1, scale, alpha, p, 0);
-    } else if (p <= 0.97) {
-      // Segment B playback
-      const segBProg = (p - 0.66) / 0.31;
-      const rawIdx = Math.round(segBProg * (totalFramesB - 1)) + 1;
-      const frameIdx = Math.max(1, Math.min(totalFramesB, rawIdx));
-      drawToCanvas('B', frameIdx, 1.0, 1.0, p, 0);
-    } else {
-      // Hold B's last frame till 1.00
-      drawToCanvas('B', totalFramesB, 1.0, 1.0, p, 0);
-    }
-  }, [startFrameA, totalFramesA, totalFramesB, drawToCanvas]);
 
   // Hook smooth progress changes to RAF draw
   useEffect(() => {
