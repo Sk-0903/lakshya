@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useInView, animate } from 'framer-motion';
 import { Trophy, Award, Gift } from 'lucide-react';
-import { FadeIn } from './FadeIn';
 import { EVENT_DATA, PrizeData } from '../data/event';
+import { ConvergeText, useConvergeConfig } from './motion';
 
 const ICON_MAP = {
   trophy: Trophy,
@@ -156,17 +156,27 @@ const StackingPrizeCard: React.FC<{
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-60px' });
   const [animatedAmount, setAnimatedAmount] = useState(0);
+  const { prefersReducedMotion } = useConvergeConfig();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end start'],
+    offset: ['start end', 'end start'],
   });
 
+  // Entry tilt: from 3deg rotateX to 0deg as card reaches sticky zone
+  const rotateX = useTransform(scrollYProgress, [0, 0.35], [prefersReducedMotion ? 0 : 3.5, 0]);
+  
+  // Stacking scale: card scales down slightly (0.94 - 1.0) and dims as cards stack above
   const targetScale = 1 - (total - 1 - index) * 0.04;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+  const scale = useTransform(scrollYProgress, [0.35, 0.85], [1, targetScale]);
+  const opacity = useTransform(scrollYProgress, [0.35, 0.9], [1, 0.82]);
 
   useEffect(() => {
     if (isInView) {
+      if (prefersReducedMotion) {
+        setAnimatedAmount(prize.amount);
+        return;
+      }
       const controls = animate(0, prize.amount, {
         duration: 1.6,
         ease: [0.25, 0.1, 0.25, 1],
@@ -174,7 +184,7 @@ const StackingPrizeCard: React.FC<{
       });
       return () => controls.stop();
     }
-  }, [isInView, prize.amount]);
+  }, [isInView, prize.amount, prefersReducedMotion]);
 
   const IconComp = ICON_MAP[prize.illustration];
 
@@ -182,11 +192,11 @@ const StackingPrizeCard: React.FC<{
     <div
       ref={containerRef}
       className="h-[80vh] flex items-center justify-center sticky top-24 md:top-32"
-      style={{ top: `calc(${index * 24}px + 5.5rem)` }}
+      style={{ top: `calc(${index * 24}px + 5.5rem)`, perspective: 1200 }}
     >
       <motion.div
-        style={{ scale }}
-        className="w-full max-w-5xl rounded-[40px] border border-[#D7E2EA]/12 bg-[#0C0C0C] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 select-none"
+        style={{ scale, opacity, rotateX, transformOrigin: 'top center' }}
+        className="w-full max-w-5xl rounded-[40px] border border-[#D7E2EA]/12 bg-[#0C0C0C] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 select-none will-change-transform"
       >
         {/* Left Side: Number, Label, Amount, Perks */}
         <div className="flex-1 flex flex-col justify-between h-full">
@@ -237,16 +247,12 @@ export const PrizesSection: React.FC = () => {
       className="bg-[#0C0C0C] text-[#D7E2EA] py-28 sm:py-36 md:py-48 px-6 md:px-10 border-t border-[#D7E2EA]/12 relative select-none"
     >
       <div className="max-w-5xl mx-auto mb-16 text-center">
-        <FadeIn delay={0} y={16}>
-          <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-4">
-            04 &mdash; Prizes
-          </span>
-        </FadeIn>
-        <FadeIn delay={0.1} y={20}>
-          <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none">
-            Prizes
-          </h2>
-        </FadeIn>
+        <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-4">
+          04 &mdash; Prizes
+        </span>
+        <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none">
+          <ConvergeText text="PRIZES" mode="letters" stagger={0.04} />
+        </h2>
       </div>
 
       {/* 3 Sticky-Stacking Cards */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
+import { ConvergeText } from './motion/ConvergeText';
 
 interface SectionHeaderProps {
   label: string;
@@ -23,15 +24,14 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
         </span>
       </FadeIn>
 
-      {/* Heading: clamp(2.5rem, 7vw, 6rem), line-height 0.95-1, uppercase, tight tracking */}
-      <FadeIn delay={0.1} y={16}>
-        <h2
+      {/* Heading: Converges words into place as heading scrolls into view */}
+      <div className="w-full">
+        <ConvergeText
+          text={title}
           id={headingId}
-          className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,6rem)] tracking-tight leading-[0.95] text-balance"
-        >
-          {title}
-        </h2>
-      </FadeIn>
+          className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,6rem)] tracking-tight leading-[0.95] text-balance block"
+        />
+      </div>
     </div>
   );
 };

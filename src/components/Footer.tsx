@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Mail, Phone, MapPin, Instagram, Linkedin, Github } from 'lucide-react';
 import { EVENT_DATA } from '../data/event';
+import { Converge } from './motion';
 
 export const Footer: React.FC = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -36,7 +37,7 @@ export const Footer: React.FC = () => {
         {/* Three Columns Grid: Desktop 1.4fr : 1fr : 1.2fr (5 cols, 3 cols, 4 cols) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 md:gap-16 lg:gap-20 pb-16 items-start">
           {/* Col 1: Brand + Tagline (lg:col-span-5) */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
+          <Converge from="left" distance={40} threshold={[0.05, 0.45]} className="lg:col-span-5 flex flex-col gap-4">
             <span className="font-heading font-black text-2xl uppercase tracking-tight text-white block">
               Lakshya&apos;26
             </span>
@@ -46,10 +47,10 @@ export const Footer: React.FC = () => {
             <span className="text-[12px] uppercase font-mono tracking-[0.25em] text-[#D7E2EA]/50 mt-1 block">
               {EVENT_DATA.tagline}
             </span>
-          </div>
+          </Converge>
 
           {/* Col 2: Navigation Links (lg:col-span-3) */}
-          <div className="lg:col-span-3 flex flex-col gap-3">
+          <Converge from="bottom" distance={36} delay={0.06} threshold={[0.08, 0.48]} className="lg:col-span-3 flex flex-col gap-3">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/60 mb-2 block">
               Navigation
             </span>
@@ -75,10 +76,10 @@ export const Footer: React.FC = () => {
                 </a>
               ))}
             </nav>
-          </div>
+          </Converge>
 
           {/* Col 3: Contact & Venue (lg:col-span-4) */}
-          <div className="lg:col-span-4 flex flex-col gap-4 md:col-span-2 lg:col-span-4">
+          <Converge from="right" distance={40} delay={0.12} threshold={[0.1, 0.5]} className="lg:col-span-4 flex flex-col gap-4 md:col-span-2 lg:col-span-4">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/60 mb-2 block">
               Contact &amp; Venue
             </span>
@@ -151,7 +152,7 @@ export const Footer: React.FC = () => {
                 <Github className="w-4 h-4" />
               </a>
             </div>
-          </div>
+          </Converge>
         </div>
       </div>
 

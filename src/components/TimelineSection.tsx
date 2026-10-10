@@ -8,6 +8,9 @@ import {
   useReducedMotion,
   animate,
 } from 'framer-motion';
+import { Converge } from './motion/Converge';
+import { ConvergeText } from './motion/ConvergeText';
+import { useConvergeConfig } from './motion/useConvergeConfig';
 import { EVENT_DATA, MilestoneData } from '../data/event';
 
 // ============================================================================
@@ -376,7 +379,7 @@ export const TimelineSection: React.FC = () => {
   const day1Items = EVENT_DATA.schedule.filter((item) => item.day === 'DAY 1');
   const day2Items = EVENT_DATA.schedule.filter((item) => item.day === 'DAY 2');
 
-  const headingWords = ['24-HOUR', 'TIMELINE'];
+  const config = useConvergeConfig();
 
   return (
     <section
@@ -388,7 +391,7 @@ export const TimelineSection: React.FC = () => {
       {/* Shared Site Container: max-w-[1200px], px-5 (20px mobile), px-8 (32px tablet), px-12 (48px desktop) */}
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
         {/* ==================================================================== */}
-        {/* 1. HEADING REVEAL: Word-by-word slide-up + Subtle Parallax */}
+        {/* 1. HEADING REVEAL: ConvergeText assembling words + Subtle Parallax */}
         {/* ==================================================================== */}
         <motion.div
           style={{ y: headingParallaxY }}
@@ -399,31 +402,11 @@ export const TimelineSection: React.FC = () => {
             03 &mdash; SCHEDULE
           </span>
 
-          <h2
+          <ConvergeText
+            text="24-HOUR TIMELINE"
             id="schedule-heading"
-            className="flex flex-wrap items-baseline text-balance"
-          >
-            {headingWords.map((word, wordIdx) => (
-              <span
-                key={word}
-                className="inline-block overflow-hidden mr-[0.25em] pb-1"
-              >
-                <motion.span
-                  className="inline-block hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,5.5rem)] tracking-tight leading-[0.95]"
-                  initial={{ y: shouldReduceMotion ? '0%' : '100%' }}
-                  whileInView={{ y: '0%' }}
-                  viewport={{ once: true, margin: '-10% 0px' }}
-                  transition={{
-                    duration: shouldReduceMotion ? 0 : 0.7,
-                    delay: shouldReduceMotion ? 0 : wordIdx * 0.08,
-                    ease: [0.25, 0.1, 0.25, 1],
-                  }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-          </h2>
+            className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,5.5rem)] tracking-tight leading-[0.95] text-balance block"
+          />
         </motion.div>
 
         {/* ==================================================================== */}
@@ -518,17 +501,24 @@ export const TimelineSection: React.FC = () => {
             <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch list-none p-0 m-0">
               {day1Items.map((item, idx) => (
                 <li key={`d1-${item.time}`} className="h-full">
-                  <MilestoneCard
-                    item={item}
-                    index={idx}
-                    totalIndex={idx} // 0, 1, 2, 3
-                    isDay1={true}
-                    isSprintStart={idx === 2} // Phase 03: 12:00 Hacking Begins
-                    isActive={activeCardIndex === idx}
-                    hasActiveCard={activeCardIndex !== null}
-                    isReducedMotion={shouldReduceMotion}
-                    scrollProgressValue={currentProgressRaw}
-                  />
+                  <Converge
+                    from={idx % 2 === 0 ? 'top' : 'bottom'}
+                    distance={config.isMobile ? 32 : 72}
+                    rotate={idx % 2 === 0 ? -2 : 2}
+                    className="h-full"
+                  >
+                    <MilestoneCard
+                      item={item}
+                      index={idx}
+                      totalIndex={idx} // 0, 1, 2, 3
+                      isDay1={true}
+                      isSprintStart={idx === 2} // Phase 03: 12:00 Hacking Begins
+                      isActive={activeCardIndex === idx}
+                      hasActiveCard={activeCardIndex !== null}
+                      isReducedMotion={shouldReduceMotion}
+                      scrollProgressValue={currentProgressRaw}
+                    />
+                  </Converge>
                 </li>
               ))}
             </ol>
@@ -591,23 +581,31 @@ export const TimelineSection: React.FC = () => {
               {day2Items.map((item, idx) => {
                 const totalIdx = idx + 4; // 4, 5, 6, 7, 8
                 const isSprintEnd = idx === 2; // Phase 07: 12:00 Hacking Ends
+                const fromDir = idx % 2 === 0 ? 'left' : 'right';
 
                 return (
                   <li
                     key={`d2-${item.time}`}
                     className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] flex-shrink-0"
                   >
-                    <MilestoneCard
-                      item={item}
-                      index={idx}
-                      totalIndex={totalIdx}
-                      isDay1={false}
-                      isSprintEnd={isSprintEnd}
-                      isActive={activeCardIndex === totalIdx}
-                      hasActiveCard={activeCardIndex !== null}
-                      isReducedMotion={shouldReduceMotion}
-                      scrollProgressValue={currentProgressRaw}
-                    />
+                    <Converge
+                      from={fromDir}
+                      distance={config.isMobile ? 32 : 80}
+                      rotate={idx % 2 === 0 ? -3 : 3}
+                      className="h-full"
+                    >
+                      <MilestoneCard
+                        item={item}
+                        index={idx}
+                        totalIndex={totalIdx}
+                        isDay1={false}
+                        isSprintEnd={isSprintEnd}
+                        isActive={activeCardIndex === totalIdx}
+                        hasActiveCard={activeCardIndex !== null}
+                        isReducedMotion={shouldReduceMotion}
+                        scrollProgressValue={currentProgressRaw}
+                      />
+                    </Converge>
                   </li>
                 );
               })}

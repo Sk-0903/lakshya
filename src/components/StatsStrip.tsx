@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView, animate } from 'framer-motion';
+import { ConvergeGroup } from './motion/ConvergeGroup';
 import { EVENT_DATA } from '../data/event';
 
 interface StatItemProps {
@@ -65,39 +66,41 @@ const StatItem: React.FC<StatItemProps> = ({
 
 export const StatsStrip: React.FC = () => {
   return (
-    <div className="w-full border-y border-[#D7E2EA]/12 grid grid-cols-2 md:grid-cols-4">
-      <StatItem
-        finalNumber={EVENT_DATA.durationHours}
-        label="Hours"
-        suffix=" HRS"
-        isFirstRow={true}
-        isOddCol={true}
-        isLastCol={false}
-      />
-      <StatItem
-        finalNumber={EVENT_DATA.participantsCount}
-        label="Participants"
-        suffix="+"
-        isFirstRow={true}
-        isOddCol={false}
-        isLastCol={false}
-      />
-      <StatItem
-        finalNumber={EVENT_DATA.prizePoolAmount}
-        label="Prize Pool"
-        prefix="₹"
-        isFirstRow={false}
-        isOddCol={true}
-        isLastCol={false}
-      />
-      <StatItem
-        finalNumber={EVENT_DATA.tracksCount}
-        label="Tracks"
-        suffix=" TRACKS"
-        isFirstRow={false}
-        isOddCol={false}
-        isLastCol={true}
-      />
+    <div className="w-full border-y border-[#D7E2EA]/12 overflow-hidden">
+      <ConvergeGroup radial className="grid grid-cols-2 md:grid-cols-4">
+        <StatItem
+          finalNumber={EVENT_DATA.durationHours}
+          label="Hours"
+          suffix=" HRS"
+          isFirstRow={true}
+          isOddCol={true}
+          isLastCol={false}
+        />
+        <StatItem
+          finalNumber={EVENT_DATA.participantsCount}
+          label="Participants"
+          suffix="+"
+          isFirstRow={true}
+          isOddCol={false}
+          isLastCol={false}
+        />
+        <StatItem
+          finalNumber={EVENT_DATA.prizePoolAmount}
+          label="Prize Pool"
+          prefix="₹"
+          isFirstRow={false}
+          isOddCol={true}
+          isLastCol={false}
+        />
+        <StatItem
+          finalNumber={EVENT_DATA.tracksCount}
+          label="Tracks"
+          suffix=" TRACKS"
+          isFirstRow={false}
+          isOddCol={false}
+          isLastCol={true}
+        />
+      </ConvergeGroup>
     </div>
   );
 };

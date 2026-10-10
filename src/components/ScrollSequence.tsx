@@ -1,10 +1,48 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { Countdown } from './Countdown';
 import { ContactButton } from './ContactButton';
 import { Magnet } from './Magnet';
 import { EVENT_DATA } from '../data/event';
+
+const HERO_LETTERS = [
+  { char: 'L', initX: -20, initY: -14, initRot: -12, initScale: 0.8 },
+  { char: 'a', initX: 14, initY: 15, initRot: 10, initScale: 1.3 },
+  { char: 'k', initX: -16, initY: 16, initRot: -8, initScale: 0.9 },
+  { char: 's', initX: 22, initY: -12, initRot: 14, initScale: 1.4 },
+  { char: 'h', initX: -10, initY: -16, initRot: -6, initScale: 1.1 },
+  { char: 'y', initX: 16, initY: 14, initRot: 9, initScale: 0.75 },
+  { char: 'a', initX: -22, initY: 10, initRot: -11, initScale: 1.25 },
+  { char: "'", initX: 8, initY: -18, initRot: 15, initScale: 1.5 },
+  { char: '2', initX: 18, initY: 16, initRot: -10, initScale: 0.85 },
+  { char: '6', initX: 24, initY: -14, initRot: 12, initScale: 1.2 },
+];
+
+const ConvergingHeroLetter: React.FC<{
+  item: typeof HERO_LETTERS[0];
+  progress: any;
+  isReducedMotion: boolean;
+}> = ({ item, progress, isReducedMotion }) => {
+  const x = useTransform(progress, [0, 0.16, 0.22], [`${item.initX}vw`, '0vw', '0vw']);
+  const y = useTransform(progress, [0, 0.16, 0.22], [`${item.initY}vh`, '0vh', '0vh']);
+  const rotate = useTransform(progress, [0, 0.16, 0.22], [item.initRot, 0, 0]);
+  const scale = useTransform(progress, [0, 0.16, 0.22, 0.25], [item.initScale, 1, 1, 1.08]);
+  const opacity = useTransform(progress, [0, 0.12, 0.18, 0.24], [0, 0.95, 1, 0]);
+
+  if (isReducedMotion) {
+    return <span className="inline-block">{item.char}</span>;
+  }
+
+  return (
+    <motion.span
+      style={{ x, y, rotate, scale, opacity }}
+      className="inline-block"
+    >
+      {item.char}
+    </motion.span>
+  );
+};
 
 export const ScrollSequence: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,19 +67,24 @@ export const ScrollSequence: React.FC = () => {
   // Text step crossfades
   // Step 1: 0.00 to 0.25
   const step1Opacity = useTransform(smoothProgress, [0, 0.18, 0.24], [1, 1, 0]);
-  const step1Scale = useTransform(smoothProgress, [0, 0.24], [1, 0.96]);
+  const step1Scale = useTransform(smoothProgress, [0, 0.18, 0.24], [1, 1, 1.08]);
+  const taglineY = useTransform(smoothProgress, [0.06, 0.16, 0.24], [36, 0, -16]);
+  const taglineOpacity = useTransform(smoothProgress, [0.06, 0.14, 0.22, 0.25], [0, 1, 1, 0]);
 
-  // Step 2: 0.25 to 0.55
+  // Step 2: 0.25 to 0.55 (Heading slides in from left, branding from right)
   const step2Opacity = useTransform(smoothProgress, [0.24, 0.32, 0.48, 0.55], [0, 1, 1, 0]);
-  const step2Y = useTransform(smoothProgress, [0.24, 0.32, 0.48, 0.55], [20, 0, 0, -20]);
+  const step2HeadingX = useTransform(smoothProgress, [0.24, 0.32, 0.48, 0.55], [-36, 0, 0, -36]);
+  const step2BrandX = useTransform(smoothProgress, [0.24, 0.32, 0.48, 0.55], [36, 0, 0, 36]);
 
-  // Step 3: 0.55 to 0.85
+  // Step 3: 0.55 to 0.85 (Heading from top, Countdown from bottom)
   const step3Opacity = useTransform(smoothProgress, [0.55, 0.63, 0.78, 0.85], [0, 1, 1, 0]);
-  const step3Y = useTransform(smoothProgress, [0.55, 0.63, 0.78, 0.85], [20, 0, 0, -20]);
+  const step3HeadingY = useTransform(smoothProgress, [0.55, 0.63, 0.78, 0.85], [-30, 0, 0, -30]);
+  const step3CountdownY = useTransform(smoothProgress, [0.55, 0.63, 0.78, 0.85], [40, 0, 0, 40]);
 
-  // Step 4: 0.85 to 1.00
+  // Step 4: 0.85 to 1.00 (Heading from top, Register button from bottom)
   const step4Opacity = useTransform(smoothProgress, [0.85, 0.92, 1], [0, 1, 1]);
-  const step4Y = useTransform(smoothProgress, [0.85, 0.92, 1], [20, 0, 0]);
+  const step4HeadingY = useTransform(smoothProgress, [0.85, 0.92, 1], [-30, 0, 0]);
+  const step4ButtonY = useTransform(smoothProgress, [0.85, 0.92, 1], [36, 0, 0]);
 
   // Check device size
   useEffect(() => {
@@ -306,6 +349,8 @@ export const ScrollSequence: React.FC = () => {
     };
   }, [smoothProgress, totalFrames, renderCurrentFrame, useFallback]);
 
+  const shouldReduceMotion = useReducedMotion() ?? false;
+
   return (
     <section
       id="top"
@@ -325,18 +370,31 @@ export const ScrollSequence: React.FC = () => {
 
         {/* ================= OVERLAY TEXT STEPS ================= */}
 
-        {/* Step 1: 0.00 to 0.25 -> Title + Tagline + Scroll indicator */}
+        {/* Step 1: 0.00 to 0.25 -> Assembling Lakshya'26 Letters + Tagline */}
         <motion.div
           style={{ opacity: step1Opacity, scale: step1Scale }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
         >
           <div className="max-w-5xl mx-auto flex flex-col items-center">
-            <h1 className="hero-heading font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none">
-              Lakshya&apos;26
+            <h1
+              className="hero-heading font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none"
+              aria-label="Lakshya'26"
+            >
+              {HERO_LETTERS.map((item, idx) => (
+                <ConvergingHeroLetter
+                  key={idx}
+                  item={item}
+                  progress={smoothProgress}
+                  isReducedMotion={shouldReduceMotion}
+                />
+              ))}
             </h1>
-            <p className="text-xs sm:text-sm uppercase tracking-[0.35em] text-[#D7E2EA]/60 font-mono mt-4 sm:mt-6">
+            <motion.p
+              style={{ y: taglineY, opacity: taglineOpacity }}
+              className="text-xs sm:text-sm uppercase tracking-[0.35em] text-[#D7E2EA]/60 font-mono mt-4 sm:mt-6"
+            >
               {EVENT_DATA.tagline}
-            </p>
+            </motion.p>
           </div>
 
           {/* Animated Scroll Down Indicator */}
@@ -351,59 +409,71 @@ export const ScrollSequence: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Step 2: 0.25 to 0.55 -> [24] hours. [500+] builders. One goal. */}
+        {/* Step 2: 0.25 to 0.55 -> [24] hours (Left) + SJBIT (Right) */}
         <motion.div
-          style={{ opacity: step2Opacity, y: step2Y }}
+          style={{ opacity: step2Opacity }}
           className="absolute inset-0 flex items-center justify-center p-6 text-center pointer-events-none"
         >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none">
+          <div className="max-w-4xl mx-auto flex flex-col items-center">
+            <motion.h2
+              style={{ x: step2HeadingX }}
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none"
+            >
               24 Hours. 500+ Builders. One Goal.
-            </h2>
-            <p className="text-xs sm:text-sm uppercase font-mono tracking-[0.3em] text-[#D7E2EA]/60 mt-6">
+            </motion.h2>
+            <motion.p
+              style={{ x: step2BrandX }}
+              className="text-xs sm:text-sm uppercase font-mono tracking-[0.3em] text-[#D7E2EA]/60 mt-6"
+            >
               SJB INSTITUTE OF TECHNOLOGY &bull; BANGALORE
-            </p>
+            </motion.p>
           </div>
         </motion.div>
 
-        {/* Step 3: 0.55 to 0.85 -> [DATES] · [VENUE] + Countdown */}
+        {/* Step 3: 0.55 to 0.85 -> Heading (Top) + Countdown (Bottom) */}
         <motion.div
-          style={{ opacity: step3Opacity, y: step3Y }}
+          style={{ opacity: step3Opacity }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
         >
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
             <div className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-white/60">
               {EVENT_DATA.dates} &bull; {EVENT_DATA.collegeShort}
             </div>
-            <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2rem,6vw,5rem)] tracking-tight leading-none">
+            <motion.h2
+              style={{ y: step3HeadingY }}
+              className="hero-heading font-heading font-black uppercase text-[clamp(2rem,6vw,5rem)] tracking-tight leading-none"
+            >
               The Clock is Ticking
-            </h2>
-            <div className="mt-4 pointer-events-auto">
+            </motion.h2>
+            <motion.div style={{ y: step3CountdownY }} className="mt-4 pointer-events-auto">
               <Countdown targetISO={EVENT_DATA.startTimestampISO} />
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 
-        {/* Step 4: 0.85 to 1.00 -> Registrations are open + Register button */}
+        {/* Step 4: 0.85 to 1.00 -> Heading (Top) + Register button (Bottom) */}
         <motion.div
-          style={{ opacity: step4Opacity, y: step4Y }}
+          style={{ opacity: step4Opacity }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center"
         >
           <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-emerald-400">
               LIMITED SPOTS AVAILABLE
             </span>
-            <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,6.5rem)] tracking-tight leading-none">
+            <motion.h2
+              style={{ y: step4HeadingY }}
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,7vw,6.5rem)] tracking-tight leading-none"
+            >
               Registrations Are Open
-            </h2>
+            </motion.h2>
             <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-md font-light leading-relaxed">
               Assemble your squad of 2–4 builders and enter the 24-hour sprint.
             </p>
-            <div className="mt-2 pointer-events-auto">
+            <motion.div style={{ y: step4ButtonY }} className="mt-2 pointer-events-auto">
               <Magnet padding={100} strength={4}>
                 <ContactButton label="Register Now" href={EVENT_DATA.registrationUrl} />
               </Magnet>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
