@@ -58,9 +58,21 @@ export const EVENT_DATA = {
   registrationUrl: 'https://forms.gle/lakshya26',
   tagline: 'innovate. build. aim higher.',
 
-  // Scroll sequence frame configuration
-  desktopFrameCount: 120,
-  mobileFrameCount: 90,
+  // Scroll sequence multi-segment frame configuration
+  desktopFrameCount: 240,
+  mobileFrameCount: 120,
+  segmentA: {
+    desktopFrames: 240,
+    mobileFrames: 120,
+    desktopPath: '/frames/a/desktop',
+    mobilePath: '/frames/a/mobile',
+  },
+  segmentB: {
+    desktopFrames: 240,
+    mobileFrames: 120,
+    desktopPath: '/frames/b/desktop',
+    mobilePath: '/frames/b/mobile',
+  },
 
   aboutText:
     "Lakshya'26 is SJBIT's flagship hackathon, where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or a seasoned hacker, this is your stage to turn ideas into impact.",

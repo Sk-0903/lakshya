@@ -2,7 +2,7 @@ import React from 'react';
 import { SmoothScroll } from './components/SmoothScroll';
 import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
-import { ScrollSequence } from './components/ScrollSequence';
+import { HeroJourney } from './components/HeroJourney';
 import { AboutSection } from './components/AboutSection';
 import { TracksSection } from './components/TracksSection';
 import { TimelineSection } from './components/TimelineSection';
@@ -23,8 +23,8 @@ export default function App() {
         {/* Fixed Navigation Bar */}
         <Navbar />
 
-        {/* 1. HERO: Signature Scroll-Scrubbed Video Sequence (id="top") */}
-        <ScrollSequence />
+        {/* 1. HERO: Unified Multi-Segment Scroll-Scrubbed Journey (id="top") */}
+        <HeroJourney />
 
         {/* 2. ABOUT: Character-by-Character Animated Text + Stats Strip (id="about") */}
         <AboutSection />
