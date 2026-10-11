@@ -42,7 +42,7 @@ export const CTASection: React.FC = () => {
           {/* Section Label */}
           <div className="w-full flex justify-center mb-5 sm:mb-6">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center">
-              06 &mdash; REGISTRATION
+              08 &mdash; REGISTRATION
             </span>
           </div>
 

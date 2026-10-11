@@ -40,6 +40,23 @@ export interface SponsorData {
   logo?: string;
 }
 
+export interface AssociationData {
+  name: string;
+  logo: string;
+  alt: string;
+  url: string;
+}
+
+export interface TeamMemberData {
+  role: string;
+  group: 'faculty' | 'student';
+  name: string;
+  photo: string;
+  phone: string;
+  email: string;
+  linkedin: string;
+}
+
 export const EVENT_DATA = {
   collegeName: 'SJB Institute of Technology',
   collegeShort: 'SJBIT',
@@ -284,4 +301,108 @@ export const EVENT_DATA = {
     linkedin: 'https://linkedin.com',
     github: 'https://github.com',
   },
+
+  associations: [
+    {
+      name: 'DLithe',
+      logo: '/partners/dlithe.png',
+      alt: 'DLithe, Be Agile. Be in Demand',
+      url: '',
+    },
+  ] as AssociationData[],
+
+  teamSubtitle: "The people behind Lakshya'26",
+
+  team: [
+    {
+      role: 'Faculty Coordinator',
+      group: 'faculty',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Faculty Coordinator',
+      group: 'faculty',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Event Lead Coordinator',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Technical Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Operations Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Design & Media Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Sponsorship & Outreach Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Registration & Logistics Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'Hospitality & Volunteer Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+    {
+      role: 'PR & Social Media Head',
+      group: 'student',
+      name: '',
+      photo: '',
+      phone: '',
+      email: '',
+      linkedin: '',
+    },
+  ] as TeamMemberData[],
 };

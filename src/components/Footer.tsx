@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
     const el = document.getElementById(targetId);
     if (el) {
       if ((window as any).__lenis) {
-        (window as any).__lenis.scrollTo(el, { offset: -40 });
+        (window as any).__lenis.scrollTo(el, { offset: -60 });
       } else {
         el.scrollIntoView({ behavior: 'smooth' });
       }
@@ -60,6 +60,7 @@ export const Footer: React.FC = () => {
                 { label: 'Innovation Tracks', href: '#tracks' },
                 { label: '24-Hour Timeline', href: '#schedule' },
                 { label: 'Awards & Bounties', href: '#prizes' },
+                { label: 'Organizing Team', href: '#team' },
                 { label: 'Frequently Asked Questions', href: '#faq' },
                 { label: 'Registration Portal', href: '#register' },
               ].map((link) => (

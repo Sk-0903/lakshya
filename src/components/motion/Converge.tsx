@@ -20,6 +20,8 @@ export interface ConvergeProps {
   scaleFrom?: number;
   blur?: number;
   offset?: [string, string];
+  delay?: number;
+  threshold?: number[];
   className?: string;
   style?: React.CSSProperties;
 }
@@ -32,6 +34,8 @@ export const Converge: React.FC<ConvergeProps> = ({
   scaleFrom = 0.85,
   blur = 6,
   offset = ['start 0.95', 'start 0.45'],
+  delay,
+  threshold,
   className = '',
   style,
 }) => {

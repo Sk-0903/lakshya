@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: 'Tracks', href: '#tracks', id: 'tracks' },
   { label: 'Schedule', href: '#schedule', id: 'schedule' },
   { label: 'Prizes', href: '#prizes', id: 'prizes' },
+  { label: 'Team', href: '#team', id: 'team' },
   { label: 'FAQ', href: '#faq', id: 'faq' },
 ];
 
@@ -89,15 +90,23 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 220);
 
-      // Section tracking for active underline
-      const sections = NAV_LINKS.map((l) => l.id);
+      // Section tracking for active underline (track both #partners and #team to 'team')
+      const trackedSections = [
+        { sectionId: 'about', navId: 'about' },
+        { sectionId: 'tracks', navId: 'tracks' },
+        { sectionId: 'schedule', navId: 'schedule' },
+        { sectionId: 'prizes', navId: 'prizes' },
+        { sectionId: 'partners', navId: 'team' },
+        { sectionId: 'team', navId: 'team' },
+        { sectionId: 'faq', navId: 'faq' },
+      ];
       let current = '';
-      for (const id of sections) {
-        const el = document.getElementById(id);
+      for (const item of trackedSections) {
+        const el = document.getElementById(item.sectionId);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.15) {
-            current = id;
+            current = item.navId;
           }
         }
       }
@@ -115,7 +124,7 @@ export const Navbar: React.FC = () => {
     const el = document.getElementById(targetId);
     if (el) {
       if ((window as any).__lenis) {
-        (window as any).__lenis.scrollTo(el, { offset: -40 });
+        (window as any).__lenis.scrollTo(el, { offset: -60 });
       } else {
         el.scrollIntoView({ behavior: 'smooth' });
       }

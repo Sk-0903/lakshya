@@ -7,6 +7,8 @@ import { AboutSection } from './components/AboutSection';
 import { TracksSection } from './components/TracksSection';
 import { TimelineSection } from './components/TimelineSection';
 import { PrizesSection } from './components/PrizesSection';
+import { PartnersSection } from './components/PartnersSection';
+import { TeamSection } from './components/TeamSection';
 import { RegisterSection } from './components/RegisterSection';
 import { Footer } from './components/Footer';
 
@@ -38,10 +40,16 @@ export default function App() {
         {/* 5. PRIZES: 3 Sticky-Stacking Cards with Thin-Line SVG Illustrations (id="prizes") */}
         <PrizesSection />
 
-        {/* 6. FAQ + REGISTER: Clean FAQ Accordion + High-Impact Framed CTA (id="faq" & id="register") */}
+        {/* 6. PARTNERS: In Association With (id="partners") */}
+        <PartnersSection />
+
+        {/* 7. TEAM: The People Behind Lakshya'26 (id="team") */}
+        <TeamSection />
+
+        {/* 8. FAQ + REGISTER: Clean FAQ Accordion + High-Impact Framed CTA (id="faq" & id="register") */}
         <RegisterSection />
 
-        {/* 8. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}
+        {/* 9. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}
         <Footer />
       </div>
     </SmoothScroll>

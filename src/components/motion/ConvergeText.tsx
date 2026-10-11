@@ -8,6 +8,7 @@ export interface ConvergeTextProps {
   className?: string;
   mode?: 'words' | 'letters';
   id?: string;
+  stagger?: number;
 }
 
 export const ConvergeText: React.FC<ConvergeTextProps> = ({
@@ -16,6 +17,7 @@ export const ConvergeText: React.FC<ConvergeTextProps> = ({
   className = '',
   mode = 'words',
   id,
+  stagger,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const config = useConvergeConfig();
