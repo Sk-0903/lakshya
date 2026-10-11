@@ -57,6 +57,23 @@ export interface TeamMemberData {
   linkedin: string;
 }
 
+export interface VenueHowToReachItem {
+  label: string;
+  text: string;
+}
+
+export interface VenueData {
+  name: string;
+  campusTag: string;
+  address: string;
+  dates: string;
+  mapEmbedUrl: string;
+  mapLinkUrl: string;
+  directionsUrl: string;
+  howToReach: VenueHowToReachItem[];
+  note: string;
+}
+
 export const EVENT_DATA = {
   collegeName: 'SJB Institute of Technology',
   collegeShort: 'SJBIT',
@@ -65,7 +82,18 @@ export const EVENT_DATA = {
   durationHours: 24,
   dates: '05-06 November 2026',
   startTimestampISO: '2026-11-05T09:00:00+05:30',
-  venue: 'SJBIT Campus Auditorium & Tech Hub, Bangalore',
+  venue: {
+    name: 'CSE Seminar Hall, SJBIT',
+    campusTag: 'SJBIT CAMPUS, KENGERI',
+    address:
+      'Department of CSE & ISE, SJB Institute of Technology, BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bangalore - 560060',
+    dates: '05–06 November 2026',
+    mapEmbedUrl: '',
+    mapLinkUrl: '',
+    directionsUrl: '',
+    howToReach: [],
+    note: '',
+  } as VenueData,
   participants: '500+',
   participantsCount: 500,
   teams: '100+',
@@ -265,13 +293,13 @@ export const EVENT_DATA = {
       id: 'f2',
       question: 'What is the permitted team size?',
       answer:
-        'Teams can consist of 2 to 4 members. Inter-college and inter-branch teams are fully allowed and encouraged.',
+        'Teams must consist of 4 members per team. Inter-college and inter-branch teams are fully allowed and encouraged.',
     },
     {
       id: 'f3',
       question: 'Is there any registration fee?',
       answer:
-        'The registration fee is ₹1,000 per squad (2 to 4 members). This covers 24-hour hackathon participation, all meals, energy snacks, mentor reviews, hacker kit, and full eligibility for all track prizes.',
+        'The registration fee is ₹1,000 per squad (4 members). This covers 24-hour hackathon participation, all meals, energy snacks, mentor reviews, hacker kit, and full eligibility for all track prizes.',
     },
     {
       id: 'f4',

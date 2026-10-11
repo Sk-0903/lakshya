@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, MapPin } from 'lucide-react';
 import { Magnet } from './Magnet';
 import { EVENT_DATA } from '../data/event';
 import { Converge, ConvergeText, useConvergeConfig } from './motion';
@@ -42,7 +42,7 @@ export const CTASection: React.FC = () => {
           {/* Section Label */}
           <div className="w-full flex justify-center mb-5 sm:mb-6">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center">
-              08 &mdash; REGISTRATION
+              09 &mdash; REGISTRATION
             </span>
           </div>
 
@@ -63,14 +63,33 @@ export const CTASection: React.FC = () => {
             </p>
           </div>
 
-          {/* Elegant Unified Metadata Badge */}
+          {/* Elegant Unified Metadata Badge with Get directions link */}
           <div className="w-full flex justify-center mb-12 sm:mb-14">
             <div className="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 px-6 py-2.5 rounded-full border border-[#D7E2EA]/15 bg-white/[0.02] text-xs sm:text-sm font-mono tracking-wider text-[#D7E2EA]/80 mx-auto">
               <span className="text-white font-medium">05&ndash;06 NOV 2026</span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
-              <span>SJBIT BANGALORE</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span>SJBIT BANGALORE</span>
+                <a
+                  href="#venue"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const lenis = (window as any).__lenis;
+                    if (lenis) {
+                      lenis.scrollTo('#venue', { offset: -60 });
+                    } else {
+                      document.getElementById('venue')?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="inline-flex items-center gap-1 text-amber-300 hover:text-white transition-colors underline underline-offset-2 ml-1 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#BBCCD7] rounded"
+                  aria-label="Scroll to venue location and directions"
+                >
+                  <MapPin className="w-3 h-3 text-amber-300" />
+                  <span>Get directions</span>
+                </a>
+              </span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
-              <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD</span>
+              <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD (4 MEMBERS)</span>
             </div>
           </div>
 

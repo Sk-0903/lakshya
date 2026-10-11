@@ -61,6 +61,7 @@ export const Footer: React.FC = () => {
                 { label: '24-Hour Timeline', href: '#schedule' },
                 { label: 'Awards & Bounties', href: '#prizes' },
                 { label: 'Organizing Team', href: '#team' },
+                { label: 'Venue & Location', href: '#venue' },
                 { label: 'Frequently Asked Questions', href: '#faq' },
                 { label: 'Registration Portal', href: '#register' },
               ].map((link) => (
@@ -110,17 +111,28 @@ export const Footer: React.FC = () => {
                 <span>{EVENT_DATA.contacts.phone}</span>
               </a>
 
-              {/* Address in semantic scannable lines */}
-              <div className="inline-flex items-start gap-3 text-sm text-[#D7E2EA]/70 leading-[1.6]">
+              {/* Address as Open in Maps link */}
+              <a
+                href={
+                  EVENT_DATA.venue.mapLinkUrl ||
+                  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    EVENT_DATA.venue.address
+                  )}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open SJBIT location in Google Maps"
+                className="group inline-flex items-start gap-3 text-sm text-[#D7E2EA]/70 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-[#BBCCD7] rounded cursor-pointer"
+              >
                 <span className="w-5 shrink-0 flex items-center justify-center pt-0.5">
-                  <MapPin className="w-4 h-4 text-white/50" />
+                  <MapPin className="w-4 h-4 text-white/50 group-hover:text-amber-300 transition-colors" />
                 </span>
                 <address className="not-italic max-w-[300px]">
                   <span>SJBIT, BGS Health &amp; Education City,</span><br />
                   <span>Dr. Vishnuvardhan Road, Kengeri,</span><br />
                   <span>Bangalore &ndash; 560060</span>
                 </address>
-              </div>
+              </a>
             </div>
 
             {/* Social Icons (44x44px touch targets) */}

@@ -9,6 +9,7 @@ import { TimelineSection } from './components/TimelineSection';
 import { PrizesSection } from './components/PrizesSection';
 import { PartnersSection } from './components/PartnersSection';
 import { TeamSection } from './components/TeamSection';
+import { VenueSection } from './components/VenueSection';
 import { RegisterSection } from './components/RegisterSection';
 import { Footer } from './components/Footer';
 
@@ -46,10 +47,13 @@ export default function App() {
         {/* 7. TEAM: The People Behind Lakshya'26 (id="team") */}
         <TeamSection />
 
-        {/* 8. FAQ + REGISTER: Clean FAQ Accordion + High-Impact Framed CTA (id="faq" & id="register") */}
+        {/* 8. VENUE: Find Us / Location (id="venue") */}
+        <VenueSection />
+
+        {/* 9. FAQ + REGISTER: Clean FAQ Accordion + High-Impact Framed CTA (id="faq" & id="register") */}
         <RegisterSection />
 
-        {/* 9. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}
+        {/* 10. FOOTER: 3 Columns + Scroll-Scrubbed Giant Title (17vw) */}
         <Footer />
       </div>
     </SmoothScroll>

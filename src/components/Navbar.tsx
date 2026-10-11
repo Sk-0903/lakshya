@@ -98,6 +98,7 @@ export const Navbar: React.FC = () => {
         { sectionId: 'prizes', navId: 'prizes' },
         { sectionId: 'partners', navId: 'team' },
         { sectionId: 'team', navId: 'team' },
+        { sectionId: 'venue', navId: '' },
         { sectionId: 'faq', navId: 'faq' },
       ];
       let current = '';

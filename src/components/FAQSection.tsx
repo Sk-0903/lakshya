@@ -26,7 +26,7 @@ export const FAQSection: React.FC = () => {
         {/* Centered Clean Header */}
         <div className="w-full flex flex-col items-center justify-center text-center mb-16 sm:mb-20">
           <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center block mb-3 sm:mb-4">
-            07 &mdash; QUESTIONS
+            08 &mdash; QUESTIONS
           </span>
           <h2
             id="faq-heading"

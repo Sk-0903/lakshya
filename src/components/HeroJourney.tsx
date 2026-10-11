@@ -737,7 +737,7 @@ export const HeroJourney: React.FC = () => {
               Registrations Are Open
             </motion.h2>
             <p className="text-sm sm:text-base text-[#D7E2EA]/70 max-w-md font-light leading-relaxed">
-              Assemble your squad of 2–4 builders and enter the 24-hour sprint.
+              Assemble your squad of 4 builders and enter the 24-hour sprint.
             </p>
             <motion.div style={{ y: step4ButtonY }} className="mt-2 pointer-events-auto">
               <Magnet padding={100} strength={4}>
