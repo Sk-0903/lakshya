@@ -71,7 +71,7 @@ export const CTASection: React.FC = () => {
           {/* Subtitle */}
           <div className="w-full flex justify-center mb-8 sm:mb-10">
             <p className="text-sm sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty px-2 sm:px-0">
-              24 hours of non-stop building, ₹35,000 in prizes, and 200+ hackers at {EVENT_DATA.collegeName}.
+              24 hours of non-stop building, ₹35,000 in prizes, and 200+ innovators at {EVENT_DATA.collegeName}.
             </p>
           </div>
 

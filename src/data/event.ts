@@ -149,7 +149,7 @@ export const EVENT_DATA = {
   },
 
   aboutText:
-    "Lakshya is SJBIT's flagship hackathon — One Vision. Infinite Innovations. — where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or a seasoned hacker, this is your stage to turn ideas into impact.",
+    "Lakshya is SJBIT's flagship hackathon — One Vision. Infinite Innovations. — where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or an experienced innovator, this is your stage to turn ideas into impact.",
 
   stats: [
     { value: 24, suffix: ' Hours', label: 'Continuous Sprint' },
@@ -476,7 +476,7 @@ export const EVENT_DATA = {
       id: 'f3',
       question: 'Is there any registration fee?',
       answer:
-        'The registration fee is ₹1,000 per squad (2 to 4 members). This covers 24-hour hackathon participation, all meals, energy snacks, mentor reviews, hacker kit, and full eligibility for all track prizes.',
+        'The registration fee is ₹1,000 per squad (2 to 4 members). This covers 24-hour hackathon participation, all meals, energy snacks, mentor reviews, participant kit, and full eligibility for all track prizes.',
     },
     {
       id: 'f4',
