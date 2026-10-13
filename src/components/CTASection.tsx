@@ -23,9 +23,9 @@ export const CTASection: React.FC = () => {
       ref={sectionRef}
       id="register"
       aria-labelledby="cta-heading"
-      className="bg-bg text-[#D7E2EA] min-h-[85vh] flex flex-col justify-center items-center py-36 sm:py-48 md:py-60 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
+      className="bg-bg text-[#D7E2EA] flex flex-col justify-center items-center py-20 sm:py-28 md:py-36 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
-      {/* Background Pure-CSS GPU Soft Ambient Aura (Zero JS loop, zero lag) */}
+      {/* Background Pure-CSS GPU Soft Ambient Aura */}
       <div 
         className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
         aria-hidden="true"
@@ -39,100 +39,44 @@ export const CTASection: React.FC = () => {
         />
       </div>
 
-      {/* Smooth Reveal Container */}
-      <motion.div
-        style={{ opacity, scale: isReducedMotion ? 1 : scale }}
-        className="w-full flex flex-col items-center justify-center relative z-10"
-      >
+      <div className="w-full flex flex-col items-center justify-center relative z-10">
         <div
           className="w-full px-4 sm:px-8 text-center relative z-10 flex flex-col items-center justify-center mx-auto"
           style={{ maxWidth: '860px' }}
         >
           {/* Section Label */}
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="w-full flex justify-center mb-4 sm:mb-6"
-          >
+          <div className="w-full flex justify-center mb-4 sm:mb-5">
             <span className="text-[11px] sm:text-[13px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.28em] text-[#D7E2EA]/60 text-center">
               10 &mdash; REGISTRATION
             </span>
-          </motion.div>
+          </div>
 
           {/* Tagline */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.08 }}
-            className="w-full flex justify-center mb-4 sm:mb-5"
-          >
+          <div className="w-full flex justify-center mb-4 sm:mb-5">
             <span className="text-[11px] sm:text-sm font-mono uppercase tracking-[0.22em] sm:tracking-[0.28em] bg-gradient-to-r from-fuchsia-400 via-pink-200 to-amber-300 bg-clip-text text-transparent font-medium drop-shadow-[0_0_12px_rgba(182,0,168,0.35)]">
               {EVENT_DATA.tagline}
             </span>
-          </motion.div>
-
-          {/* Unique Cinematic Masked Headline Reveal: Zero lag, silky 60fps GPU transform */}
-          <div className="w-full flex flex-col items-center justify-center text-center mb-6 sm:mb-8 select-none">
-            {/* Line 1: READY TO */}
-            <div className="overflow-hidden py-1 w-full flex justify-center">
-              <motion.h2
-                id="cta-heading"
-                initial={{ y: isReducedMotion ? 0 : '110%', opacity: isReducedMotion ? 1 : 0 }}
-                whileInView={{ y: '0%', opacity: 1 }}
-                viewport={{ once: true, margin: '-10% 0px' }}
-                transition={{
-                  duration: 0.85,
-                  delay: 0.12,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="hero-heading font-heading font-black uppercase text-[clamp(2.3rem,7.5vw,5.5rem)] tracking-tight leading-[0.98] text-center will-change-transform"
-              >
-                READY TO
-              </motion.h2>
-            </div>
-
-            {/* Line 2: AIM HIGHER? with dramatic glow accent */}
-            <div className="overflow-hidden py-1 w-full flex justify-center">
-              <motion.span
-                initial={{ y: isReducedMotion ? 0 : '110%', opacity: isReducedMotion ? 1 : 0 }}
-                whileInView={{ y: '0%', opacity: 1 }}
-                viewport={{ once: true, margin: '-10% 0px' }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.22,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="hero-heading font-heading font-black uppercase text-[clamp(2.3rem,7.5vw,5.5rem)] tracking-tight leading-[0.98] text-center text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E6EDF2] to-fuchsia-200 will-change-transform drop-shadow-[0_8px_30px_rgba(182,0,168,0.3)] block"
-              >
-                AIM HIGHER?
-              </motion.span>
-            </div>
           </div>
 
-          {/* Subtitle with smooth fade up */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="w-full flex justify-center mb-8 sm:mb-12"
-          >
+          {/* Main High-Impact Heading: ALWAYS 100% VISIBLE */}
+          <div className="w-full flex justify-center items-center text-center mb-6 sm:mb-8 select-none">
+            <h2
+              id="cta-heading"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.4rem,7vw,5.5rem)] tracking-tight leading-[1.02] text-center w-full mx-auto text-balance drop-shadow-[0_8px_30px_rgba(182,0,168,0.25)]"
+            >
+              READY TO AIM HIGHER?
+            </h2>
+          </div>
+
+          {/* Subtitle */}
+          <div className="w-full flex justify-center mb-8 sm:mb-10">
             <p className="text-sm sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty px-2 sm:px-0">
               24 hours of non-stop building, ₹35,000 in prizes, and 200+ hackers at {EVENT_DATA.collegeName}.
             </p>
-          </motion.div>
+          </div>
 
           {/* Elegant Unified Metadata Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.32 }}
-            className="w-full flex justify-center mb-10 sm:mb-14"
-          >
+          <div className="w-full flex justify-center mb-10 sm:mb-12">
             <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 sm:px-6 py-2.5 rounded-2xl sm:rounded-full border border-[#D7E2EA]/15 bg-white/[0.03] backdrop-blur-sm text-[11px] sm:text-sm font-mono tracking-wider text-[#D7E2EA]/85 mx-auto hover:border-fuchsia-500/35 transition-colors duration-300 shadow-md">
               <span className="text-white font-medium">05&ndash;06 NOV 2026</span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
@@ -159,16 +103,10 @@ export const CTASection: React.FC = () => {
               <span className="text-[#D7E2EA]/30">&bull;</span>
               <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD (2 TO 4 MEMBERS)</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Primary Action Button */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.38 }}
-            className="w-full flex justify-center"
-          >
+          <div className="w-full flex justify-center">
             <Magnet padding={80} strength={4}>
               <a
                 href={EVENT_DATA.registrationUrl}
@@ -184,9 +122,9 @@ export const CTASection: React.FC = () => {
                 <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
               </a>
             </Magnet>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
