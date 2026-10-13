@@ -183,7 +183,7 @@ export const FAQSection: React.FC = () => {
                             </span>
 
                             <div className="min-w-0">
-                              <span className="font-heading font-medium text-sm sm:text-base text-white/95 group-hover:text-white transition-colors leading-snug block truncate">
+                              <span className="font-heading font-medium text-sm sm:text-base text-white/95 group-hover:text-white transition-colors leading-snug block line-clamp-2 sm:truncate">
                                 {rule.title}
                               </span>
                               <span className="text-[10px] font-mono uppercase tracking-wider text-[#D7E2EA]/45 block">

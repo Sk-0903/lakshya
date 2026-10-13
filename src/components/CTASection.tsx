@@ -25,7 +25,7 @@ export const CTASection: React.FC = () => {
       aria-labelledby="cta-heading"
       className="bg-bg text-[#D7E2EA] min-h-[85vh] flex flex-col justify-center items-center py-36 sm:py-48 md:py-60 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
-      {/* Background Ambient High-Tech Visuals */}
+      {/* Background Ambient High-Tech Visuals (Responsive on mobile and desktop) */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
         {/* Pulsing gradient orb */}
         <motion.div
@@ -42,7 +42,7 @@ export const CTASection: React.FC = () => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="w-[450px] h-[320px] sm:w-[650px] sm:h-[450px] bg-gradient-to-r from-[#B600A8]/20 via-[#7621B0]/15 to-[#BE4C00]/10 blur-[85px] rounded-full"
+          className="w-[280px] h-[220px] sm:w-[650px] sm:h-[450px] bg-gradient-to-r from-[#B600A8]/20 via-[#7621B0]/15 to-[#BE4C00]/10 blur-[60px] sm:blur-[85px] rounded-full"
         />
 
         {/* Concentric Aim Reticle / Radar Rings for "Aim Higher" Theme */}
@@ -52,7 +52,7 @@ export const CTASection: React.FC = () => {
               ? undefined
               : {
                   scale: [0.96, 1.04, 0.96],
-                  opacity: [0.12, 0.25, 0.12],
+                  opacity: [0.15, 0.28, 0.15],
                   rotate: [0, 180, 360],
                 }
           }
@@ -61,7 +61,7 @@ export const CTASection: React.FC = () => {
             opacity: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
             rotate: { duration: 60, repeat: Infinity, ease: 'linear' },
           }}
-          className="absolute w-[360px] h-[360px] sm:w-[540px] sm:h-[540px] rounded-full border border-dashed border-fuchsia-500/20"
+          className="absolute w-[260px] h-[260px] sm:w-[540px] sm:h-[540px] rounded-full border border-dashed border-fuchsia-500/25"
         />
 
         <motion.div
@@ -78,34 +78,34 @@ export const CTASection: React.FC = () => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute w-[520px] h-[520px] sm:w-[740px] sm:h-[740px] rounded-full border border-white/[0.05]"
+          className="absolute w-[340px] h-[340px] sm:w-[740px] sm:h-[740px] rounded-full border border-white/[0.06]"
         />
 
-        {/* HUD Target Framing Brackets */}
-        <div className="absolute inset-x-8 sm:inset-x-24 top-28 bottom-28 pointer-events-none hidden md:block opacity-25">
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-fuchsia-400" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-fuchsia-400" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-fuchsia-400" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-fuchsia-400" />
+        {/* HUD Target Framing Brackets - Visible on both mobile and desktop */}
+        <div className="absolute inset-x-3 sm:inset-x-12 md:inset-x-24 top-14 sm:top-24 md:top-28 bottom-14 sm:bottom-24 md:bottom-28 pointer-events-none opacity-25 sm:opacity-30">
+          <div className="absolute top-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-l-2 border-fuchsia-400" />
+          <div className="absolute top-0 right-0 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-r-2 border-fuchsia-400" />
+          <div className="absolute bottom-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-l-2 border-fuchsia-400" />
+          <div className="absolute bottom-0 right-0 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-r-2 border-fuchsia-400" />
         </div>
 
-        {/* Ambient Floating Micro-Glows */}
+        {/* Ambient Floating Micro-Glows - Active on mobile and desktop */}
         {!isReducedMotion &&
           [
-            { top: '24%', left: '16%', size: 'w-1.5 h-1.5', delay: 0 },
-            { top: '34%', right: '18%', size: 'w-2 h-2', delay: 1.5 },
-            { top: '68%', left: '20%', size: 'w-1 h-1', delay: 0.8 },
-            { top: '78%', right: '22%', size: 'w-1.5 h-1.5', delay: 2.2 },
+            { top: '16%', left: '8%', size: 'w-1.5 h-1.5', delay: 0 },
+            { top: '26%', right: '10%', size: 'w-2 h-2', delay: 1.5 },
+            { top: '72%', left: '10%', size: 'w-1 h-1', delay: 0.8 },
+            { top: '84%', right: '12%', size: 'w-1.5 h-1.5', delay: 2.2 },
           ].map((spark, i) => (
             <motion.div
               key={i}
               animate={{
-                y: [-8, 8, -8],
-                opacity: [0.2, 0.75, 0.2],
-                scale: [0.8, 1.2, 0.8],
+                y: [-6, 6, -6],
+                opacity: [0.25, 0.85, 0.25],
+                scale: [0.8, 1.25, 0.8],
               }}
               transition={{
-                duration: 4.5 + i,
+                duration: 4 + i,
                 repeat: Infinity,
                 delay: spark.delay,
                 ease: 'easeInOut',
@@ -115,7 +115,7 @@ export const CTASection: React.FC = () => {
                 left: (spark as any).left,
                 right: (spark as any).right,
               }}
-              className={`absolute ${spark.size} rounded-full bg-fuchsia-400 blur-[0.5px] pointer-events-none hidden sm:block`}
+              className={`absolute ${spark.size} rounded-full bg-fuchsia-400 blur-[0.5px] pointer-events-none`}
             />
           ))}
       </div>
@@ -126,7 +126,7 @@ export const CTASection: React.FC = () => {
         className="w-full flex flex-col items-center justify-center"
       >
         <div
-          className="w-full px-5 sm:px-8 text-center relative z-10 flex flex-col items-center justify-center mx-auto"
+          className="w-full px-4 sm:px-8 text-center relative z-10 flex flex-col items-center justify-center mx-auto"
           style={{ maxWidth: '860px' }}
         >
           {/* Section Label with pulsing indicator */}
@@ -135,9 +135,9 @@ export const CTASection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="w-full flex justify-center mb-5 sm:mb-6"
+            className="w-full flex justify-center mb-4 sm:mb-6"
           >
-            <span className="inline-flex items-center gap-2.5 text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center">
+            <span className="inline-flex items-center gap-2 sm:gap-2.5 text-[11px] sm:text-[13px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.28em] text-[#D7E2EA]/60 text-center">
               <span className="w-1.5 h-1.5 rounded-full bg-fuchsia-400 animate-ping inline-block" />
               10 &mdash; REGISTRATION
             </span>
@@ -151,20 +151,20 @@ export const CTASection: React.FC = () => {
             transition={{ duration: 0.65, delay: 0.1 }}
             className="w-full flex justify-center mb-3 sm:mb-4"
           >
-            <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.28em] bg-gradient-to-r from-fuchsia-400 via-pink-200 to-amber-300 bg-clip-text text-transparent font-medium drop-shadow-[0_0_12px_rgba(182,0,168,0.35)]">
+            <span className="text-[11px] sm:text-sm font-mono uppercase tracking-[0.22em] sm:tracking-[0.28em] bg-gradient-to-r from-fuchsia-400 via-pink-200 to-amber-300 bg-clip-text text-transparent font-medium drop-shadow-[0_0_12px_rgba(182,0,168,0.35)]">
               {EVENT_DATA.tagline}
             </span>
           </motion.div>
 
           {/* Main High-Impact Heading with ConvergeText animation */}
-          <div className="w-full flex justify-center items-center text-center mb-6 sm:mb-8">
+          <div className="w-full flex justify-center items-center text-center mb-5 sm:mb-8">
             <ConvergeText
               text="READY TO AIM HIGHER?"
               as="h2"
               id="cta-heading"
               mode="words"
               stagger={0.08}
-              className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,6.5vw,5.5rem)] tracking-tight leading-[1.02] text-center w-full mx-auto text-balance drop-shadow-[0_0_35px_rgba(182,0,168,0.2)]"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.1rem,7.5vw,5.5rem)] tracking-tight leading-[1.05] text-center w-full mx-auto text-balance drop-shadow-[0_0_25px_rgba(182,0,168,0.3)]"
             />
           </div>
 
@@ -174,9 +174,9 @@ export const CTASection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.2 }}
-            className="w-full flex justify-center mb-10 sm:mb-12"
+            className="w-full flex justify-center mb-8 sm:mb-12"
           >
-            <p className="text-base sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty">
+            <p className="text-sm sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty px-2 sm:px-0">
               24 hours of non-stop building, ₹35,000 in prizes, and 200+ hackers at {EVENT_DATA.collegeName}.
             </p>
           </motion.div>
@@ -187,9 +187,9 @@ export const CTASection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.3 }}
-            className="w-full flex justify-center mb-12 sm:mb-14"
+            className="w-full flex justify-center mb-10 sm:mb-14"
           >
-            <div className="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 px-6 py-2.5 rounded-full border border-[#D7E2EA]/15 bg-white/[0.03] backdrop-blur-sm text-xs sm:text-sm font-mono tracking-wider text-[#D7E2EA]/85 mx-auto hover:border-fuchsia-500/35 transition-colors duration-300 shadow-md">
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 sm:px-6 py-2.5 rounded-2xl sm:rounded-full border border-[#D7E2EA]/15 bg-white/[0.03] backdrop-blur-sm text-[11px] sm:text-sm font-mono tracking-wider text-[#D7E2EA]/85 mx-auto hover:border-fuchsia-500/35 transition-colors duration-300 shadow-md">
               <span className="inline-flex items-center gap-1.5 text-white font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 05&ndash;06 NOV 2026

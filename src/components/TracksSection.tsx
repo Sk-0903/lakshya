@@ -87,8 +87,12 @@ export const TracksSection: React.FC = () => {
                     ref={(el) => {
                       rowRefs.current[idx] = el;
                     }}
-                    className={`group relative flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-10 py-10 md:py-14 transition-opacity duration-300 cursor-pointer ${
-                      isCenterFocused ? 'opacity-100' : 'opacity-40 hover:opacity-100'
+                    className={`group relative flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-10 py-8 md:py-14 transition-opacity duration-300 cursor-pointer ${
+                      config.isMobile
+                        ? 'opacity-100'
+                        : isCenterFocused
+                        ? 'opacity-100'
+                        : 'opacity-40 hover:opacity-100'
                     }`}
                   >
                     {/* Left: Number with 12px hover shift */}
