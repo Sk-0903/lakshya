@@ -96,12 +96,12 @@ export const TracksSection: React.FC = () => {
                       {track.number}
                     </div>
 
-                    {/* Center/Right: Name + Description */}
+                    {/* Center/Right: Name + Quote */}
                     <div className="flex-1 max-w-xl">
-                      <h3 className="font-heading font-medium uppercase text-[clamp(1.1rem,2.2vw,2rem)] text-[#0C0C0C] tracking-tight leading-snug mb-2">
+                      <h3 className="font-heading font-medium uppercase text-[clamp(1.2rem,2.2vw,2rem)] text-[#0C0C0C] tracking-tight leading-snug mb-2.5">
                         {track.name}
                       </h3>
-                      <p className="font-light text-[clamp(0.95rem,1.1vw,1.1rem)] text-[#0C0C0C]/60 leading-relaxed">
+                      <p className="font-light italic text-[clamp(0.95rem,1.15vw,1.15rem)] text-[#0C0C0C]/70 leading-relaxed">
                         {track.description}
                       </p>
                     </div>

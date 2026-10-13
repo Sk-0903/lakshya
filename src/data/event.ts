@@ -163,19 +163,19 @@ export const EVENT_DATA = {
       number: '01',
       name: 'Agritech',
       description:
-        'Innovate the agricultural sector with smart farming, precision agriculture, IoT sensors, supply chain traceability, and sustainable yield optimization.',
+        '“Rooted in tradition, powered by innovation — cultivating solutions from the ground up.”',
     },
     {
       number: '02',
       name: 'Smart and Sustainable Future',
       description:
-        'Engineer green tech, clean energy systems, circular economies, smart grid management, and carbon-negative urban solutions.',
+        '“Engineering a resilient planet today where technology and ecology thrive as one.”',
     },
     {
       number: '03',
-      name: 'Defence or Government',
+      name: 'Governance',
       description:
-        'Develop mission-critical systems for national security, emergency disaster response, civic tech infrastructure, and sovereign cybersecurity.',
+        '“Code in service of the people — empowering citizens, elevating transparency, and engineering trust.”',
     },
   ] as TrackData[],
 
@@ -350,7 +350,7 @@ export const EVENT_DATA = {
       number: 7,
       title: 'Approved Problem Domains',
       content:
-        'Projects must align with one of the official themes: Agritech, Smart and Sustainable Future, or Defence or Government. Off-topic submissions may be disqualified.',
+        'Projects must align with one of the official themes: Agritech, Smart and Sustainable Future, or Governance. Off-topic submissions may be disqualified.',
       category: 'Submission & Originality',
     },
     {
