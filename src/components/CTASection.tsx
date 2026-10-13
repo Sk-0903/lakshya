@@ -25,155 +25,99 @@ export const CTASection: React.FC = () => {
       aria-labelledby="cta-heading"
       className="bg-bg text-[#D7E2EA] min-h-[85vh] flex flex-col justify-center items-center py-36 sm:py-48 md:py-60 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
-      {/* Background Ambient High-Tech Visuals (Responsive on mobile and desktop) */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
-        {/* Pulsing gradient orb */}
-        <motion.div
-          animate={
-            isReducedMotion
-              ? undefined
-              : {
-                  scale: [1, 1.2, 1],
-                  opacity: [0.15, 0.28, 0.15],
-                }
-          }
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: 'easeInOut',
+      {/* Background Pure-CSS GPU Soft Ambient Aura (Zero JS loop, zero lag) */}
+      <div 
+        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
+        aria-hidden="true"
+      >
+        <div 
+          className="w-[300px] h-[300px] sm:w-[650px] sm:h-[450px] rounded-full blur-[80px] sm:blur-[120px] opacity-40"
+          style={{
+            background: 'radial-gradient(circle, rgba(182, 0, 168, 0.35) 0%, rgba(118, 33, 176, 0.2) 45%, rgba(190, 76, 0, 0.1) 70%, transparent 90%)',
+            transform: 'translateZ(0)',
           }}
-          className="w-[280px] h-[220px] sm:w-[650px] sm:h-[450px] bg-gradient-to-r from-[#B600A8]/20 via-[#7621B0]/15 to-[#BE4C00]/10 blur-[60px] sm:blur-[85px] rounded-full"
         />
-
-        {/* Concentric Aim Reticle / Radar Rings for "Aim Higher" Theme */}
-        <motion.div
-          animate={
-            isReducedMotion
-              ? undefined
-              : {
-                  scale: [0.96, 1.04, 0.96],
-                  opacity: [0.15, 0.28, 0.15],
-                  rotate: [0, 180, 360],
-                }
-          }
-          transition={{
-            scale: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-            opacity: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-            rotate: { duration: 60, repeat: Infinity, ease: 'linear' },
-          }}
-          className="absolute w-[260px] h-[260px] sm:w-[540px] sm:h-[540px] rounded-full border border-dashed border-fuchsia-500/25"
-        />
-
-        <motion.div
-          animate={
-            isReducedMotion
-              ? undefined
-              : {
-                  scale: [1.03, 0.97, 1.03],
-                  opacity: [0.08, 0.18, 0.08],
-                }
-          }
-          transition={{
-            duration: 9,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute w-[340px] h-[340px] sm:w-[740px] sm:h-[740px] rounded-full border border-white/[0.06]"
-        />
-
-        {/* HUD Target Framing Brackets - Visible on both mobile and desktop */}
-        <div className="absolute inset-x-3 sm:inset-x-12 md:inset-x-24 top-14 sm:top-24 md:top-28 bottom-14 sm:bottom-24 md:bottom-28 pointer-events-none opacity-25 sm:opacity-30">
-          <div className="absolute top-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-l-2 border-fuchsia-400" />
-          <div className="absolute top-0 right-0 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-r-2 border-fuchsia-400" />
-          <div className="absolute bottom-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-l-2 border-fuchsia-400" />
-          <div className="absolute bottom-0 right-0 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-r-2 border-fuchsia-400" />
-        </div>
-
-        {/* Ambient Floating Micro-Glows - Active on mobile and desktop */}
-        {!isReducedMotion &&
-          [
-            { top: '16%', left: '8%', size: 'w-1.5 h-1.5', delay: 0 },
-            { top: '26%', right: '10%', size: 'w-2 h-2', delay: 1.5 },
-            { top: '72%', left: '10%', size: 'w-1 h-1', delay: 0.8 },
-            { top: '84%', right: '12%', size: 'w-1.5 h-1.5', delay: 2.2 },
-          ].map((spark, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                y: [-6, 6, -6],
-                opacity: [0.25, 0.85, 0.25],
-                scale: [0.8, 1.25, 0.8],
-              }}
-              transition={{
-                duration: 4 + i,
-                repeat: Infinity,
-                delay: spark.delay,
-                ease: 'easeInOut',
-              }}
-              style={{
-                top: spark.top,
-                left: (spark as any).left,
-                right: (spark as any).right,
-              }}
-              className={`absolute ${spark.size} rounded-full bg-fuchsia-400 blur-[0.5px] pointer-events-none`}
-            />
-          ))}
       </div>
 
       {/* Smooth Reveal Container */}
       <motion.div
         style={{ opacity, scale: isReducedMotion ? 1 : scale }}
-        className="w-full flex flex-col items-center justify-center"
+        className="w-full flex flex-col items-center justify-center relative z-10"
       >
         <div
           className="w-full px-4 sm:px-8 text-center relative z-10 flex flex-col items-center justify-center mx-auto"
           style={{ maxWidth: '860px' }}
         >
-          {/* Section Label with pulsing indicator */}
+          {/* Section Label */}
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="w-full flex justify-center mb-4 sm:mb-6"
           >
-            <span className="inline-flex items-center gap-2 sm:gap-2.5 text-[11px] sm:text-[13px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.28em] text-[#D7E2EA]/60 text-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-fuchsia-400 animate-ping inline-block" />
+            <span className="text-[11px] sm:text-[13px] font-mono uppercase tracking-[0.25em] sm:tracking-[0.28em] text-[#D7E2EA]/60 text-center">
               10 &mdash; REGISTRATION
             </span>
           </motion.div>
 
-          {/* Animated Tagline */}
+          {/* Tagline */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.1 }}
-            className="w-full flex justify-center mb-3 sm:mb-4"
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="w-full flex justify-center mb-4 sm:mb-5"
           >
             <span className="text-[11px] sm:text-sm font-mono uppercase tracking-[0.22em] sm:tracking-[0.28em] bg-gradient-to-r from-fuchsia-400 via-pink-200 to-amber-300 bg-clip-text text-transparent font-medium drop-shadow-[0_0_12px_rgba(182,0,168,0.35)]">
               {EVENT_DATA.tagline}
             </span>
           </motion.div>
 
-          {/* Main High-Impact Heading with ConvergeText animation */}
-          <div className="w-full flex justify-center items-center text-center mb-5 sm:mb-8">
-            <ConvergeText
-              text="READY TO AIM HIGHER?"
-              as="h2"
-              id="cta-heading"
-              mode="words"
-              stagger={0.08}
-              className="hero-heading font-heading font-black uppercase text-[clamp(2.1rem,7.5vw,5.5rem)] tracking-tight leading-[1.05] text-center w-full mx-auto text-balance drop-shadow-[0_0_25px_rgba(182,0,168,0.3)]"
-            />
+          {/* Unique Cinematic Masked Headline Reveal: Zero lag, silky 60fps GPU transform */}
+          <div className="w-full flex flex-col items-center justify-center text-center mb-6 sm:mb-8 select-none">
+            {/* Line 1: READY TO */}
+            <div className="overflow-hidden py-1 w-full flex justify-center">
+              <motion.h2
+                id="cta-heading"
+                initial={{ y: isReducedMotion ? 0 : '110%', opacity: isReducedMotion ? 1 : 0 }}
+                whileInView={{ y: '0%', opacity: 1 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{
+                  duration: 0.85,
+                  delay: 0.12,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="hero-heading font-heading font-black uppercase text-[clamp(2.3rem,7.5vw,5.5rem)] tracking-tight leading-[0.98] text-center will-change-transform"
+              >
+                READY TO
+              </motion.h2>
+            </div>
+
+            {/* Line 2: AIM HIGHER? with dramatic glow accent */}
+            <div className="overflow-hidden py-1 w-full flex justify-center">
+              <motion.span
+                initial={{ y: isReducedMotion ? 0 : '110%', opacity: isReducedMotion ? 1 : 0 }}
+                whileInView={{ y: '0%', opacity: 1 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{
+                  duration: 0.9,
+                  delay: 0.22,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="hero-heading font-heading font-black uppercase text-[clamp(2.3rem,7.5vw,5.5rem)] tracking-tight leading-[0.98] text-center text-transparent bg-clip-text bg-gradient-to-r from-white via-[#E6EDF2] to-fuchsia-200 will-change-transform drop-shadow-[0_8px_30px_rgba(182,0,168,0.3)] block"
+              >
+                AIM HIGHER?
+              </motion.span>
+            </div>
           </div>
 
           {/* Subtitle with smooth fade up */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
             className="w-full flex justify-center mb-8 sm:mb-12"
           >
             <p className="text-sm sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty px-2 sm:px-0">
@@ -181,19 +125,16 @@ export const CTASection: React.FC = () => {
             </p>
           </motion.div>
 
-          {/* Elegant Unified Metadata Badge with subtle hover lift and live indicator */}
+          {/* Elegant Unified Metadata Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.32 }}
             className="w-full flex justify-center mb-10 sm:mb-14"
           >
             <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-4 sm:px-6 py-2.5 rounded-2xl sm:rounded-full border border-[#D7E2EA]/15 bg-white/[0.03] backdrop-blur-sm text-[11px] sm:text-sm font-mono tracking-wider text-[#D7E2EA]/85 mx-auto hover:border-fuchsia-500/35 transition-colors duration-300 shadow-md">
-              <span className="inline-flex items-center gap-1.5 text-white font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                05&ndash;06 NOV 2026
-              </span>
+              <span className="text-white font-medium">05&ndash;06 NOV 2026</span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
               <span className="inline-flex items-center gap-1.5">
                 <span>SJBIT BANGALORE</span>
@@ -220,20 +161,15 @@ export const CTASection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Primary Action Button with light sheen sweep and magnet interaction */}
+          {/* Primary Action Button */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.4 }}
-            className="w-full flex justify-center relative"
+            transition={{ duration: 0.6, delay: 0.38 }}
+            className="w-full flex justify-center"
           >
-            {/* Outer ambient glow behind button */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-56 h-14 rounded-full bg-gradient-to-r from-[#B600A8]/35 to-[#BE4C00]/35 blur-xl animate-pulse" />
-            </div>
-
-            <Magnet padding={120} strength={4}>
+            <Magnet padding={80} strength={4}>
               <a
                 href={EVENT_DATA.registrationUrl}
                 target="_blank"
@@ -242,26 +178,10 @@ export const CTASection: React.FC = () => {
                   background:
                     'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
                 }}
-                className="group relative inline-flex items-center justify-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full text-white font-medium text-sm sm:text-base uppercase tracking-widest hover:brightness-110 hover:shadow-2xl hover:shadow-[#B600A8]/40 active:scale-95 transition-all duration-300 shadow-xl shadow-[#B600A8]/25 cursor-pointer min-h-[52px] overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full text-white font-medium text-sm sm:text-base uppercase tracking-widest hover:brightness-110 hover:shadow-2xl hover:shadow-[#B600A8]/40 active:scale-95 transition-all duration-300 shadow-xl shadow-[#B600A8]/25 cursor-pointer min-h-[52px]"
               >
-                {/* Continuous sweeping sheen highlight */}
-                {!isReducedMotion && (
-                  <motion.div
-                    animate={{
-                      x: ['-120%', '240%'],
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 3.2,
-                      ease: 'easeInOut',
-                      repeatDelay: 1.5,
-                    }}
-                    className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none"
-                  />
-                )}
-
-                <span className="relative z-10">Register Now</span>
-                <ArrowUpRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                <span>Register Now</span>
+                <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
               </a>
             </Magnet>
           </motion.div>

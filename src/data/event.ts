@@ -499,8 +499,8 @@ export const EVENT_DATA = {
   ] as FAQItem[],
 
   contacts: {
-    email: 'lakshya@sjbit.edu.in',
-    phone: '+91 98450 12345',
+    email: 'lakshya26.sjbit@gmail.com',
+    phone: '+91 78925 86349',
     address: 'SJBIT, BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bangalore - 560060',
     instagram: 'https://instagram.com',
     linkedin: 'https://linkedin.com',
@@ -653,7 +653,7 @@ export const EVENT_DATA = {
       role: 'Crew Member',
       group: 'crew',
       name: 'Likitha B S',
-      photo: '',
+      photo: '/team/likitha-bs.jpg',
       phone: '',
       email: '',
       linkedin: '',

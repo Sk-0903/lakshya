@@ -53,7 +53,7 @@ const LeadershipBannerCard: React.FC<LeadershipBannerCardProps> = ({
   return (
     <article
       ref={cardRef}
-      className="w-full rounded-[28px] bg-surface/90 border border-[#D7E2EA]/12 p-6 sm:p-8 md:p-10 lg:p-12 overflow-hidden transition-all duration-300 hover:border-[#B600A8]/50 hover:-translate-y-0.5 sm:hover:-translate-y-1 relative group shadow-2xl shadow-black/50 flex flex-col md:flex-row items-center md:items-center gap-8 sm:gap-10 lg:gap-12 backdrop-blur-sm"
+      className="w-full rounded-[24px] sm:rounded-[28px] bg-surface/90 border border-[#D7E2EA]/12 p-5 sm:p-8 md:p-10 lg:p-12 overflow-hidden transition-all duration-300 hover:border-[#B600A8]/50 hover:-translate-y-0.5 sm:hover:-translate-y-1 relative group shadow-2xl shadow-black/50 flex flex-col md:flex-row items-center md:items-center gap-6 sm:gap-10 lg:gap-12 backdrop-blur-sm"
     >
       {/* Specular Top Hairline */}
       <div

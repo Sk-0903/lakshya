@@ -196,26 +196,26 @@ const StackingPrizeCard: React.FC<{
     >
       <motion.div
         style={{ scale, opacity, rotateX, transformOrigin: 'top center' }}
-        className="w-full max-w-5xl rounded-[40px] border border-[#D7E2EA]/12 bg-bg p-8 md:p-12 shadow-2xl shadow-[rgba(2,6,18,0.6)] flex flex-col md:flex-row items-center justify-between gap-10 select-none will-change-transform mx-auto"
+        className="w-full max-w-5xl rounded-[28px] sm:rounded-[40px] border border-[#D7E2EA]/12 bg-bg p-6 sm:p-8 md:p-12 shadow-2xl shadow-[rgba(2,6,18,0.6)] flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 select-none will-change-transform mx-auto"
       >
         {/* Left Side: Number, Label, Amount, Perks */}
-        <div className="flex-1 flex flex-col justify-between h-full">
+        <div className="flex-1 flex flex-col justify-between h-full w-full">
           <div>
-            <div className="flex items-center gap-4 mb-4">
-              <span className="font-heading font-black text-4xl sm:text-5xl text-white/40 leading-none">
+            <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+              <span className="font-heading font-black text-3xl sm:text-5xl text-white/40 leading-none">
                 {prize.number}
               </span>
-              <span className="text-xs uppercase font-mono tracking-[0.25em] text-[#D7E2EA]/60">
+              <span className="text-[11px] sm:text-xs uppercase font-mono tracking-[0.22em] sm:tracking-[0.25em] text-[#D7E2EA]/60">
                 {prize.category}
               </span>
             </div>
 
-            <h3 className="font-heading font-bold uppercase text-2xl sm:text-3xl text-white tracking-tight mb-6">
+            <h3 className="font-heading font-bold uppercase text-xl sm:text-3xl text-white tracking-tight mb-4 sm:mb-6">
               {prize.label}
             </h3>
 
             {/* Giant Gradient Prize Amount counting up */}
-            <div className="hero-heading font-heading font-black text-[clamp(3rem,7vw,6.5rem)] tracking-tight leading-none mb-8">
+            <div className="hero-heading font-heading font-black text-[clamp(2.5rem,7vw,6.5rem)] tracking-tight leading-none mb-5 sm:mb-8">
               ₹{animatedAmount.toLocaleString()}
             </div>
           </div>

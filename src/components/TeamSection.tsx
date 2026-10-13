@@ -268,7 +268,7 @@ export const TeamSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('faculty')}
-                className={`relative px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
+                className={`relative px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${
                   activeTab === 'faculty'
                     ? 'bg-gradient-to-r from-[#B600A8] to-[#7621B0] text-white shadow-lg shadow-[#B600A8]/30 font-semibold'
                     : 'text-[#D7E2EA]/70 hover:text-white hover:bg-surface-2'
@@ -283,7 +283,7 @@ export const TeamSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('core')}
-                className={`relative px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
+                className={`relative px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${
                   activeTab === 'core'
                     ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-600/30 font-semibold'
                     : 'text-[#D7E2EA]/70 hover:text-white hover:bg-surface-2'
@@ -298,7 +298,7 @@ export const TeamSection: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveTab('crew')}
-                className={`relative px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-2 ${
+                className={`relative px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-1.5 sm:gap-2 ${
                   activeTab === 'crew'
                     ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg shadow-amber-600/30 font-semibold'
                     : 'text-[#D7E2EA]/70 hover:text-white hover:bg-surface-2'

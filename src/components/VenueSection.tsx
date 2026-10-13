@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, CalendarDays, Clock, Navigation, ArrowUpRight, MousePointerClick } from 'lucide-react';
+import { MapPin, CalendarDays, Clock, Navigation, ArrowUpRight, MousePointerClick, Phone, Mail } from 'lucide-react';
 import { EVENT_DATA } from '../data/event';
 import { Converge, ConvergeText, useConvergeConfig } from './motion';
 import { GhostButton } from './GhostButton';
@@ -159,6 +159,29 @@ export const VenueSection: React.FC = () => {
                       <Clock className="w-4 h-4 text-[#B600A8]" />
                     </span>
                     <span>24-Hour Innovation Sprint</span>
+                  </div>
+                </div>
+
+                {/* Direct Contact & Inquiries */}
+                <div className="pt-4 border-t border-[#D7E2EA]/10 mb-6 flex flex-col gap-2.5">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-[#D7E2EA]/50">
+                    Contact &amp; Inquiries
+                  </span>
+                  <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-6">
+                    <a
+                      href={`tel:${EVENT_DATA.contacts.phone.replace(/\s+/g, '')}`}
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-[#D7E2EA]/85 hover:text-amber-300 transition-colors group cursor-pointer"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-amber-300 shrink-0 group-hover:scale-110 transition-transform" />
+                      <span>{EVENT_DATA.contacts.phone}</span>
+                    </a>
+                    <a
+                      href={`mailto:${EVENT_DATA.contacts.email}`}
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono text-[#D7E2EA]/85 hover:text-fuchsia-300 transition-colors group cursor-pointer"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-fuchsia-400 shrink-0 group-hover:scale-110 transition-transform" />
+                      <span>{EVENT_DATA.contacts.email}</span>
+                    </a>
                   </div>
                 </div>
 

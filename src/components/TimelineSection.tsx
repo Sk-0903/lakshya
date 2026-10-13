@@ -530,7 +530,7 @@ export const TimelineSection: React.FC = () => {
               <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-[#D7E2EA]/15 to-[#B600A8]/40" />
               <div className="px-4 py-1.5 rounded-full border border-[#B600A8]/40 bg-[#B600A8]/10 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#B600A8] animate-pulse" />
-                <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-fuchsia-300 font-medium">
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] sm:tracking-[0.25em] text-fuchsia-300 font-medium text-center">
                   24H SPRINT SPAN &bull; 12:00 DAY 1 &rarr; 12:00 DAY 2
                 </span>
               </div>

@@ -36,7 +36,7 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
         if (window.scrollY < rect.height * 0.88 && rect.bottom > window.innerHeight * 0.1) {
           document.documentElement.style.backgroundColor = '#0C0C0C';
         } else {
-          document.documentElement.style.backgroundColor = '#0A1430';
+          document.documentElement.style.backgroundColor = '#0C0C0C';
         }
       }
     };
