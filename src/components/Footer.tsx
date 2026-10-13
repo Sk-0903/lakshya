@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Mail, Phone, MapPin, Instagram, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram } from 'lucide-react';
 import { EVENT_DATA } from '../data/event';
 import { Converge } from './motion';
 
@@ -142,28 +142,11 @@ export const Footer: React.FC = () => {
                 href={EVENT_DATA.contacts.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="w-11 h-11 rounded-full border border-[#D7E2EA]/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white transition-colors focus-visible:outline-2 focus-visible:outline-[#BBCCD7]"
+                aria-label="Instagram (@vigyantra.sjbit)"
+                className="inline-flex items-center gap-2.5 px-4 h-11 rounded-full border border-[#D7E2EA]/20 text-white/80 hover:text-white hover:border-[#BBCCD7] transition-all text-xs font-mono focus-visible:outline-2 focus-visible:outline-[#BBCCD7] group bg-white/[0.02] hover:bg-white/[0.05]"
               >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href={EVENT_DATA.contacts.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-11 h-11 rounded-full border border-[#D7E2EA]/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white transition-colors focus-visible:outline-2 focus-visible:outline-[#BBCCD7]"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href={EVENT_DATA.contacts.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="w-11 h-11 rounded-full border border-[#D7E2EA]/20 flex items-center justify-center text-white/70 hover:text-white hover:border-white transition-colors focus-visible:outline-2 focus-visible:outline-[#BBCCD7]"
-              >
-                <Github className="w-4 h-4" />
+                <Instagram className="w-4 h-4 text-white/70 group-hover:text-white transition-colors" />
+                <span className="tracking-wide">@vigyantra.sjbit</span>
               </a>
             </div>
           </Converge>
