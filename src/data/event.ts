@@ -742,7 +742,7 @@ export const EVENT_DATA = {
     {
       role: 'Crew Member',
       group: 'crew',
-      name: 'Renu',
+      name: 'C K Renu Sharvari',
       photo: '/team/renu.jpg',
       phone: '',
       email: '',
