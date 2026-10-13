@@ -9,12 +9,12 @@ const NAV_LINKS = [
   { label: 'Schedule', href: '#schedule', id: 'schedule' },
   { label: 'Prizes', href: '#prizes', id: 'prizes' },
   { label: 'Team', href: '#team', id: 'team' },
-  { label: 'FAQ', href: '#faq', id: 'faq' },
+  { label: 'Rules', href: '#rules', id: 'rules' },
 ];
 
 const getInitialCoords = () => {
   if (typeof window === 'undefined') {
-    return { deltaX: 0, deltaY: 0, scale: 1 };
+    return { deltaX: 0, deltaY: 0, dockScale: 0.175, targetSize: 160, slotW: 28 };
   }
   const w = window.innerWidth;
   const h = window.innerHeight;
@@ -31,7 +31,9 @@ const getInitialCoords = () => {
   return {
     deltaX: w / 2 - slotCx,
     deltaY: h / 2 - slotCy,
-    scale: targetSize / slotW,
+    dockScale: slotW / targetSize,
+    targetSize,
+    slotW,
   };
 };
 
@@ -56,7 +58,8 @@ export const Navbar: React.FC = () => {
 
   const x = useTransform(dockProgress, (p) => (1 - p) * coords.deltaX);
   const y = useTransform(dockProgress, (p) => (1 - p) * coords.deltaY);
-  const scale = useTransform(dockProgress, (p) => 1 + (1 - p) * (coords.scale - 1));
+  // Scale down from native 1.0 (crisp 160px/230px raster) to dockScale (slot size)
+  const scale = useTransform(dockProgress, (p) => 1 - p * (1 - coords.dockScale));
   const glowOpacity = useTransform(dockProgress, [0, 0.5, 1], [1, 0.15, 0]);
 
   // Compute exact sub-pixel delta to viewport center
@@ -67,6 +70,7 @@ export const Navbar: React.FC = () => {
     const h = window.innerHeight;
     const isMob = w < 768;
     const targetSize = isMob ? 160 : 230;
+    const slotW = rect.width || (isMob ? 28 : 32);
 
     const slotCx = rect.left + rect.width / 2;
     const slotCy = rect.top + rect.height / 2;
@@ -76,30 +80,37 @@ export const Navbar: React.FC = () => {
     setCoords({
       deltaX: viewCx - slotCx,
       deltaY: viewCy - slotCy,
-      scale: targetSize / (rect.width || (isMob ? 28 : 32)),
+      dockScale: slotW / targetSize,
+      targetSize,
+      slotW,
     });
   };
 
   useLayoutEffect(() => {
     updateCoords();
     window.addEventListener('resize', updateCoords);
-    return () => window.removeEventListener('resize', updateCoords);
+    window.addEventListener('orientationchange', updateCoords);
+    return () => {
+      window.removeEventListener('resize', updateCoords);
+      window.removeEventListener('orientationchange', updateCoords);
+    };
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 220);
 
-      // Section tracking for active underline (track both #partners and #team to 'team')
+      // Section tracking for active underline
       const trackedSections = [
         { sectionId: 'about', navId: 'about' },
         { sectionId: 'tracks', navId: 'tracks' },
         { sectionId: 'schedule', navId: 'schedule' },
         { sectionId: 'prizes', navId: 'prizes' },
-        { sectionId: 'partners', navId: 'team' },
+        { sectionId: 'partners', navId: '' },
+        { sectionId: 'messages', navId: '' },
         { sectionId: 'team', navId: 'team' },
         { sectionId: 'venue', navId: '' },
-        { sectionId: 'faq', navId: 'faq' },
+        { sectionId: 'rules', navId: 'rules' },
       ];
       let current = '';
       for (const item of trackedSections) {
@@ -135,10 +146,13 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
+        style={{
+          backgroundColor: isScrolled ? 'rgba(12, 12, 12, 0.92)' : 'transparent',
+        }}
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 select-none ${
           isScrolled
-            ? 'bg-[#0C0C0C]/85 backdrop-blur-md border-b border-[#D7E2EA]/12 py-3.5 sm:py-4'
-            : 'bg-transparent py-5 sm:py-6'
+            ? 'backdrop-blur-md border-b border-[#D7E2EA]/12 py-3.5 sm:py-4 shadow-lg shadow-black/40'
+            : 'py-5 sm:py-6'
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 md:px-10 flex items-center justify-between">
@@ -158,11 +172,15 @@ export const Navbar: React.FC = () => {
             >
               <motion.div
                 style={{
+                  width: coords.targetSize,
+                  height: coords.targetSize,
+                  left: (coords.slotW - coords.targetSize) / 2,
+                  top: (coords.slotW - coords.targetSize) / 2,
                   x: shouldReduceMotion ? 0 : x,
                   y: shouldReduceMotion ? 0 : y,
-                  scale: shouldReduceMotion ? 1 : scale,
+                  scale: shouldReduceMotion ? coords.dockScale : scale,
                 }}
-                className="w-full h-full rounded-full relative flex items-center justify-center will-change-transform"
+                className="rounded-full absolute flex items-center justify-center pointer-events-none origin-center"
               >
                 {/* Ambient Radial Aura when centered over circuit tunnel */}
                 <motion.div
@@ -179,9 +197,14 @@ export const Navbar: React.FC = () => {
               </motion.div>
             </div>
 
-            <span className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-white group-hover:opacity-85 transition">
-              Lakshya&apos;26
-            </span>
+            <div className="flex flex-col">
+              <span className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-white group-hover:opacity-85 transition leading-none">
+                Lakshya&apos;26
+              </span>
+              <span className="hidden sm:block text-[9px] font-mono tracking-[0.22em] uppercase text-fuchsia-300/80 mt-1">
+                {EVENT_DATA.tagline}
+              </span>
+            </div>
           </a>
 
           {/* Center Links (Desktop) */}
@@ -247,7 +270,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-50 bg-[#0C0C0C] flex flex-col justify-between p-8 pt-24 md:hidden"
+            className="fixed inset-0 z-50 bg-bg flex flex-col justify-between p-8 pt-24 md:hidden"
           >
             {/* Top Close Button */}
             <button

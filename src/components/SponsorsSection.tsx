@@ -8,7 +8,7 @@ export const SponsorsSection: React.FC = () => {
     <section
       id="sponsors"
       aria-labelledby="sponsors-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-20 sm:py-[104px] md:py-32 border-t border-[#D7E2EA]/12 select-none"
+      className="bg-bg text-[#D7E2EA] py-20 sm:py-[104px] md:py-32 border-t border-[#D7E2EA]/12 select-none"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
         {/* Unified Section Header */}
@@ -23,7 +23,7 @@ export const SponsorsSection: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {EVENT_DATA.sponsors.map((sponsor, idx) => (
             <FadeIn key={sponsor.id} delay={idx * 0.05} y={16} className="h-full">
-              <div className="h-full min-h-[150px] sm:min-h-[160px] rounded-2xl border border-[#D7E2EA]/12 bg-[#101015] p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-[#B600A8]/50 group cursor-default min-w-0">
+              <div className="h-full min-h-[150px] sm:min-h-[160px] rounded-2xl border border-[#D7E2EA]/12 bg-surface p-6 sm:p-7 flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 hover:border-[#B600A8]/50 group cursor-default min-w-0">
                 {/* Category label aligned top-left */}
                 <span className="text-[11px] sm:text-[12px] uppercase font-mono tracking-[0.25em] text-[#D7E2EA]/60 block mb-4">
                   {sponsor.category}

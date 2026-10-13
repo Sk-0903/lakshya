@@ -39,7 +39,7 @@ export const SectionCurtain: React.FC<SectionCurtainProps> = ({
       {/* Dynamic top shadow as curtain slides over previous section */}
       <motion.div
         style={{ opacity: shadowOpacity }}
-        className={`absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-black/80 to-transparent pointer-events-none ${roundedClass}`}
+        className={`absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-[rgba(2,6,18,0.8)] to-transparent pointer-events-none ${roundedClass}`}
       />
       {children}
     </div>

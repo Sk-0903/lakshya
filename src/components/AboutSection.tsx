@@ -10,7 +10,7 @@ export const AboutSection: React.FC = () => {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative bg-[#0C0C0C] text-[#D7E2EA] py-20 sm:py-[104px] md:py-32 border-t border-[#D7E2EA]/12 select-none"
+      className="relative bg-bg text-[#D7E2EA] py-20 sm:py-[104px] md:py-32 select-none"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
         {/* Unified Section Header */}
@@ -24,6 +24,9 @@ export const AboutSection: React.FC = () => {
         {/* Paragraph: Aligned on the exact same axis, constrained to 64ch */}
         <FadeIn delay={0.15} y={16}>
           <div className="max-w-[64ch]">
+            <span className="inline-block text-xs sm:text-sm font-mono uppercase tracking-[0.25em] text-fuchsia-300/85 mb-4">
+              {EVENT_DATA.tagline}
+            </span>
             <AnimatedText
               text={EVENT_DATA.aboutText}
               className="text-[clamp(1rem,1.2vw,1.125rem)] text-[#D7E2EA]/90"

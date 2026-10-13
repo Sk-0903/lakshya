@@ -10,7 +10,7 @@ interface ContactButtonProps {
 
 export const ContactButton: React.FC<ContactButtonProps> = ({
   label = 'Register Now',
-  href = 'https://forms.gle/lakshya26',
+  href = 'https://forms.gle/65PbpDexmsZuxSGE9',
   onClick,
   className = '',
 }) => {

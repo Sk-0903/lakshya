@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
+:root {
+  --bg: 12 12 12;        /* #0C0C0C deep black page background */
+  --surface: 20 20 22;   /* #141416 lifted cards and panels */
+  --surface-2: 28 28 32; /* #1C1C20 hover/active surfaces */
+  --hero-bg: 12 12 12;   /* #0C0C0C hero video stage */
+}
+
 @theme {
   --font-sans: 'Kanit', sans-serif;
   --font-heading: 'Kanit', sans-serif;
+  --color-bg: #0C0C0C;
+  --color-surface: #141416;
+  --color-surface-2: #1C1C20;
+  --color-hero-bg: #0C0C0C;
 }
 
 @layer base {
@@ -12,14 +23,28 @@
 }
 
 html {
-  background-color: #0C0C0C;
+  background-color: rgb(var(--bg));
   font-family: 'Kanit', sans-serif;
   color: #D7E2EA;
+  color-scheme: dark;
 }
 
 body, #root {
-  background-color: #0C0C0C;
+  background-color: rgb(var(--bg));
   min-height: 100%;
+}
+
+.bg-bg {
+  background-color: rgb(var(--bg));
+}
+.bg-surface {
+  background-color: rgb(var(--surface));
+}
+.bg-surface-2 {
+  background-color: rgb(var(--surface-2));
+}
+.bg-hero-bg {
+  background-color: rgb(var(--hero-bg));
 }
 
 body {
@@ -40,7 +65,15 @@ h1, h2, h3, h4, .font-heading {
 
 .hero-heading {
   font-family: 'Kanit', sans-serif;
-  background: linear-gradient(180deg, #FFFFFF 0%, #BBCCD7 50%, #646973 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #DCE6ED 55%, #A8BCC9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.lakshya-title-glow {
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(180deg, #FFFFFF 0%, #DCE6ED 55%, #A8BCC9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;

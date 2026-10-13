@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className="bg-[#0C0C0C] text-[#D7E2EA] border-t border-[#D7E2EA]/12 pt-24 sm:pt-32 md:pt-36 pb-10 overflow-hidden relative select-none"
+      className="bg-bg text-[#D7E2EA] border-t border-[#D7E2EA]/12 pt-24 sm:pt-32 md:pt-36 pb-10 overflow-hidden relative select-none"
     >
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
         {/* Three Columns Grid: Desktop 1.4fr : 1fr : 1.2fr (5 cols, 3 cols, 4 cols) */}
@@ -60,9 +60,10 @@ export const Footer: React.FC = () => {
                 { label: 'Innovation Tracks', href: '#tracks' },
                 { label: '24-Hour Timeline', href: '#schedule' },
                 { label: 'Awards & Bounties', href: '#prizes' },
+                { label: 'Messages', href: '#messages' },
                 { label: 'Organizing Team', href: '#team' },
                 { label: 'Venue & Location', href: '#venue' },
-                { label: 'Frequently Asked Questions', href: '#faq' },
+                { label: 'Rules & Regulations', href: '#rules' },
                 { label: 'Registration Portal', href: '#register' },
               ].map((link) => (
                 <a
@@ -170,7 +171,13 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Giant "Lakshya'26" in .hero-heading rising in via scroll scrub (Contained, no overflow) */}
-      <div className="w-full overflow-hidden relative flex justify-center items-end mt-16 sm:mt-24 md:mt-28">
+      <div className="w-full overflow-hidden relative flex flex-col justify-center items-center mt-16 sm:mt-24 md:mt-28">
+        <motion.p
+          style={{ opacity: giantTextOpacity }}
+          className="text-xs sm:text-sm font-mono uppercase tracking-[0.3em] text-fuchsia-300/80 text-center mb-3 select-none"
+        >
+          {EVENT_DATA.tagline}
+        </motion.p>
         <motion.div
           style={{ y: giantTextY, opacity: giantTextOpacity }}
           className="w-full flex justify-center overflow-hidden"

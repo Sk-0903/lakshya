@@ -172,7 +172,7 @@ const MilestoneCard: React.FC<MilestoneCardProps> = ({
               : 'rgba(215, 226, 234, 0.2)',
             backgroundColor: isNodePassed || isActive
               ? isSprintEnd ? '#BE4C00' : '#B600A8'
-              : '#0C0C0C',
+              : '#0A1430',
           }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           className="w-3.5 h-3.5 rounded-full border-2 transition-shadow duration-300 shadow-sm"
@@ -386,7 +386,7 @@ export const TimelineSection: React.FC = () => {
       ref={sectionRef}
       id="schedule"
       aria-labelledby="schedule-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-24 sm:py-32 md:py-40 border-t border-[#D7E2EA]/12 select-none relative overflow-hidden"
+      className="bg-bg text-[#D7E2EA] py-24 sm:py-32 md:py-40 border-t border-[#D7E2EA]/12 select-none relative overflow-hidden"
     >
       {/* Shared Site Container: max-w-[1200px], px-5 (20px mobile), px-8 (32px tablet), px-12 (48px desktop) */}
       <div className="max-w-[1200px] mx-auto px-5 sm:px-8 md:px-12">
@@ -655,7 +655,7 @@ export const TimelineSection: React.FC = () => {
                           ? '#B600A8'
                           : '#BE4C00',
                       }}
-                      className={`absolute -left-[31px] top-7 w-3 h-3 rounded-full ring-4 ring-[#0C0C0C] z-10 transition-shadow duration-300 ${
+                      className={`absolute -left-[31px] top-7 w-3 h-3 rounded-full ring-4 ring-bg z-10 transition-shadow duration-300 ${
                         isSprintEnd
                           ? 'bg-[#BE4C00] shadow-[0_0_8px_#BE4C00]'
                           : isDay1

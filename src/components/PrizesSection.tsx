@@ -196,7 +196,7 @@ const StackingPrizeCard: React.FC<{
     >
       <motion.div
         style={{ scale, opacity, rotateX, transformOrigin: 'top center' }}
-        className="w-full max-w-5xl rounded-[40px] border border-[#D7E2EA]/12 bg-[#0C0C0C] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10 select-none will-change-transform mx-auto"
+        className="w-full max-w-5xl rounded-[40px] border border-[#D7E2EA]/12 bg-bg p-8 md:p-12 shadow-2xl shadow-[rgba(2,6,18,0.6)] flex flex-col md:flex-row items-center justify-between gap-10 select-none will-change-transform mx-auto"
       >
         {/* Left Side: Number, Label, Amount, Perks */}
         <div className="flex-1 flex flex-col justify-between h-full">
@@ -244,7 +244,7 @@ export const PrizesSection: React.FC = () => {
   return (
     <section
       id="prizes"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-28 sm:py-36 md:py-48 px-6 md:px-10 border-t border-[#D7E2EA]/12 relative select-none"
+      className="bg-bg text-[#D7E2EA] py-28 sm:py-36 md:py-48 px-6 md:px-10 border-t border-[#D7E2EA]/12 relative select-none"
     >
       <div className="max-w-5xl mx-auto mb-16 text-center flex flex-col items-center justify-center">
         <span className="text-[0.75rem] uppercase tracking-[0.3em] text-[#D7E2EA]/60 font-mono block mb-4 text-center">
@@ -253,6 +253,9 @@ export const PrizesSection: React.FC = () => {
         <h2 className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none text-center w-full mx-auto">
           PRIZES
         </h2>
+        <div className="mt-5 inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#B600A8]/30 bg-[#B600A8]/10 text-xs sm:text-sm font-mono tracking-wider text-[#F5D0FE]">
+          <span>★ Guaranteed Internship for All Winners (1st, 2nd & 3rd Place)</span>
+        </div>
       </div>
 
       {/* 3 Sticky-Stacking Cards */}

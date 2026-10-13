@@ -23,7 +23,7 @@ export const CTASection: React.FC = () => {
       ref={sectionRef}
       id="register"
       aria-labelledby="cta-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] min-h-[85vh] flex flex-col justify-center items-center py-36 sm:py-48 md:py-60 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
+      className="bg-bg text-[#D7E2EA] min-h-[85vh] flex flex-col justify-center items-center py-36 sm:py-48 md:py-60 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
       {/* Background Soft Ambient Purple Glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
@@ -42,7 +42,14 @@ export const CTASection: React.FC = () => {
           {/* Section Label */}
           <div className="w-full flex justify-center mb-5 sm:mb-6">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 text-center">
-              09 &mdash; REGISTRATION
+              10 &mdash; REGISTRATION
+            </span>
+          </div>
+
+          {/* Tagline */}
+          <div className="w-full flex justify-center mb-3">
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.25em] text-fuchsia-300/85 text-center">
+              {EVENT_DATA.tagline}
             </span>
           </div>
 
@@ -59,7 +66,7 @@ export const CTASection: React.FC = () => {
           {/* Short, Confident Subtitle */}
           <div className="w-full flex justify-center mb-10 sm:mb-12">
             <p className="text-base sm:text-lg md:text-xl font-light text-[#D7E2EA]/75 max-w-[46ch] text-center mx-auto leading-relaxed text-pretty">
-              24 hours of non-stop building, ₹45,000 in prizes, and 500+ hackers at {EVENT_DATA.collegeName}.
+              24 hours of non-stop building, ₹35,000 in prizes, and 200+ hackers at {EVENT_DATA.collegeName}.
             </p>
           </div>
 
@@ -89,7 +96,7 @@ export const CTASection: React.FC = () => {
                 </a>
               </span>
               <span className="text-[#D7E2EA]/30">&bull;</span>
-              <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD (4 MEMBERS)</span>
+              <span className="text-amber-300 font-semibold">ENTRY: ₹1,000 / SQUAD (2 TO 4 MEMBERS)</span>
             </div>
           </div>
 

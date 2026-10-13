@@ -73,7 +73,7 @@ export const VenueSection: React.FC = () => {
       ref={sectionRef}
       id="venue"
       aria-labelledby="venue-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-24 sm:py-32 md:py-40 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
+      className="bg-bg text-[#D7E2EA] py-24 sm:py-32 md:py-40 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
       {/* Background Subtle Hairline Target-Ring Motif */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-[0.04]">
@@ -97,7 +97,7 @@ export const VenueSection: React.FC = () => {
         <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
           <Converge from="bottom" distance={20} className="w-full flex justify-center">
             <span className="text-[12px] sm:text-[13px] font-mono uppercase tracking-[0.28em] text-[#D7E2EA]/60 block mb-3 text-center">
-              07 &mdash; VENUE
+              08 &mdash; VENUE
             </span>
           </Converge>
 
@@ -125,7 +125,7 @@ export const VenueSection: React.FC = () => {
             distance={isReducedMotion ? 0 : 80}
             className="lg:col-span-5 flex flex-col h-full"
           >
-            <div className="h-full rounded-[24px] bg-[#121212] border border-[#D7E2EA]/12 p-7 sm:p-9 md:p-10 flex flex-col justify-between shadow-xl shadow-black/30">
+            <div className="h-full rounded-[24px] bg-surface border border-[#D7E2EA]/12 p-7 sm:p-9 md:p-10 flex flex-col justify-between shadow-xl shadow-[rgba(2,6,18,0.5)]">
               <div className="flex flex-col">
                 {/* Small Label */}
                 <span className="text-[12px] font-mono uppercase tracking-[0.25em] text-[#D7E2EA]/60 block mb-2.5">
@@ -227,11 +227,11 @@ export const VenueSection: React.FC = () => {
               ref={mapCardRef}
               style={{ clipPath: isReducedMotion ? undefined : clipPath }}
               onMouseLeave={() => setIsInteractive(false)}
-              className="relative rounded-[24px] bg-[#121212] border border-[#D7E2EA]/15 overflow-hidden h-[340px] sm:h-[400px] lg:h-full lg:min-h-[480px] shadow-xl shadow-black/30 group"
+              className="relative rounded-[24px] bg-surface border border-[#D7E2EA]/15 overflow-hidden h-[340px] sm:h-[400px] lg:h-full lg:min-h-[480px] shadow-xl shadow-[rgba(2,6,18,0.5)] group"
             >
               {/* Placeholder & Fallback panel (shown before lazy-mount or on iframe failure) */}
               {(!isNearViewport || iframeError) && (
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#1C1C20] via-[#141417] to-[#0C0C0E]">
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-surface-2 via-surface to-bg">
                   {/* Concentric hairline target rings */}
                   <svg
                     viewBox="0 0 200 200"
@@ -278,7 +278,7 @@ export const VenueSection: React.FC = () => {
                   allowFullScreen
                   onError={() => setIframeError(true)}
                   style={{
-                    filter: 'grayscale(1) invert(0.92) contrast(0.95) brightness(0.9)',
+                    filter: 'grayscale(0.85) invert(0.92) contrast(1.05) brightness(0.9) sepia(0.25) hue-rotate(185deg)',
                   }}
                   className={`w-full h-full border-0 absolute inset-0 transition-opacity duration-500 ${
                     isInteractive ? 'pointer-events-auto' : 'pointer-events-none'
@@ -288,7 +288,7 @@ export const VenueSection: React.FC = () => {
 
               {/* Floating Top-Left Chip: SJBIT CAMPUS, KENGERI */}
               <div className="absolute top-4 left-4 z-20 pointer-events-none">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0C0C0C]/85 backdrop-blur-md border border-[#D7E2EA]/15 text-xs font-mono text-[#D7E2EA]/90 shadow-md">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface/90 backdrop-blur-md border border-[#D7E2EA]/15 text-xs font-mono text-[#D7E2EA]/90 shadow-md">
                   <MapPin className="w-3.5 h-3.5 text-amber-300" />
                   <span>{venue.campusTag}</span>
                 </div>
@@ -301,7 +301,7 @@ export const VenueSection: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open SJBIT campus venue in Google Maps"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0C0C0C]/85 hover:bg-[#1A1A1A] backdrop-blur-md border border-[#D7E2EA]/15 text-xs font-mono text-[#D7E2EA]/90 hover:text-white transition-all shadow-md focus-visible:outline-2 focus-visible:outline-[#BBCCD7]"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface/90 hover:bg-surface-2 backdrop-blur-md border border-[#D7E2EA]/15 text-xs font-mono text-[#D7E2EA]/90 hover:text-white transition-all shadow-md focus-visible:outline-2 focus-visible:outline-[#BBCCD7]"
                 >
                   <span>Open in Maps</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-amber-300" />
@@ -316,7 +316,7 @@ export const VenueSection: React.FC = () => {
                   aria-label="Click to interact with map"
                   className="absolute inset-0 z-10 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-colors cursor-pointer group/overlay"
                 >
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0C0C0C]/90 backdrop-blur-md border border-[#D7E2EA]/20 text-xs font-mono uppercase tracking-wider text-[#D7E2EA] group-hover/overlay:border-white/40 group-hover/overlay:text-white transition-all shadow-lg transform group-hover/overlay:scale-105">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface/95 backdrop-blur-md border border-[#D7E2EA]/20 text-xs font-mono uppercase tracking-wider text-[#D7E2EA] group-hover/overlay:border-white/40 group-hover/overlay:text-white transition-all shadow-lg transform group-hover/overlay:scale-105">
                     <MousePointerClick className="w-3.5 h-3.5 text-amber-300" />
                     <span>{isTouch ? 'Tap to interact' : 'Click to interact'}</span>
                   </div>
@@ -326,7 +326,7 @@ export const VenueSection: React.FC = () => {
               {/* Exit Interactive Hint when engaged on desktop */}
               {isInteractive && !isTouch && (
                 <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
-                  <span className="text-[11px] font-mono text-white/70 bg-[#0C0C0C]/80 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10">
+                  <span className="text-[11px] font-mono text-white/70 bg-surface/85 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10">
                     Press Esc or move cursor away to lock scroll
                   </span>
                 </div>

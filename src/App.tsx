@@ -8,6 +8,7 @@ import { TracksSection } from './components/TracksSection';
 import { TimelineSection } from './components/TimelineSection';
 import { PrizesSection } from './components/PrizesSection';
 import { PartnersSection } from './components/PartnersSection';
+import { LeadershipSection } from './components/LeadershipSection';
 import { TeamSection } from './components/TeamSection';
 import { VenueSection } from './components/VenueSection';
 import { RegisterSection } from './components/RegisterSection';
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <SmoothScroll>
       <div
-        className="bg-[#0C0C0C] text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-white"
+        className="bg-bg text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-white"
         style={{ overflowX: 'clip' }}
       >
         {/* Fixed Top 2px Accent Scroll Progress Bar */}
@@ -44,7 +45,10 @@ export default function App() {
         {/* 6. PARTNERS: In Association With (id="partners") */}
         <PartnersSection />
 
-        {/* 7. TEAM: The People Behind Lakshya'26 (id="team") */}
+        {/* 7. LEADERSHIP: Words of Encouragement (id="messages") */}
+        <LeadershipSection />
+
+        {/* 8. TEAM: The People Behind Lakshya'26 (id="team") */}
         <TeamSection />
 
         {/* 8. VENUE: Find Us / Location (id="venue") */}

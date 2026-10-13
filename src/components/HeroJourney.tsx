@@ -12,6 +12,85 @@ function smoothstep(min: number, max: number, value: number) {
   return x * x * (3 - 2 * x);
 }
 
+// Frame Dimensions and Safe Area Constants for Segment A
+const FRAME_W = 1280;
+const FRAME_H = 720;
+const SAFE_X1 = 330;
+const SAFE_X2 = 950;
+const SAFE_Y1 = 60;
+const SAFE_Y2 = 640;
+const SAFE_W = SAFE_X2 - SAFE_X1; // 620
+const SAFE_H = SAFE_Y2 - SAFE_Y1; // 580
+const SAFE_CY = (SAFE_Y1 + SAFE_Y2) / 2; // 350
+
+interface FrameMetrics {
+  vw: number;
+  vh: number;
+  dpr: number;
+  canvasW: number;
+  canvasH: number;
+  compactNavH: number;
+  bottomReserve: number;
+  finalScale: number;
+  maxPushIn: number;
+}
+
+function getCompactNavH(): number {
+  if (typeof window === 'undefined') return 100;
+  const header = document.querySelector('header');
+  const isMob = window.innerWidth < 768;
+  const measured = header ? header.getBoundingClientRect().height : 0;
+  return Math.max(measured, isMob ? 68 : 100);
+}
+
+function computeFrameTransform(
+  metrics: FrameMetrics,
+  aProg: number,
+  scaleTransform: number
+) {
+  const { vw, vh, dpr, canvasW, compactNavH, bottomReserve } = metrics;
+  const topBound = compactNavH + 16;
+  const availH = Math.max(100, vh - topBound - bottomReserve);
+  const availW = Math.max(100, vw - 32);
+
+  const coverScale = Math.max(vw / FRAME_W, vh / FRAME_H);
+  const safeScale = Math.min(availW / SAFE_W, availH / SAFE_H);
+  const finalScale = Math.min(coverScale, safeScale);
+
+  // Blend from coverScale to finalScale across segment A progress 0.10 to 0.27
+  const blendFactor = smoothstep(0.10, 0.27, aProg);
+  const blendedScale = coverScale * (1 - blendFactor) + finalScale * blendFactor;
+  const effectiveScale = blendedScale * scaleTransform;
+
+  const drawW = FRAME_W * effectiveScale * dpr;
+  const drawH = FRAME_H * effectiveScale * dpr;
+  const drawX = (canvasW - drawW) / 2;
+
+  // Vertical placement: center safe area in available region
+  const availCenterY = topBound + availH / 2;
+  const desiredDrawY_css = availCenterY - SAFE_CY * effectiveScale;
+  const coverDrawY_css = (vh - FRAME_H * effectiveScale) / 2;
+
+  // Strictly guarantee safe area top never crosses above topBound into navbar
+  let targetDrawY_css = Math.max(desiredDrawY_css, topBound - SAFE_Y1 * effectiveScale);
+
+  // Guarantee safe area bottom never exceeds vh - bottomReserve
+  const maxAllowedY = (vh - bottomReserve) - SAFE_Y2 * effectiveScale;
+  targetDrawY_css = Math.min(targetDrawY_css, maxAllowedY);
+
+  const drawY_css = coverDrawY_css * (1 - blendFactor) + targetDrawY_css * blendFactor;
+  const drawY = drawY_css * dpr;
+
+  return {
+    drawX,
+    drawY,
+    drawW,
+    drawH,
+    blendFactor,
+    effectiveScale,
+  };
+}
+
 // Lakshya'26 Converging letter configuration
 const HERO_LETTERS = [
   { char: 'L', initX: -20, initY: -14, initRot: -12, initScale: 0.8 },
@@ -56,9 +135,16 @@ const ConvergingHeroLetter: React.FC<{
 export const HeroJourney: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+    }
+    return false;
+  });
   const [useFallback, setUseFallback] = useState(false);
   const isVisibleRef = useRef(true);
+  const hasPaintedFirstFrameRef = useRef(false);
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   // Scroll Progress across expanded 850vh desktop / 650vh mobile
   const { scrollYProgress } = useScroll({
@@ -98,6 +184,20 @@ export const HeroJourney: React.FC = () => {
   const step4HeadingY = useTransform(smoothProgress, [0.87, 0.90, 1], [-24, 0, 0]);
   const step4ButtonY = useTransform(smoothProgress, [0.87, 0.90, 1], [28, 0, 0]);
 
+  // Scroll-linked handoff to dark blue (var(--bg)) over progress 0.88 to 1.00
+  // 1. Stage background interpolates from hero black to dark blue
+  const stageBgColor = useTransform(
+    smoothProgress,
+    [0.88, 1.00],
+    ['rgb(12 12 12)', 'rgb(10 20 48)']
+  );
+
+  // 2. Vertical gradient handoff: bottom of the screen turns navy first (0.86 to 0.94)
+  const navyGradientOpacity = useTransform(smoothProgress, [0.86, 0.94], [0, 1]);
+
+  // 3. Solid navy stage veil (0.90 to 1.00) so the tunnel dims smoothly into solid navy
+  const navySolidOpacity = useTransform(smoothProgress, [0.90, 1.00], [0, 1]);
+
   // Device inspection
   useEffect(() => {
     const checkMobile = () => {
@@ -135,6 +235,17 @@ export const HeroJourney: React.FC = () => {
   });
 
   const currentScrollPRef = useRef<number>(0);
+  const metricsRef = useRef<FrameMetrics>({
+    vw: typeof window !== 'undefined' ? window.innerWidth : 1920,
+    vh: typeof window !== 'undefined' ? window.innerHeight : 1080,
+    dpr: 1,
+    canvasW: 1920,
+    canvasH: 1080,
+    compactNavH: 100,
+    bottomReserve: 24,
+    finalScale: 1,
+    maxPushIn: 1.04,
+  });
 
   // Procedural Target Fallback Render
   const drawProceduralTarget = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number, p: number) => {
@@ -350,6 +461,7 @@ export const HeroJourney: React.FC = () => {
     }
 
     if (useFallback) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.fillStyle = '#0C0C0C';
       ctx.fillRect(0, 0, canvasW, canvasH);
       drawProceduralTarget(ctx, canvasW, canvasH, progressVal);
@@ -358,6 +470,7 @@ export const HeroJourney: React.FC = () => {
     }
 
     if (segment === 'NONE' || globalAlpha <= 0.001) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.fillStyle = '#0C0C0C';
       ctx.fillRect(0, 0, canvasW, canvasH);
       lastStateRef.current = { segment, frameIndex, scale: scaleTransform, alpha: globalAlpha, p: progressVal };
@@ -383,55 +496,93 @@ export const HeroJourney: React.FC = () => {
       }
     }
 
-    // If still no img, check if DOM poster image is available (instant frame 48)
-    if (!img && segment === 'A') {
-      const posterEl = document.getElementById('hero-poster-frame') as HTMLImageElement;
-      if (posterEl && posterEl.complete && posterEl.naturalWidth > 0) {
-        img = posterEl;
-      }
-    }
-
     if (!img) {
-      // Keep canvas transparent so eager poster <img> is 100% visible immediately without black flash!
-      ctx.clearRect(0, 0, canvasW, canvasH);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.fillStyle = '#0C0C0C';
+      ctx.fillRect(0, 0, canvasW, canvasH);
       lastStateRef.current = { segment, frameIndex, scale: scaleTransform, alpha: globalAlpha, p: progressVal };
       return;
     }
 
-    // Clear canvas cleanly for drawing
-    ctx.clearRect(0, 0, canvasW, canvasH);
-
-    const imgW = img.width;
-    const imgH = img.height;
-
-    // Calculate base scale according to segment fit rules:
-    // Segment B: cover
-    // Segment A: cover blending to safe-fit (safe area: x 340-935, y 80-630, 24px pad)
-    let baseScale = Math.max(canvasW / imgW, canvasH / imgH);
-
-    if (segment === 'A') {
-      const coverScale = Math.max(canvasW / imgW, canvasH / imgH);
-      const safeW = 935 - 340; // 595
-      const safeH = 630 - 80;  // 550
-      const padding = 24;
-      const safeScale = Math.min(canvasW / (safeW + padding * 2), canvasH / (safeH + padding * 2));
-
-      // Blend from coverScale to min(coverScale, safeScale) as the logo grows in (progress in A: 0.10 to 0.27)
-      const aProg = segAProgress ?? 0;
-      const blendFactor = smoothstep(0.10, 0.27, aProg);
-      const finalFitScale = coverScale * (1 - blendFactor) + Math.min(coverScale, safeScale) * blendFactor;
-      baseScale = finalFitScale;
+    if (!hasPaintedFirstFrameRef.current) {
+      hasPaintedFirstFrameRef.current = true;
     }
 
-    const effectiveScale = baseScale * scaleTransform;
-    const drawW = imgW * effectiveScale;
-    const drawH = imgH * effectiveScale;
-    const drawX = (canvasW - drawW) / 2;
-    const drawY = (canvasH - drawH) / 2;
+    // Reset transform & solidly fill entire canvas with #0C0C0C
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = '#0C0C0C';
+    ctx.fillRect(0, 0, canvasW, canvasH);
 
     ctx.save();
     ctx.globalAlpha = Math.max(0, Math.min(1, globalAlpha));
-    ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+    if (segment === 'A') {
+      const { drawX, drawY, drawW, drawH, blendFactor } = computeFrameTransform(
+        metricsRef.current,
+        segAProgress ?? 0,
+        scaleTransform
+      );
+
+      ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+      // Seamless edge feathering into #0C0C0C when frame is letterboxed or blended
+      if (blendFactor > 0.01 || drawX > 0 || drawW < canvasW || drawY > 0 || drawH < canvasH) {
+        const featherH = Math.min(48 * metricsRef.current.dpr, drawH * 0.12);
+        const featherW = Math.min(48 * metricsRef.current.dpr, drawW * 0.12);
+
+        // Top edge feather: fade into #0C0C0C
+        const topGrad = ctx.createLinearGradient(0, drawY - 1, 0, drawY + featherH);
+        topGrad.addColorStop(0, '#0C0C0C');
+        topGrad.addColorStop(1, 'rgba(12, 12, 12, 0)');
+        ctx.fillStyle = topGrad;
+        ctx.fillRect(0, drawY - 2, canvasW, featherH + 2);
+
+        // Bottom edge feather: fade into #0C0C0C
+        const btmGrad = ctx.createLinearGradient(0, drawY + drawH - featherH, 0, drawY + drawH + 1);
+        btmGrad.addColorStop(0, 'rgba(12, 12, 12, 0)');
+        btmGrad.addColorStop(1, '#0C0C0C');
+        ctx.fillStyle = btmGrad;
+        ctx.fillRect(0, drawY + drawH - featherH, canvasW, featherH + 2);
+
+        // Left edge feather: fade into #0C0C0C
+        const leftGrad = ctx.createLinearGradient(drawX - 1, 0, drawX + featherW, 0);
+        leftGrad.addColorStop(0, '#0C0C0C');
+        leftGrad.addColorStop(1, 'rgba(12, 12, 12, 0)');
+        ctx.fillStyle = leftGrad;
+        ctx.fillRect(drawX - 2, 0, featherW + 2, canvasH);
+
+        // Right edge feather: fade into #0C0C0C
+        const rightGrad = ctx.createLinearGradient(drawX + drawW - featherW, 0, drawX + drawW + 1, 0);
+        rightGrad.addColorStop(0, 'rgba(12, 12, 12, 0)');
+        rightGrad.addColorStop(1, '#0C0C0C');
+        ctx.fillStyle = rightGrad;
+        ctx.fillRect(drawX + drawW - featherW, 0, featherW + 2, canvasH);
+
+        // Subtle radial vignette to soften outer areas into #0C0C0C as blend factor increases
+        if (blendFactor > 0.05) {
+          const cx = drawX + drawW / 2;
+          const cy = drawY + drawH / 2;
+          const radius = Math.hypot(drawW / 2, drawH / 2);
+          const vignette = ctx.createRadialGradient(cx, cy, radius * 0.65, cx, cy, radius);
+          vignette.addColorStop(0, 'rgba(12, 12, 12, 0)');
+          vignette.addColorStop(1, `rgba(12, 12, 12, ${0.45 * blendFactor})`);
+          ctx.fillStyle = vignette;
+          ctx.fillRect(0, 0, canvasW, canvasH);
+        }
+      }
+    } else {
+      // Segment B: cover fit
+      const { vw, vh, dpr } = metricsRef.current;
+      const baseScale = Math.max(vw / (img.width || FRAME_W), vh / (img.height || FRAME_H));
+      const effectiveScale = baseScale * scaleTransform;
+      const drawW = (img.width || FRAME_W) * effectiveScale * dpr;
+      const drawH = (img.height || FRAME_H) * effectiveScale * dpr;
+      const drawX = (canvasW - drawW) / 2;
+      const drawY = (canvasH - drawH) / 2;
+
+      ctx.drawImage(img, drawX, drawY, drawW, drawH);
+    }
+
     ctx.restore();
 
     lastStateRef.current = {
@@ -445,8 +596,8 @@ export const HeroJourney: React.FC = () => {
 
   // Evaluation & Mapping Logic:
   // 0.00 - 0.34: Segment A frames startFrameA to totalFramesA
-  // 0.34 - 0.40: Hold A's last frame, push-in scale 1.0 to 1.04
-  // 0.40 - 0.46: EXIT: scale 1.04 to 1.25, alpha falls 1 -> 0 (gentle dip through black)
+  // 0.34 - 0.40: Hold A's last frame, push-in scale capped by maxPushIn
+  // 0.40 - 0.46: EXIT: scale up toward 1.25+, alpha falls 1 -> 0 (gentle dip through black)
   // 0.46 - 0.50: Near-black beat. Segment B frame 1 emerges from dark (scale 1.08 -> 1.0, alpha 0 -> 1)
   // 0.50 - 0.90: Segment B frames 1 to totalFramesB (slow, relaxed scrub across 40% of scroll space)
   // 0.90 - 1.00: Hold B's last frame with Register CTA
@@ -460,14 +611,17 @@ export const HeroJourney: React.FC = () => {
       const frameIdx = Math.max(startFrameA, Math.min(totalFramesA, rawIdx));
       drawToCanvas('A', frameIdx, 1.0, 1.0, p, segAProg);
     } else if (p <= 0.40) {
-      // Hold A's last frame with very slow push-in scale (1.0 -> 1.04)
+      // Hold A's last frame with push-in capped by maxPushIn
       const holdProg = (p - 0.34) / 0.06;
-      const scale = 1.0 + holdProg * 0.04;
+      const maxPushIn = metricsRef.current.maxPushIn;
+      const scale = maxPushIn > 1.005 ? 1.0 + holdProg * (maxPushIn - 1.0) : 1.0;
       drawToCanvas('A', totalFramesA, scale, 1.0, p, 1.0);
     } else if (p <= 0.46) {
-      // Exit A: scale 1.04 -> 1.25, alpha 1.0 -> 0.0
+      // Exit A: starts at maxPushIn and scales toward Math.max(1.25, maxPushIn * 1.2), alpha falls 1.0 -> 0.0
       const exitProg = (p - 0.40) / 0.06;
-      const scale = 1.04 + exitProg * 0.21;
+      const maxPushIn = metricsRef.current.maxPushIn;
+      const targetExitScale = Math.max(1.25, maxPushIn * 1.2);
+      const scale = maxPushIn + exitProg * (targetExitScale - maxPushIn);
       const alpha = 1.0 - exitProg;
       drawToCanvas('A', totalFramesA, scale, alpha, p, 1.0);
     } else if (p <= 0.50) {
@@ -493,30 +647,73 @@ export const HeroJourney: React.FC = () => {
     drawToCanvas('A', startFrameA, 1, 1, 0, 0);
   }, [drawToCanvas, startFrameA]);
 
-  // Canvas Resizing with devicePixelRatio cap (2 desktop, 1.5 mobile)
+  // Canvas Resizing and Metrics caching with ResizeObserver
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const resize = () => {
-      const dpr = Math.min(isMobile ? 1.5 : 2.0, window.devicePixelRatio || 1);
+    const updateMetrics = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
+      const isMob = w < 768 || window.matchMedia('(pointer: coarse)').matches;
+      const dpr = Math.min(isMob ? 1.5 : 2.0, window.devicePixelRatio || 1);
+      const compactNavH = getCompactNavH();
+      const bottomReserve = 24;
+
+      const topBound = compactNavH + 16;
+      const availH = Math.max(100, h - topBound - bottomReserve);
+      const availW = Math.max(100, w - 32);
+
+      const coverScale = Math.max(w / FRAME_W, h / FRAME_H);
+      const safeScale = Math.min(availW / SAFE_W, availH / SAFE_H);
+      const finalScale = Math.min(coverScale, safeScale);
+      const maxPushIn = Math.min(1.04, availH / (SAFE_H * finalScale), availW / (SAFE_W * finalScale));
+
+      const canvasW = Math.floor(w * dpr);
+      const canvasH = Math.floor(h * dpr);
+
+      canvas.width = canvasW;
+      canvas.height = canvasH;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
+      metricsRef.current = {
+        vw: w,
+        vh: h,
+        dpr,
+        canvasW,
+        canvasH,
+        compactNavH,
+        bottomReserve,
+        finalScale,
+        maxPushIn,
+      };
+
+      document.documentElement.style.setProperty('--navbar-height', `${compactNavH}px`);
+
       // Force redraw
       lastStateRef.current.segment = 'NONE';
-      const p = currentScrollPRef.current;
-      evaluateAndDraw(p);
+      evaluateAndDraw(currentScrollPRef.current);
     };
 
-    resize();
-    window.addEventListener('resize', resize);
-    return () => window.removeEventListener('resize', resize);
-  }, [isMobile, evaluateAndDraw]);
+    updateMetrics();
+
+    const ro = new ResizeObserver(() => {
+      updateMetrics();
+    });
+    if (containerRef.current) ro.observe(containerRef.current);
+    const header = document.querySelector('header');
+    if (header) ro.observe(header);
+
+    window.addEventListener('resize', updateMetrics);
+    window.addEventListener('orientationchange', updateMetrics);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', updateMetrics);
+      window.removeEventListener('orientationchange', updateMetrics);
+    };
+  }, [evaluateAndDraw]);
 
   // Initial draw on mount using HTMLImageElement preload
   useEffect(() => {
@@ -567,24 +764,22 @@ export const HeroJourney: React.FC = () => {
     };
   }, [smoothProgress, evaluateAndDraw]);
 
-  const shouldReduceMotion = useReducedMotion() ?? false;
-
-  // Reduced motion: show static stack
+  // Reduced motion: show static stack (navy stage with dimmed poster)
   if (shouldReduceMotion) {
     return (
-      <section id="top" className="relative w-full bg-[#0C0C0C] text-[#D7E2EA] select-none py-24 px-6">
+      <section id="top" className="relative w-full bg-bg text-[#D7E2EA] select-none py-24 px-6">
         <div className="max-w-5xl mx-auto flex flex-col items-center gap-16">
           {/* Segment A Static Poster: SJBIT Silver Jubilee */}
-          <div className="w-full rounded-2xl overflow-hidden border border-[#D7E2EA]/12">
+          <div className="w-full rounded-2xl overflow-hidden border border-[#D7E2EA]/12 bg-surface">
             <img
               src={`/frames/${folderA}/frame_${totalFramesA.toString().padStart(4, '0')}.webp`}
               alt="SJB Institute of Technology, Silver Jubilee Year 2026, 25 years, with photographs of three swamijis"
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain opacity-85"
             />
           </div>
 
           {/* Segment B Static Poster + Lakshya Content */}
-          <div className="text-center flex flex-col items-center gap-6">
+          <div className="text-center flex flex-col items-center gap-6 relative">
             <h1 className="hero-heading font-heading font-black uppercase text-[clamp(3rem,10vw,8rem)] tracking-tight leading-none">
               Lakshya&apos;26
             </h1>
@@ -616,24 +811,28 @@ export const HeroJourney: React.FC = () => {
         SJB Institute of Technology, Silver Jubilee Year 2026, 25 years, with photographs of three swamijis.
       </div>
 
-      {/* Sticky Viewport Stage (100svh, top 0) */}
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0C0C0C]">
-        {/* Instant Poster Image (guarantees zero flash on initial page paint before canvas paint) */}
-        <img
-          id="hero-poster-frame"
-          src={getFrameUrlA(startFrameA)}
-          alt="Lakshya 26 Initial Circuit Tunnel"
-          aria-hidden="true"
-          fetchPriority="high"
-          loading="eager"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        />
-
+      {/* Sticky Viewport Stage (100svh, top 0) - Stays black, interpolates to navy over last part */}
+      <motion.div
+        style={{ backgroundColor: stageBgColor }}
+        className="sticky top-0 h-[100svh] w-full overflow-hidden"
+      >
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1]"
+        />
+
+        {/* Scroll-Linked Navy Handoff Layer: Bottom turns navy first */}
+        <motion.div
+          style={{ opacity: navyGradientOpacity }}
+          className="absolute inset-0 bg-gradient-to-t from-[rgb(var(--bg))] via-[rgb(var(--bg))/75] to-transparent pointer-events-none z-[2]"
+        />
+
+        {/* Scroll-Linked Navy Handoff Layer: Full stage veil dims tunnel into solid navy */}
+        <motion.div
+          style={{ opacity: navySolidOpacity }}
+          className="absolute inset-0 bg-[rgb(var(--bg))] pointer-events-none z-[3]"
         />
 
 
@@ -656,7 +855,7 @@ export const HeroJourney: React.FC = () => {
           style={{ opacity: step1Opacity, scale: step1Scale }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10"
         >
-          <div className="max-w-5xl mx-auto flex flex-col items-center">
+          <div className="max-w-5xl mx-auto flex flex-col items-center relative">
             <h1
               className="hero-heading font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none"
               aria-label="Lakshya'26"
@@ -689,7 +888,7 @@ export const HeroJourney: React.FC = () => {
               style={{ x: step2HeadingX }}
               className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none"
             >
-              24 Hours. 500+ Builders. One Goal.
+              24 Hours. 200+ Builders. One Goal.
             </motion.h2>
             <motion.p
               style={{ x: step2BrandX }}
@@ -746,7 +945,7 @@ export const HeroJourney: React.FC = () => {
             </motion.div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

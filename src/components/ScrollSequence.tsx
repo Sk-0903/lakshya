@@ -358,7 +358,7 @@ export const ScrollSequence: React.FC = () => {
       className={`relative w-full ${isMobile ? 'h-[250vh]' : 'h-[300vh]'} select-none`}
     >
       {/* Sticky Viewport Container */}
-      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-[#0C0C0C]">
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden bg-hero-bg">
         {/* Render Canvas */}
         <canvas
           ref={canvasRef}
@@ -366,7 +366,7 @@ export const ScrollSequence: React.FC = () => {
         />
 
         {/* Ambient Dark Vignette for Ultra-Crisp Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/40 to-[#0C0C0C]/70 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-bg/70 pointer-events-none" />
 
         {/* ================= OVERLAY TEXT STEPS ================= */}
 
@@ -375,9 +375,10 @@ export const ScrollSequence: React.FC = () => {
           style={{ opacity: step1Opacity, scale: step1Scale }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none"
         >
-          <div className="max-w-5xl mx-auto flex flex-col items-center">
+          <div className="max-w-5xl mx-auto flex flex-col items-center relative">
+            <div className="absolute -inset-12 bg-radial from-[#B600A8]/30 via-[#7621B0]/15 to-transparent blur-3xl pointer-events-none -z-10" />
             <h1
-              className="hero-heading font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none"
+              className="lakshya-title-glow font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none"
               aria-label="Lakshya'26"
             >
               {HERO_LETTERS.map((item, idx) => (
@@ -419,7 +420,7 @@ export const ScrollSequence: React.FC = () => {
               style={{ x: step2HeadingX }}
               className="hero-heading font-heading font-black uppercase text-[clamp(2.5rem,8vw,7rem)] tracking-tight leading-none"
             >
-              24 Hours. 500+ Builders. One Goal.
+              24 Hours. 200+ Builders. One Goal.
             </motion.h2>
             <motion.p
               style={{ x: step2BrandX }}

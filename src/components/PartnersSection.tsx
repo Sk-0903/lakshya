@@ -18,9 +18,9 @@ const PartnerCard: React.FC<{
 
       {/* Main Elevated White Card */}
       <div
-        className={`w-[220px] h-[130px] sm:w-[260px] sm:h-[150px] rounded-[24px] bg-white border border-neutral-100 shadow-[0_14px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(255,255,255,0.08)] flex items-center justify-center p-6 sm:p-7 relative overflow-hidden transition-all duration-300 ${
+        className={`w-[220px] h-[130px] sm:w-[260px] sm:h-[150px] rounded-[24px] bg-white border border-neutral-100 shadow-[0_14px_40px_rgba(2,6,18,0.5),0_0_20px_rgba(255,255,255,0.08)] flex items-center justify-center p-6 sm:p-7 relative overflow-hidden transition-all duration-300 ${
           isLink
-            ? 'group-hover:-translate-y-1 group-hover:shadow-[0_22px_50px_rgba(0,0,0,0.6),0_0_30px_rgba(255,255,255,0.15)] focus-visible:outline-2 focus-visible:outline-[#BBCCD7] cursor-pointer'
+            ? 'group-hover:-translate-y-1 group-hover:shadow-[0_22px_50px_rgba(2,6,18,0.6),0_0_30px_rgba(255,255,255,0.15)] focus-visible:outline-2 focus-visible:outline-[#BBCCD7] cursor-pointer'
             : 'group-hover:-translate-y-0.5'
         }`}
       >
@@ -28,7 +28,7 @@ const PartnerCard: React.FC<{
         <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-bl from-black/[0.03] to-transparent rounded-full pointer-events-none" />
 
         {imageError || !partner.logo ? (
-          <span className="text-[#0C0C0C] font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-center select-none">
+          <span className="text-[#0A1430] font-heading font-black text-2xl sm:text-3xl uppercase tracking-wider text-center select-none">
             {partner.name}
           </span>
         ) : (
@@ -75,7 +75,7 @@ export const PartnersSection: React.FC = () => {
     <section
       id="partners"
       aria-labelledby="partners-heading"
-      className="bg-[#0C0C0C] text-[#D7E2EA] py-20 sm:py-24 md:py-28 px-5 sm:px-8 md:px-12 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
+      className="bg-bg text-[#D7E2EA] py-20 sm:py-24 md:py-28 px-5 sm:px-8 md:px-12 border-t border-[#D7E2EA]/12 relative select-none overflow-hidden"
     >
       {/* Background Soft Purple/Amber Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
