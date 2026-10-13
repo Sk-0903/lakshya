@@ -14,9 +14,6 @@ const HERO_LETTERS = [
   { char: 'h', initX: -10, initY: -16, initRot: -6, initScale: 1.1 },
   { char: 'y', initX: 16, initY: 14, initRot: 9, initScale: 0.75 },
   { char: 'a', initX: -22, initY: 10, initRot: -11, initScale: 1.25 },
-  { char: "'", initX: 8, initY: -18, initRot: 15, initScale: 1.5 },
-  { char: '2', initX: 18, initY: 16, initRot: -10, initScale: 0.85 },
-  { char: '6', initX: 24, initY: -14, initRot: 12, initScale: 1.2 },
 ];
 
 const ConvergingHeroLetter: React.FC<{

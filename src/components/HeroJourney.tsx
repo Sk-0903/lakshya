@@ -91,7 +91,7 @@ function computeFrameTransform(
   };
 }
 
-// Lakshya'26 Converging letter configuration
+// Lakshya Converging letter configuration
 const HERO_LETTERS = [
   { char: 'L', initX: -20, initY: -14, initRot: -12, initScale: 0.8 },
   { char: 'a', initX: 14, initY: 15, initRot: 10, initScale: 1.3 },
@@ -100,9 +100,6 @@ const HERO_LETTERS = [
   { char: 'h', initX: -10, initY: -16, initRot: -6, initScale: 1.1 },
   { char: 'y', initX: 16, initY: 14, initRot: 9, initScale: 0.75 },
   { char: 'a', initX: -22, initY: 10, initRot: -11, initScale: 1.25 },
-  { char: "'", initX: 8, initY: -18, initRot: 15, initScale: 1.5 },
-  { char: '2', initX: 18, initY: 16, initRot: -10, initScale: 0.85 },
-  { char: '6', initX: 24, initY: -14, initRot: 12, initScale: 1.2 },
 ];
 
 const ConvergingHeroLetter: React.FC<{
@@ -850,15 +847,15 @@ export const HeroJourney: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Step 1: 0.66 to 0.77 -> Assembling Lakshya'26 Letters + Tagline */}
+        {/* Step 1: 0.66 to 0.77 -> Assembling Lakshya Letters + Tagline */}
         <motion.div
           style={{ opacity: step1Opacity, scale: step1Scale }}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center pointer-events-none z-10"
         >
           <div className="max-w-5xl mx-auto flex flex-col items-center relative">
             <h1
-              className="hero-heading font-heading font-black uppercase text-[clamp(3.5rem,13vw,14rem)] tracking-tight leading-none"
-              aria-label="Lakshya'26"
+              className="hero-heading font-heading font-black uppercase text-[clamp(2.8rem,13vw,14rem)] tracking-tight leading-none whitespace-nowrap"
+              aria-label="Lakshya"
             >
               {HERO_LETTERS.map((item, idx) => (
                 <ConvergingHeroLetter

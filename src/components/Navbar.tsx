@@ -199,7 +199,7 @@ export const Navbar: React.FC = () => {
 
             <div className="flex flex-col">
               <span className="font-heading font-black text-xl sm:text-2xl uppercase tracking-tight text-white group-hover:opacity-85 transition leading-none">
-                Lakshya&apos;26
+                Lakshya
               </span>
               <span className="hidden sm:block text-[9px] font-mono tracking-[0.22em] uppercase text-fuchsia-300/80 mt-1">
                 {EVENT_DATA.tagline}

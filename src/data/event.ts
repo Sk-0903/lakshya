@@ -101,7 +101,7 @@ export interface VenueData {
 export const EVENT_DATA = {
   collegeName: 'SJB Institute of Technology',
   collegeShort: 'SJBIT',
-  eventName: "Lakshya'26",
+  eventName: "Lakshya",
   duration: '24',
   durationHours: 24,
   dates: '05-06 November 2026',
@@ -149,7 +149,7 @@ export const EVENT_DATA = {
   },
 
   aboutText:
-    "Lakshya'26 is SJBIT's flagship hackathon — One Vision. Infinite Innovations. — where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or a seasoned hacker, this is your stage to turn ideas into impact.",
+    "Lakshya is SJBIT's flagship hackathon — One Vision. Infinite Innovations. — where students come together for 24 hours of building, learning and breaking limits. Whether you are a first-time coder or a seasoned hacker, this is your stage to turn ideas into impact.",
 
   stats: [
     { value: 24, suffix: ' Hours', label: 'Continuous Sprint' },
@@ -462,7 +462,7 @@ export const EVENT_DATA = {
   faqs: [
     {
       id: 'f1',
-      question: 'Who can participate in Lakshya\'26?',
+      question: 'Who can participate in Lakshya?',
       answer:
         'Undergraduate and graduate students from any accredited college or university across India are welcome. You only need a valid college ID card to enter.',
     },
@@ -519,7 +519,7 @@ export const EVENT_DATA = {
   leadership: {
     sectionLabel: 'LEADERSHIP',
     heading: 'WORDS OF ENCOURAGEMENT',
-    subtitle: "A few words on Lakshya'26",
+    subtitle: "A few words on Lakshya",
     members: [
       {
         role: 'Principal',
@@ -551,7 +551,7 @@ export const EVENT_DATA = {
     ],
   } as LeadershipData,
 
-  teamSubtitle: "The people behind Lakshya'26",
+  teamSubtitle: "The people behind Lakshya",
 
   team: [
     // 3 Faculty Coordinators (Order: Dr. Pavitra Bai S, Prof. Prarthana J V, Prof. Gayathri S)

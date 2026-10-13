@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand + Tagline (lg:col-span-5) */}
           <Converge from="left" distance={40} threshold={[0.05, 0.45]} className="lg:col-span-5 flex flex-col gap-4">
             <span className="font-heading font-black text-2xl uppercase tracking-tight text-white block">
-              Lakshya&apos;26
+              Lakshya
             </span>
             <p className="text-sm font-light text-[#D7E2EA]/75 max-w-[42ch] leading-[1.7]">
               Where students come together for 24 hours of non-stop building, learning and breaking limits at {EVENT_DATA.collegeName}.
@@ -183,7 +183,7 @@ export const Footer: React.FC = () => {
           className="w-full flex justify-center overflow-hidden"
         >
           <div className="hero-heading font-heading font-black uppercase whitespace-nowrap text-[clamp(3.5rem,15vw,13rem)] leading-none tracking-tighter select-none pointer-events-none text-center">
-            LAKSHYA&apos;26
+            LAKSHYA
           </div>
         </motion.div>
       </div>
