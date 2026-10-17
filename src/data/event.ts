@@ -502,7 +502,7 @@ export const EVENT_DATA = {
     email: 'lakshya26.sjbit@gmail.com',
     phone: '+91 78925 86349',
     address: 'SJBIT, BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bangalore - 560060',
-    instagram: 'https://instagram.com/vigyantra.sjbit?rpxt=MW04OTNnMmh4cWhibg%3D%3D',
+    instagram: 'https://www.instagram.com/lakshya.sjbit?cplk=MXhuemIzOXIwM3J1Mw==',
     linkedin: '',
     github: '',
   },
