@@ -105,6 +105,31 @@ export const CTASection: React.FC = () => {
             </div>
           </div>
 
+          {/* ⚡ Limited Slots Urgency Block */}
+          <div className="w-full flex flex-col items-center gap-2 mb-8 sm:mb-10">
+            {/* Limited Slots pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-400/40 bg-amber-400/[0.07] backdrop-blur-sm">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400" />
+              </span>
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
+                Limited Slots Available
+              </span>
+            </div>
+
+            {/* Deadline + early closure note */}
+            <p className="text-xs sm:text-sm font-light text-[#D7E2EA]/60 text-center max-w-[38ch] leading-relaxed">
+              Registration closes{' '}
+              <span className="font-semibold text-white">22 October 2026.</span>
+              <br className="sm:hidden" />
+              <span className="hidden sm:inline"> · </span>
+              <span className="italic text-[#D7E2EA]/50">
+                We may close registrations early if slots are filled.
+              </span>
+            </p>
+          </div>
+
           {/* Primary Action Button */}
           <div className="w-full flex justify-center">
             <Magnet padding={80} strength={4}>

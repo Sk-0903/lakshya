@@ -1,6 +1,7 @@
 import React from 'react';
 import { SmoothScroll } from './components/SmoothScroll';
 import { ScrollProgress } from './components/ScrollProgress';
+import { AnnouncementBanner } from './components/AnnouncementBanner';
 import { Navbar } from './components/Navbar';
 import { HeroJourney } from './components/HeroJourney';
 import { AboutSection } from './components/AboutSection';
@@ -21,11 +22,15 @@ export default function App() {
         className="bg-bg text-[#D7E2EA] min-h-screen w-full relative selection:bg-[#B600A8]/30 selection:text-white"
         style={{ overflowX: 'clip' }}
       >
+        {/* Urgent Announcement Banner: Limited Slots + Registration Deadline */}
+        <AnnouncementBanner />
+
         {/* Fixed Top 2px Accent Scroll Progress Bar */}
         <ScrollProgress />
 
         {/* Fixed Navigation Bar */}
         <Navbar />
+
 
         {/* 1. HERO: Unified Multi-Segment Scroll-Scrubbed Journey (id="top") */}
         <HeroJourney />
