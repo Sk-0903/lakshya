@@ -326,7 +326,7 @@ export const EVENT_DATA = {
       number: 4,
       title: 'Mandatory Identification and Consent',
       content:
-        'Every participant must carry a valid college ID card and a hard copy of a government-issued ID, such as Aadhaar, a driving licence, or a passport. A signed hardcopy parent or guardian consent form is mandatory for all participants.',
+        'Every participant must carry a valid college ID card. A hard copy of a government-issued ID (such as Aadhaar, a driving licence, or a passport) is recommended but not mandatory. A signed hardcopy consent form from a parent/guardian or college authority is mandatory for all participants.',
       category: 'Eligibility & Team',
     },
     {
