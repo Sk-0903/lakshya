@@ -146,7 +146,7 @@ export const Footer: React.FC = () => {
                 className="inline-flex items-center gap-2.5 px-4 h-11 rounded-full border border-[#D7E2EA]/20 text-white/80 hover:text-white hover:border-[#BBCCD7] transition-all text-xs font-mono focus-visible:outline-2 focus-visible:outline-[#BBCCD7] group bg-white/[0.02] hover:bg-white/[0.05]"
               >
                 <Instagram className="w-4 h-4 text-white/70 group-hover:text-white transition-colors" />
-                <span className="tracking-wide">@vigyantra.sjbit</span>
+                <span className="tracking-wide">@lakshya.sjbit</span>
               </a>
             </div>
           </Converge>
