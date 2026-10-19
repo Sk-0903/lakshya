@@ -236,18 +236,16 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action + Mobile Hamburger */}
           <div className="flex items-center gap-4">
-            <a
-              href={EVENT_DATA.registrationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <span
+              aria-disabled="true"
               style={{
                 background:
-                  'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
+                  'linear-gradient(123deg, #18011F 7%, #52005270 37%, #3a1060 72%, #5e280070 100%)',
               }}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full text-white text-xs font-medium uppercase tracking-wider hover:brightness-110 transition shadow-sm cursor-pointer"
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full text-white/35 text-xs font-medium uppercase tracking-wider shadow-sm cursor-not-allowed select-none"
             >
-              Register
-            </a>
+              Closed
+            </span>
 
             {/* Mobile Hamburger Button */}
             <button
@@ -304,18 +302,16 @@ export const Navbar: React.FC = () => {
 
             {/* Bottom Register CTA in Mobile Menu */}
             <div className="pt-6 border-t border-white/10">
-              <a
-                href={EVENT_DATA.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <div
+                aria-disabled="true"
                 style={{
                   background:
-                    'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
+                    'linear-gradient(123deg, #18011F 7%, #52005270 37%, #3a1060 72%, #5e280070 100%)',
                 }}
-                className="w-full py-4 rounded-full text-white font-medium uppercase tracking-widest text-center text-sm block"
+                className="w-full py-4 rounded-full text-white/35 font-medium uppercase tracking-widest text-center text-sm cursor-not-allowed select-none"
               >
-                Register Now
-              </a>
+                Registrations Closed
+              </div>
             </div>
           </motion.div>
         )}

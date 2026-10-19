@@ -105,48 +105,42 @@ export const CTASection: React.FC = () => {
             </div>
           </div>
 
-          {/* ⚡ Limited Slots Urgency Block */}
+          {/* Registrations Closed Block */}
           <div className="w-full flex flex-col items-center gap-2 mb-8 sm:mb-10">
-            {/* Limited Slots pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-400/40 bg-amber-400/[0.07] backdrop-blur-sm">
+            {/* Closed pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/40 bg-red-500/[0.07] backdrop-blur-sm">
               <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-400" />
               </span>
-              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-amber-300">
-                Limited Slots Available
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-red-400">
+                Registrations Closed
               </span>
             </div>
 
-            {/* Deadline + early closure note */}
-            <p className="text-xs sm:text-sm font-light text-[#D7E2EA]/60 text-center max-w-[38ch] leading-relaxed">
-              Registration closes{' '}
-              <span className="font-semibold text-white">22 October 2026.</span>
+            {/* Closed note */}
+            <p className="text-xs sm:text-sm font-light text-[#D7E2EA]/60 text-center max-w-[42ch] leading-relaxed">
+              All slots are filled.{' '}
+              <span className="font-semibold text-white">Registrations are now closed.</span>
               <br className="sm:hidden" />
               <span className="hidden sm:inline"> · </span>
               <span className="italic text-[#D7E2EA]/50">
-                We may close registrations early if slots are filled.
+                Thank you for the overwhelming response!
               </span>
             </p>
           </div>
 
-          {/* Primary Action Button */}
+          {/* Disabled Button */}
           <div className="w-full flex justify-center">
-            <Magnet padding={80} strength={4}>
-              <a
-                href={EVENT_DATA.registrationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  background:
-                    'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-                }}
-                className="group relative inline-flex items-center justify-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full text-white font-medium text-sm sm:text-base uppercase tracking-widest hover:brightness-110 hover:shadow-2xl hover:shadow-[#B600A8]/40 active:scale-95 transition-all duration-300 shadow-xl shadow-[#B600A8]/25 cursor-pointer min-h-[52px]"
-              >
-                <span>Register Now</span>
-                <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-              </a>
-            </Magnet>
+            <div
+              aria-disabled="true"
+              style={{
+                background:
+                  'linear-gradient(123deg, #18011F 7%, #52005270 37%, #3a1060 72%, #5e280070 100%)',
+              }}
+              className="relative inline-flex items-center justify-center gap-3 px-10 sm:px-14 py-4 sm:py-5 rounded-full text-white/40 font-medium text-sm sm:text-base uppercase tracking-widest shadow-xl cursor-not-allowed min-h-[52px] select-none"
+            >
+              <span>Registrations Closed</span>
+            </div>
           </div>
         </div>
       </div>

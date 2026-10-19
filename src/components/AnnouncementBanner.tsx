@@ -24,33 +24,23 @@ export const AnnouncementBanner: React.FC = () => {
             }}
           >
             {/* Icon */}
-            <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" aria-hidden="true" />
+            <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-400 shrink-0" aria-hidden="true" />
 
             {/* Message */}
             <p className="text-[11px] sm:text-xs md:text-sm font-mono text-white/95 leading-tight text-center">
-              <span className="font-bold text-amber-300 uppercase tracking-widest mr-1 sm:mr-2">
-                ⚡ Limited Slots
+              <span className="font-bold text-red-400 uppercase tracking-widest mr-1 sm:mr-2">
+                🔒 Slots Full
               </span>
-              <span className="text-white/80">Registration closes</span>
-              <span className="font-semibold text-white mx-1">22 Oct 2026</span>
+              <span className="text-white/80">Registrations are</span>
+              <span className="font-semibold text-white mx-1">now closed.</span>
               <span className="hidden sm:inline text-white/60 mx-1">·</span>
               <span className="hidden sm:inline text-white/80 italic">
-                May close earlier if slots are full.
+                Thank you for the overwhelming response!
               </span>
             </p>
 
             {/* Mobile-only second line for the italic note */}
-            <span className="sr-only sm:hidden">May close earlier if slots are full.</span>
-
-            {/* Register link */}
-            <a
-              href={EVENT_DATA.registrationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex shrink-0 items-center gap-1 text-[11px] font-mono font-bold uppercase tracking-widest bg-white/15 hover:bg-white/25 text-white px-3 py-1 rounded-full transition-colors border border-white/20 hover:border-white/40"
-            >
-              Register →
-            </a>
+            <span className="sr-only sm:hidden">Thank you for the overwhelming response!</span>
 
             {/* Dismiss */}
             <button
